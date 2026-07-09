@@ -1,0 +1,5 @@
+estimate_name	scale	pooled	ci_lo	ci_hi	k	total_n_causal	note
+raw_group_smd_unadjusted	SMD (rank-INT SD units)	-0.1823824313586378	-0.3749911933278446	0.010226330610568962	9	9	unadjusted mean(y|causal)-mean(y|noncausal); y unit-variance rank-INT so diff==SMD; Cohen d==SMD (pooled-SD~1); per-panel n_causal 6-9; Welch SE
+multivariable_raw_coef	raw (0/1 predictor -> SD outcome)	-0.18800871982521228	-0.3534293147990628	-0.02258812485136172	9	9	canonical per-panel OLS(HC3), causal_nonEGFR left 0/1, all other features standardized as canonical; adjusted raw mean difference
+nominatable_universe_smd	SMD (rank-INT SD units)	-0.11688896281683746	-0.31731475891393957	0.08353683328026466	9	9	nominated (causal>=1) vs tested-but-not-nominated within cis-eQTL/MR-tested universe (has_eqtl==1); not-testable genes excluded; CI includes zero -> underpowered
+standardized_coef_anchor	standardized (SD_x/SD_y)	-0.0036167576581104493	-0.006995289259413609	-0.00023822605680728958	9	9	reproduces canonical determinant_meta.tsv -0.0036168; per-panel identity beta_std=beta_raw*SD_x (max err 8.3e-17); SD_x~0.020 => the compression

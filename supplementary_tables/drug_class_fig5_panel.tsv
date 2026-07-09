@@ -1,0 +1,31 @@
+pair_label	class_pair	metric	value	p	significant	n_or_U	samedir_frac	agree
+BBS x DiRECT	DIET x SURGERY	effect_size_rho	0.203	1.558914391881067e-10	True	976	0.762	concordant-positive
+BBS x DiRECT	DIET x SURGERY	overlap_fold	1.144	0.0031824209118684	True	976	0.762	concordant-positive
+BBS x MS_bariatric	within-SURGERY	effect_size_rho	0.178	0.0476285784572811	True	125	1.0	discordant
+BBS x MS_bariatric	within-SURGERY	overlap_fold	1.33	0.4838712772955333	False	125	1.0	discordant
+MS_bariatric x DiRECT	DIET x SURGERY	effect_size_rho	0.124	0.040061436875606	True	276	1.0	discordant
+MS_bariatric x DiRECT	DIET x SURGERY	overlap_fold	1.021	0.5075778506846379	False	276	1.0	discordant
+empagliflozin x BBS	DRUG x SURGERY	effect_size_rho	0.004	0.8861495134200562	False	1272	0.619	discordant
+empagliflozin x BBS	DRUG x SURGERY	overlap_fold	1.151	0.0015564642222936	True	1272	0.619	discordant
+empagliflozin x DiRECT	DIET x DRUG	effect_size_rho	0.082	0.0145635030145741	True	883	0.569	discordant
+empagliflozin x DiRECT	DIET x DRUG	overlap_fold	1.016	0.4204563694113722	False	883	0.569	discordant
+empagliflozin x MS_bariatric	DRUG x SURGERY	effect_size_rho	-0.043	0.6416059304584969	False	120	0.667	concordant-null
+empagliflozin x MS_bariatric	DRUG x SURGERY	overlap_fold	1.837	0.1850346396707313	False	120	0.667	concordant-null
+empagliflozin x semaglutide	within-DRUG	effect_size_rho	0.05	0.0924887157330817	False	1115	0.536	discordant
+empagliflozin x semaglutide	within-DRUG	overlap_fold	1.105	0.0109066020834825	True	1115	0.536	discordant
+metformin x BBS	DRUG x SURGERY	effect_size_rho	0.246	2.5906267666208164e-06	True	356	0.791	concordant-positive
+metformin x BBS	DRUG x SURGERY	overlap_fold	1.38	0.0013740624484984	True	356	0.791	concordant-positive
+metformin x DiRECT	DIET x DRUG	effect_size_rho	0.026	0.660243805728491	False	290	0.469	discordant
+metformin x DiRECT	DIET x DRUG	overlap_fold	1.247	0.0447246965531263	True	290	0.469	discordant
+metformin x MS_bariatric	DRUG x SURGERY	effect_size_rho	-0.06	0.6014483226630325	False	79	0.0	concordant-null
+metformin x MS_bariatric	DRUG x SURGERY	overlap_fold	1.053	0.6863389774782178	False	79	0.0	concordant-null
+metformin x empagliflozin	within-DRUG	effect_size_rho	0.296	1.2481243635180689e-08	True	356	0.423	discordant
+metformin x empagliflozin	within-DRUG	overlap_fold	0.788	0.9769081141934152	False	356	0.423	discordant
+metformin x semaglutide	within-DRUG	effect_size_rho	0.291	3.652801973334786e-08	True	344	0.804	concordant-positive
+metformin x semaglutide	within-DRUG	overlap_fold	1.178	0.0254077626832681	True	344	0.804	concordant-positive
+semaglutide x BBS	DRUG x SURGERY	effect_size_rho	0.319	4.938244653672271e-31	True	1253	0.806	concordant-positive
+semaglutide x BBS	DRUG x SURGERY	overlap_fold	1.281	1.4210350683796022e-12	True	1253	0.806	concordant-positive
+semaglutide x DiRECT	DIET x DRUG	effect_size_rho	0.305	2.0306174456248658e-89	True	4113	0.776	concordant-positive
+semaglutide x DiRECT	DIET x DRUG	overlap_fold	1.155	1.6558080060214484e-08	True	4113	0.776	concordant-positive
+semaglutide x MS_bariatric	DRUG x SURGERY	effect_size_rho	0.196	0.0003788429991773	True	324	0.854	concordant-positive
+semaglutide x MS_bariatric	DRUG x SURGERY	overlap_fold	1.481	4.148761577131838e-06	True	324	0.854	concordant-positive

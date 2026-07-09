@@ -1,0 +1,37 @@
+{
+  "title": "Analysis code and frozen source data for: A multi-omic atlas defines context, not molecular identity, as the determinant of weight-loss reversibility",
+  "description": "Analysis code, figure/table builders, and frozen summary-level source data for the study of whether the reversibility of an obesity-associated molecular mark with weight loss is an intrinsic property of the mark or a property of its biological context. Across a 40-panel human multi-omic intervention atlas (proteome, transcriptome, methylome, metabolome; four tissues and plasma; six intervention types), a per-mark reversibility score is regressed on mark-intrinsic features (genetic constraint, druggability, disease-association burden, cis-regulatory architecture, tissue-specificity and genetically nominated causal status) and against contextual determinants (tissue, intervention, molecular layer). The powered transcriptome determinant analysis finds no continuous mark-intrinsic feature predicts a practically meaningful amount of reversibility; genetic causal status is reported on the interpretable raw scale as an underpowered contrast. Reversibility is instead organized by shared biological context. All inputs are summary-level; no individual-level data are included. Repository contents regenerate every reported figure, table and headline number from the frozen source data.",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "MIT",
+  "creators": [
+    {
+      "name": "Tan, Bertrand Chin-Ming",
+      "orcid": "0000-0002-2218-7115",
+      "affiliation": "Department of Biomedical Sciences, College of Medicine, Chang Gung University, Taoyuan, Taiwan"
+    }
+  ],
+  "keywords": [
+    "weight loss",
+    "obesity",
+    "multi-omics",
+    "molecular reversibility",
+    "tissue context",
+    "Mendelian randomization",
+    "proteomics",
+    "transcriptomics",
+    "DNA methylation",
+    "precision medicine",
+    "cardiovascular-kidney-metabolic"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "scheme": "doi",
+      "identifier": "TO_BE_ADDED_ON_PUBLICATION"
+    }
+  ],
+  "version": "1.0",
+  "language": "eng",
+  "notes": "AUTHOR TODO before publishing the Zenodo record: (1) add the full co-author list to \"creators\" in the same {name, orcid, affiliation} format as they appear on the manuscript; (2) replace related_identifiers[0].identifier with the manuscript DOI once assigned; (3) confirm the license (MIT for code). See ../SETUP_GITHUB_ZENODO.md."
+}

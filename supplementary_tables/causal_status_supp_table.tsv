@@ -1,0 +1,154 @@
+gene	layer	outcome	instrument_rsid	n_instr	F	MR_beta	MR_p	q	coloc_PP_H4	PP_H4_over_H3	finemap_pip	tier	n_nonEGFR_causal_outcomes	included_in_determinant	determinant_panels_measured	in_PaperA_S2	mhc_region
+CELSR2	Transcriptome	CAD	rs12740374	1 (finemapped lead)	272.9	-0.1014	3.67e-17	1.80e-14	0.998	570	0.714	cis-MR Bonferroni-p & Steiger-fwd, F>=10 (GTEx-liver eQTL); is_causal	1	Y	9/9	Y (coloc-tier)	False
+CEP85L	Transcriptome	AF	rs28605789	1 (finemapped lead)	47.2	-0.0959	2.62e-07	3.41e-04	0.001	0.000976	0.030	cis-MR Bonferroni-p & Steiger-fwd, F>=10 (GTEx-liver eQTL); is_causal	1	Y	9/9	N	False
+CWF19L1	Transcriptome	T2D	rs35614792	1 (finemapped lead)	113.5	-0.0632	6.66e-07	5.03e-04	0.971	33.4	0.076	cis-MR Bonferroni-p & Steiger-fwd, F>=10 (GTEx-liver eQTL); is_causal	1	Y	8/9	Y (coloc-tier)	False
+LRRC37A2	Transcriptome	AF	rs62055936	1 (finemapped lead)	146.7	+0.0511	7.75e-07	5.03e-04	0.052	0.0552	0.003	cis-MR Bonferroni-p & Steiger-fwd, F>=10 (GTEx-liver eQTL); is_causal	1	Y	7/9	N	False
+MAPT-IT1	Transcriptome	AF	rs62061734	1 (finemapped lead)	50.8	-0.0901	1.54e-05	6.66e-03	0.052	0.0546	0.008	cis-MR Bonferroni-p & Steiger-fwd, F>=10 (GTEx-liver eQTL); is_causal	1	Y	3/9	N	False
+MICB	Transcriptome	T2D	rs2844499	1 (finemapped lead)	75.0	+0.0666	2.70e-06	1.02e-03	NA (not coloc-staged)	NA	0.056	cis-MR Bonferroni-p & Steiger-fwd, F>=10 (GTEx-liver eQTL); is_causal	1	Y	8/9	N	True
+PSRC1	Transcriptome	CAD	rs12740374	1 (finemapped lead)	262.1	-0.0892	4.75e-17	1.80e-14	0.998	430	0.969	cis-MR Bonferroni-p & Steiger-fwd, F>=10 (GTEx-liver eQTL); is_causal	1	Y	8/9	Y (coloc-tier)	False
+SLC22A3	Transcriptome	T2D	rs675162	1 (finemapped lead)	51.3	-0.0722	2.04e-05	5.13e-03	0.964	26.4	0.101	cis-MR Bonferroni-p & Steiger-fwd, F>=10 (GTEx-liver eQTL); is_causal	1	Y	8/9	Y (coloc-tier)	False
+SORT1	Transcriptome	CAD	rs12740374	1 (finemapped lead)	504.4	-0.0857	2.01e-19	2.29e-16	0.998	429	0.999	cis-MR Bonferroni-p & Steiger-fwd, F>=10 (GTEx-liver eQTL); is_causal	1	Y	9/9	Y (coloc-tier)	False
+ACE	Proteome	T2D	rs4362	1	3520.8	+0.0602	6.45e-04	3.05e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	Y	False
+ACOX1	Proteome	CAD	rs10852766	1	92.3	+0.4301	1.47e-03	8.30e-02	0.840	9.3	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+ADAM15	Proteome	CAD	rs11589479	1	9905.9	+0.0478	4.72e-04	3.85e-02	0.001	0.00149	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+AKT3	Proteome	AF	rs4515770	1	48.7	+0.4681	7.76e-04	6.50e-02	0.288	0.435	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+AMY2B	Proteome	T2D	rs12080068	1	2309.2	+0.0703	4.68e-04	2.80e-02	0.699	12.9	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+ANGPT1	Proteome	AF	rs6993770	1	554.7	+0.1315	8.55e-04	6.55e-02	0.095	0.116	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+APOE	Proteome	CAD	rs429358	1	9521.4	-0.0898	2.32e-09	1.14e-06	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	3	Y	0/3	N	False
+APOE	Proteome	HF	rs429358	1	9521.4	+0.0266	1.89e-04	4.03e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	3	Y	0/3	N	False
+APOE	Proteome	NAFLD	rs429358	1	9521.4	+0.1350	1.20e-08	1.56e-05	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	3	Y	0/3	N	False
+APOF	Proteome	CAD	rs2020854	1	601.8	+0.2192	1.26e-04	1.32e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	Y	False
+APOH	Proteome	HF	rs1801689	1	4331.9	-0.0478	2.05e-04	4.03e-02	0.881	46	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+ARG1	Proteome	T2D	rs2781668	1	579.2	-0.2361	1.92e-07	4.31e-05	0.995	204	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+ASPN	Proteome	AF	rs2295941	1	1084.9	+0.0866	1.52e-03	9.55e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	Y	False
+BOC	Proteome	T2D	rs3856718	1	425.6	+0.1731	5.21e-04	2.93e-02	0.196	0.288	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+BOLA1	Proteome	T2D	rs72708157	1	200.7	+0.2179	2.61e-03	7.10e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+C1R	Proteome	CAD	rs10849546	1	1749.1	+0.1074	4.55e-04	3.85e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	Y	False
+C1S	Proteome	CAD	rs12146727	1	3705.7	+0.0765	3.04e-04	2.98e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	Y	False
+CALCOCO1	Proteome	CAD	rs17102261	1	180.6	-0.2515	2.18e-03	9.72e-02	0.192	0.393	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+CALCOCO2	Proteome	CKD	rs606911	1	54.7	+0.5745	2.65e-04	4.45e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	1/3	N	False
+CALCOCO2	Proteome	T2D	rs606911	1	54.7	+0.4562	2.96e-03	7.81e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	1/3	N	False
+CBLN4	Proteome	T2D	rs12624596	1	511.3	-0.1352	3.40e-03	8.49e-02	0.203	1.05	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+CCER2	Proteome	CKD	rs190921775	1	302.5	-0.2887	5.70e-06	1.91e-03	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+CD207	Proteome	CAD	rs17718987	1	3441.7	+0.0798	8.07e-04	5.40e-02	0.521	3.72	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+CDKN1A	Proteome	HF	rs3176345	1	312.0	-0.1072	5.96e-04	7.02e-02	0.000	1.28e-17	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+CEACAM19	Proteome	CAD	rs62119322	1	801.9	-0.2003	7.62e-04	5.40e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+CELSR2	Proteome	CAD	rs12740374	1	2569.9	-0.2467	2.83e-22	2.08e-19	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	0/3	N	False
+CELSR2	Proteome	HF	rs12740374	1	2569.9	-0.0543	7.62e-05	2.91e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	0/3	N	False
+CEP170	Proteome	CKD	rs12072595	1	78.9	+0.5063	6.88e-05	1.28e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+CHI3L1	Proteome	AF	rs4950928	1	5534.1	-0.0411	8.94e-04	6.55e-02	0.000	1.21e-13	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+CNTN1	Proteome	stroke	rs11177604	1	795.4	+0.1292	7.86e-04	8.52e-02	0.310	3.44	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+COL15A1	Proteome	AF	rs10819566	1	614.4	+0.1166	1.49e-03	9.55e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+CRACR2A	Proteome	T2D	rs6489498	1	290.1	-0.1876	2.49e-03	6.99e-02	0.000	0.000124	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+CTSD	Proteome	CKD	rs55861089	1	1726.1	-0.0900	7.99e-04	8.94e-02	0.243	0.376	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+CTSZ	Proteome	AF	rs199825459	1	2442.7	-0.0636	7.35e-04	6.46e-02	0.760	10	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+DLK1	Proteome	T2D	rs12881545	1	4011.3	-0.0556	9.78e-04	4.06e-02	0.330	1.21	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+DUSP13	Proteome	AF	rs6480771	1	1207.8	+0.1436	3.17e-08	1.44e-05	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	1/3	N	False
+DUSP13	Proteome	T2D	rs6480771	1	1207.8	-0.0871	4.01e-03	9.73e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	1/3	N	False
+DUSP29	Proteome	T2D	rs4745762	1	301.2	-0.2561	2.71e-05	2.02e-03	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+EFEMP1	Proteome	AF	rs3791679	1	757.0	-0.1264	3.32e-04	3.24e-02	0.668	6.62	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+ERI1	Proteome	T2D	rs7814328	1	87.2	+0.4618	2.36e-04	1.51e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+ERN1	Proteome	HF	rs1801689	1	581.3	+0.1329	2.38e-04	4.05e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+EXTL1	Proteome	T2D	rs2736831	1	2453.8	-0.0655	1.73e-03	5.59e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+F11	Proteome	stroke	rs2289252	1	2999.5	+0.1099	3.16e-09	2.23e-06	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	Y	False
+FBP1	Proteome	AF	rs499206	1	1648.5	-0.0890	1.42e-04	1.79e-02	0.000	2.3e-26	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+FCGR2B	Proteome	AF	rs1801274	1	3414.6	+0.0537	3.12e-04	3.23e-02	0.602	4.21	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+FES	Proteome	CAD	rs1894401	1	302.3	-0.3739	1.70e-06	2.99e-04	0.978	45.6	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+FGF5	Proteome	AF	rs12509595	1	7582.3	+0.0610	8.16e-09	7.18e-06	0.987	74.6	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	5	Y	3/3	N	False
+FGF5	Proteome	CAD	rs12509595	1	7582.3	+0.0739	1.07e-06	2.26e-04	0.995	258	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	5	Y	3/3	N	False
+FGF5	Proteome	CKD	rs12509595	1	7582.3	-0.0854	1.28e-12	1.07e-09	0.993	148	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	5	Y	3/3	N	False
+FGF5	Proteome	HF	rs12509595	1	7582.3	+0.0299	2.11e-04	4.03e-02	0.703	21.3	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	5	Y	3/3	N	False
+FGF5	Proteome	stroke	rs12509595	1	7582.3	+0.0416	1.89e-04	3.79e-02	0.778	26.3	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	5	Y	3/3	N	False
+FN1	Proteome	CAD	rs1250259	1	2791.0	-0.0749	2.07e-03	9.72e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+FURIN	Proteome	CAD	rs2071410	1	612.3	+0.2737	1.83e-06	2.99e-04	0.953	20.4	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	N	False
+FURIN	Proteome	stroke	rs2071410	1	612.3	+0.2099	5.88e-07	2.07e-04	0.859	6.12	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	N	False
+GALNT2	Proteome	CAD	rs4846914	1	1566.9	-0.1051	1.28e-03	7.54e-02	0.426	4.7	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+GALNT3	Proteome	T2D	rs2116546	1	2218.0	-0.0830	1.52e-04	1.05e-02	0.278	0.414	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+GGT5	Proteome	CAD	rs5760275	1	1233.9	-0.1288	4.64e-04	3.85e-02	0.000	0.000228	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+GRK5	Proteome	stroke	rs10886430	1	1196.6	-0.1910	2.15e-11	3.03e-08	1.000	7.38e+07	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+GRP	Proteome	HF	rs17835713	1	2051.3	-0.0487	5.58e-04	7.02e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	1/3	N	False
+GRP	Proteome	T2D	rs17835713	1	2051.3	-0.1128	1.29e-06	2.24e-04	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	1/3	N	False
+HMCN2	Proteome	AF	rs6415851	1	6789.4	-0.0354	9.81e-04	6.90e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+HYOU1	Proteome	HF	rs2509121	1	583.0	+0.1063	3.55e-04	5.00e-02	0.653	5.89	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+IDI2	Proteome	CKD	rs1044261	1	1929.8	-0.1129	3.32e-07	1.86e-04	0.910	10.1	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+IFI30	Proteome	CKD	rs7259445	1	3344.6	-0.0713	4.71e-05	9.89e-03	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+IFNGR2	Proteome	HF	rs9808753	1	17039.3	+0.0183	5.61e-05	2.86e-02	0.865	15.6	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+IL17D	Proteome	CKD	rs4770059	1	2540.5	+0.0767	6.28e-04	7.64e-02	0.470	1.96	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+IL6R	Proteome	AF	rs4129267	1	20030.8	-0.0364	3.49e-09	6.14e-06	0.000	3.13e-68	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	Y	False
+IL6R	Proteome	CAD	rs4129267	1	20030.8	-0.0446	2.25e-07	8.28e-05	0.601	1.51	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	Y	False
+ISLR2	Proteome	CKD	rs34868798	1	841.4	-0.1200	9.90e-04	9.78e-02	0.068	0.0785	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+KIAA0319	Proteome	stroke	rs3181238	1	1544.5	-0.1073	1.23e-05	3.46e-03	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+KLK1	Proteome	stroke	rs601338	1	13519.0	+0.0332	9.22e-04	8.66e-02	0.127	0.163	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+LAMP1	Proteome	AF	rs9549739	1	60.1	-0.5114	1.88e-04	2.20e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+LAYN	Proteome	CAD	rs542275	1	2791.0	-0.0862	7.72e-04	5.40e-02	0.502	6.31	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+LPA	Proteome	CAD	rs56393506	1	5377.8	+0.1930	6.97e-25	1.02e-21	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	3	Y	0/3	N	False
+LPA	Proteome	HF	rs56393506	1	5377.8	+0.0462	3.60e-07	5.50e-04	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	3	Y	0/3	N	False
+LPA	Proteome	stroke	rs56393506	1	5377.8	+0.0466	4.47e-04	6.29e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	3	Y	0/3	N	False
+LPL	Proteome	CAD	rs1801177	1	3423.5	-0.0834	2.13e-03	9.72e-02	0.079	0.09	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+LRIG1	Proteome	AF	rs2306272	1	10935.8	-0.0471	3.27e-08	1.44e-05	0.713	2.49	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	Y	False
+LRIG1	Proteome	T2D	rs2306272	1	10935.8	+0.0442	1.35e-05	1.21e-03	0.944	23.9	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	Y	False
+LRRC37A2	Proteome	AF	rs62057151	1	15229.9	+0.0404	8.69e-08	2.55e-05	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	1/3	N	False
+LRRC37A2	Proteome	CAD	rs62057151	1	15229.9	+0.0417	5.89e-04	4.56e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	1/3	N	False
+MANSC4	Proteome	T2D	rs34311349	1	10933.3	-0.0621	8.99e-10	4.04e-07	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	Y	False
+MAP4K5	Proteome	CKD	rs17780143	1	537.1	+0.1612	3.36e-04	5.13e-02	0.236	0.327	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+MASP1	Proteome	NAFLD	rs698090	1	776.0	-0.3154	1.01e-04	4.34e-02	0.851	8.34	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+MMP12	Proteome	CAD	rs17368814	1	5027.4	-0.0633	1.19e-03	7.46e-02	0.000	5.35e-05	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	Y	False
+MMP12	Proteome	stroke	rs17368814	1	5027.4	-0.0705	1.40e-07	6.56e-05	0.898	8.82	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	Y	False
+MMP9	Proteome	T2D	rs17576	1	354.2	-0.1819	6.36e-04	3.05e-02	0.001	0.0011	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+MSRA	Proteome	T2D	rs12546887	1	56.2	-0.4895	2.25e-03	6.81e-02	0.000	0.000481	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+MST1	Proteome	CAD	rs11130213	1	15474.9	+0.0408	4.60e-05	5.21e-03	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	Y	False
+NCAN	Proteome	NAFLD	rs3761077	1	461.5	-0.5291	2.93e-06	1.90e-03	0.000	1.11e-05	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	Y	False
+NCAN	Proteome	T2D	rs3761077	1	461.5	-0.2414	1.21e-05	1.21e-03	0.230	0.299	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	Y	False
+NCR3LG1	Proteome	T2D	rs12146443	1	2587.6	-0.1716	1.84e-14	1.65e-11	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+NEO1	Proteome	AF	rs11632433	1	80.7	+0.3970	2.45e-04	2.69e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+NFATC1	Proteome	AF	rs657693	1	205.2	+0.2448	4.26e-04	3.94e-02	0.264	0.404	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	N	False
+NFATC1	Proteome	CKD	rs657693	1	205.2	+0.3832	4.77e-07	2.00e-04	0.998	432	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	3/3	N	False
+NOTCH2	Proteome	T2D	rs2641348	1	209.4	-0.4084	8.50e-09	2.54e-06	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+NTF3	Proteome	T2D	rs73039984	1	375.1	+0.1600	3.35e-03	8.49e-02	0.326	4.55	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+NUCB2	Proteome	T2D	rs214068	1	2870.0	-0.0678	6.03e-04	3.05e-02	0.000	6.87e-14	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+NUDT5	Proteome	T2D	rs10508438	1	59.8	+0.7203	9.49e-06	1.06e-03	0.255	0.342	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	Y	False
+OGA	Proteome	AF	rs3781299	1	269.3	+0.3019	1.38e-07	3.48e-05	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+OMP	Proteome	AF	rs2233546	1	497.6	-0.1287	8.77e-04	6.55e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+PCSK9	Proteome	CAD	rs11591147	1	1722.8	+0.2224	8.44e-06	1.13e-03	0.823	4.74	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+PDCD6	Proteome	T2D	rs9654451	1	17411.4	-0.0326	2.22e-05	1.81e-03	0.880	8.71	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+PDE5A	Proteome	CAD	rs58583086	1	409.5	-0.1923	1.65e-03	8.65e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+PEPD	Proteome	T2D	rs17569	1	2328.5	+0.0720	1.04e-03	4.06e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+PFKFB2	Proteome	AF	rs1560	1	644.2	-0.1460	3.93e-05	6.28e-03	0.884	15.7	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+PIK3IP1	Proteome	CKD	rs2413028	1	1508.3	-0.0866	8.84e-04	9.27e-02	0.147	0.199	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+PKLR	Proteome	AF	rs77350683	1	599.2	-0.1488	1.08e-04	1.59e-02	0.000	3.53e-72	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+PMVK	Proteome	AF	rs114951074	1	199.8	-0.3182	6.10e-07	1.34e-04	0.000	6.08e-35	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+PROCR	Proteome	CAD	rs867186	1	2790.7	-0.0832	3.09e-05	3.79e-03	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	0/3	N	False
+PROCR	Proteome	stroke	rs867186	1	2790.7	-0.0816	2.20e-05	5.17e-03	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	0/3	N	False
+RBP1	Proteome	T2D	rs2071387	1	187.7	+0.2100	2.35e-03	6.81e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	Y	False
+RBPMS2	Proteome	CAD	rs28711906	1	106.2	-0.2905	1.89e-03	9.25e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+RET	Proteome	T2D	rs2744077	1	2328.2	+0.0696	1.49e-03	5.56e-02	0.215	0.461	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+RNF43	Proteome	stroke	rs34523089	1	176.1	-0.2539	1.08e-03	9.54e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+ROBO2	Proteome	T2D	rs775722	1	208.8	+0.2387	2.33e-03	6.81e-02	0.312	3.12	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+RTBDN	Proteome	T2D	rs7255045	1	412.3	-0.1646	1.74e-03	5.59e-02	0.172	0.3	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+SCAMP3	Proteome	AF	rs1142287	1	98.3	-0.2977	1.60e-03	9.71e-02	0.000	1.83e-17	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	2/3	N	False
+SCAMP3	Proteome	CKD	rs1142287	1	98.3	-0.4448	3.78e-05	9.07e-03	0.698	2.33	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	2	Y	2/3	N	False
+SCARA5	Proteome	stroke	rs2726951	1	1809.4	-0.0789	7.89e-04	8.52e-02	0.471	4.12	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+SDCCAG8	Proteome	CKD	rs953492	1	749.2	-0.1603	1.51e-05	4.23e-03	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+SERPINE1	Proteome	T2D	rs2227674	1	161.3	-0.2675	1.67e-03	5.59e-02	0.100	0.13	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+SMPDL3A	Proteome	AF	rs28385609	1	9354.1	+0.0300	1.50e-03	9.55e-02	0.000	1.17e-13	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+SPON1	Proteome	AF	rs10832164	1	1662.0	+0.1077	2.30e-06	4.49e-04	0.879	7.47	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+SPRED2	Proteome	T2D	rs7569084	1	87.6	+0.3633	1.71e-03	5.59e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+SV2A	Proteome	T2D	rs68144650	1	442.0	+0.1618	1.02e-03	4.06e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+TFF1	Proteome	HF	rs3761376	1	1280.8	-0.0684	3.59e-04	5.00e-02	0.498	2.22	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	Y	False
+TFPI	Proteome	stroke	rs7576066	1	1901.3	-0.0749	5.49e-04	7.02e-02	0.539	3.9	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+TGFB1	Proteome	CAD	rs73045269	1	851.9	+0.2635	5.09e-07	1.25e-04	0.984	62.9	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+THBS4	Proteome	CKD	rs2438632	1	1035.6	+0.1125	4.74e-04	6.63e-02	0.484	1.88	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+THOP1	Proteome	AF	rs2741990	1	1126.7	+0.1037	1.25e-04	1.69e-02	0.753	5.18	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+TIMP2	Proteome	CAD	rs8066695	1	151.0	+0.3326	1.74e-03	8.80e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+TMPRSS5	Proteome	stroke	rs7114195	1	10247.5	+0.0349	2.15e-04	3.79e-02	0.708	7.92	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+TNFRSF6B	Proteome	T2D	rs6062497	1	1557.4	-0.0905	8.95e-04	4.02e-02	0.584	12.1	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+TNFSF12	Proteome	AF	rs80067372	1	2049.0	-0.1095	6.62e-08	2.33e-05	0.844	5.41	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	Y	False
+TOP2B	Proteome	CKD	rs3806631	1	106.6	+0.3547	6.37e-04	7.64e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+TRIM58	Proteome	CAD	rs11204523	1	646.3	-0.1550	1.62e-03	8.65e-02	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+TSPAN8	Proteome	T2D	rs11178654	1	4158.6	+0.0811	1.50e-06	2.24e-04	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False
+TYRO3	Proteome	T2D	rs8024626	1	6365.5	+0.0594	8.27e-06	1.06e-03	0.837	5.52	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+UMOD	Proteome	CKD	rs12922822	1	10753.4	+0.2220	4.70e-97	7.89e-94	0.986	71.9	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+VAMP5	Proteome	CAD	rs6547623	1	100.8	+0.6849	3.14e-06	4.62e-04	0.245	0.324	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	2/3	N	False
+VAMP8	Proteome	CAD	rs3731828	1	422.0	-0.3223	3.57e-07	1.05e-04	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	1/3	N	False
+WARS1	Proteome	stroke	rs2273804	1	907.9	+0.1137	3.88e-04	6.07e-02	0.669	13	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	3/3	N	False
+YOD1	Proteome	AF	rs1044145	1	205.4	-0.2882	1.43e-05	2.52e-03	NA (not coloc-staged)	NA	NA	cis-MR BH-FDR q<0.10 & non-MHC (UKB-PPP/Olink pQTL); Wald-ratio lead cis variant	1	Y	0/3	N	False

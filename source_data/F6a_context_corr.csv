@@ -1,0 +1,17 @@
+ctx_a,ctx_b,rho
+liver,liver,0.9999999999999998
+liver,adipose-CR,0.10663532231326063
+liver,adipose-diet,-0.03330890715587817
+liver,blood,0.13440058830090634
+adipose-CR,liver,0.10663532231326063
+adipose-CR,adipose-CR,1.0
+adipose-CR,adipose-diet,0.516156354952895
+adipose-CR,blood,0.1936437503974456
+adipose-diet,liver,-0.03330890715587816
+adipose-diet,adipose-CR,0.516156354952895
+adipose-diet,adipose-diet,1.0
+adipose-diet,blood,-0.06188002276649981
+blood,liver,0.13440058830090634
+blood,adipose-CR,0.1936437503974456
+blood,adipose-diet,-0.06188002276649981
+blood,blood,0.9999999999999998

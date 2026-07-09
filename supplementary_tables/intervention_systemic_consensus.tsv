@@ -1,0 +1,5 @@
+intervention	n_panels	n_tissues	n_systemic_consensus	top_genes
+bariatric	5	4	18	ADAMTS5,BASP1,C1QA,CD68,CD74,CD84,CHPT1,CXCR4,DDIT4,FCER1G,FCGR2A,ITGAX
+diet	6	3	64	PLA2G2A,SLC27A2,ABCG2,ACLY,ADAMTS4,ADH1B,AGPAT2,ANGPTL4,CCL2,CCR1,CD180,CD52
+exercise	3	3	0	
+drug	2	2	0	

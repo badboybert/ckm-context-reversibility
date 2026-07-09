@@ -1,0 +1,33 @@
+metric	panel	rho	n	frac	n_replicates	note
+raw_absbeta_vs_score	liver_table	0.373487983378122	28541			within-panel raw |rev_beta| vs canonical Z_responsiveness
+raw_absbeta_vs_score	adipose_table	0.3262190835114479	23179			within-panel raw |rev_beta| vs canonical Z_responsiveness
+raw_absbeta_vs_score	gse141221_adipose_table	0.23158059239646	14325			within-panel raw |rev_beta| vs canonical Z_responsiveness
+raw_absbeta_vs_score	gse273902_blood_table	0.236348276921719	14647			within-panel raw |rev_beta| vs canonical Z_responsiveness
+raw_absbeta_vs_score	gse157585_muscle_table	0.08417946139649372	14009			within-panel raw |rev_beta| vs canonical Z_responsiveness
+raw_absbeta_vs_score	gse43471_adipose_table	0.12698657018224246	19583			within-panel raw |rev_beta| vs canonical Z_responsiveness
+raw_absbeta_vs_score	gse199063_adipose_table	0.5904905538590507	81402			within-panel raw |rev_beta| vs canonical Z_responsiveness
+raw_absbeta_vs_score	gse83352_muscle_exercise_table	0.1310169203092293	15931			within-panel raw |rev_beta| vs canonical Z_responsiveness
+raw_absbeta_vs_score	gse106737_liver_bariatric_table	0.32179592460168877	24470			within-panel raw |rev_beta| vs canonical Z_responsiveness
+raw_absbeta_vs_score	gse77962_adipose_diet_table	0.2909046523982638	18615			within-panel raw |rev_beta| vs canonical Z_responsiveness
+raw_absbeta_vs_score	POOLED	0.7478017783552043	90666			pooled mean-|rev_beta|-percentile (direction-agnostic) vs Z_responsiveness
+raw_signed_vs_score	POOLED	0.8416927370627929	90666			pooled |mean SD-standardized signed rev_beta| (direction-aware,linear) vs Z_responsiveness
+raw_absbeta_vs_score	POOLED_k>=2	0.5134242726185103	33524			pooled raw |beta| percentile vs score, marks in >=2 panels
+raw_signed_vs_score	POOLED_k>=2	0.7956737209861071	33524			pooled raw signed vs score, marks in >=2 panels
+downsample_effN	gse141221_adipose_table	0.9307045442980717	165	0.75	50.0	largest by subjects (n_pairs=220); full-panel |blom(beta)| vs n'=165 SE-noise re-rank; rho_sd=0.0010 over 14325 marks
+downsample_effN	gse141221_adipose_table	0.8332527617705034	110	0.5	50.0	largest by subjects (n_pairs=220); full-panel |blom(beta)| vs n'=110 SE-noise re-rank; rho_sd=0.0022 over 14325 marks
+downsample_effN	gse141221_adipose_table	0.6591867269245485	55	0.25	50.0	largest by subjects (n_pairs=220); full-panel |blom(beta)| vs n'=55 SE-noise re-rank; rho_sd=0.0046 over 14325 marks
+downsample_effN	gse141221_adipose_table	0.43683070134476476	22	0.1	50.0	largest by subjects (n_pairs=220); full-panel |blom(beta)| vs n'=22 SE-noise re-rank; rho_sd=0.0068 over 14325 marks
+downsample_effN	gse199063_adipose_table	0.822033724483977	37	0.75	50.0	largest by marks (~81k); full-panel |blom(beta)| vs n'=37 SE-noise re-rank; rho_sd=0.0011 over 81402 marks
+downsample_effN	gse199063_adipose_table	0.6597898193582846	24	0.5	50.0	largest by marks (~81k); full-panel |blom(beta)| vs n'=24 SE-noise re-rank; rho_sd=0.0018 over 81402 marks
+downsample_effN	gse199063_adipose_table	0.4722940987856676	12	0.25	50.0	largest by marks (~81k); full-panel |blom(beta)| vs n'=12 SE-noise re-rank; rho_sd=0.0025 over 81402 marks
+downsample_effN	gse199063_adipose_table	0.3130599359270895	5	0.1	50.0	largest by marks (~81k); full-panel |blom(beta)| vs n'=5 SE-noise re-rank; rho_sd=0.0029 over 81402 marks
+anchor_blom_vs_rawabs	liver_table	0.998276259547001	28541			baseline: within-panel |blom(beta)| ranking vs raw |beta| ranking
+anchor_blom_vs_rawabs	adipose_table	0.9998941697731549	23179			baseline: within-panel |blom(beta)| ranking vs raw |beta| ranking
+anchor_blom_vs_rawabs	gse141221_adipose_table	0.7271437276524564	14325			baseline: within-panel |blom(beta)| ranking vs raw |beta| ranking
+anchor_blom_vs_rawabs	gse273902_blood_table	0.9647185345157627	14647			baseline: within-panel |blom(beta)| ranking vs raw |beta| ranking
+anchor_blom_vs_rawabs	gse157585_muscle_table	0.9032253281709416	14009			baseline: within-panel |blom(beta)| ranking vs raw |beta| ranking
+anchor_blom_vs_rawabs	gse43471_adipose_table	0.9989901506309863	19583			baseline: within-panel |blom(beta)| ranking vs raw |beta| ranking
+anchor_blom_vs_rawabs	gse199063_adipose_table	0.9278102937021373	81402			baseline: within-panel |blom(beta)| ranking vs raw |beta| ranking
+anchor_blom_vs_rawabs	gse83352_muscle_exercise_table	0.999347428936621	15931			baseline: within-panel |blom(beta)| ranking vs raw |beta| ranking
+anchor_blom_vs_rawabs	gse106737_liver_bariatric_table	0.9987209016307923	24470			baseline: within-panel |blom(beta)| ranking vs raw |beta| ranking
+anchor_blom_vs_rawabs	gse77962_adipose_diet_table	0.9901967712544758	18615			baseline: within-panel |blom(beta)| ranking vs raw |beta| ranking

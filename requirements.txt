@@ -1,0 +1,9 @@
+# Python dependencies for the analysis / figure-prep / table / docx scripts (Python >= 3.10)
+pandas
+numpy
+scipy
+statsmodels
+scikit-learn
+openpyxl
+python-docx
+# pyarrow is needed only to read supplementary_tables/per_mark_atlas.parquet.

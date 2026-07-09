@@ -1,0 +1,82 @@
+panel,feature,beta,p_bonf,feat
+liver_table,loeuf,-0.0029635985281738,1.0,LOEUF
+liver_table,tau,-0.0469303724489147,6.529022384962679e-10,tissue-spec. (τ)
+liver_table,n_drug_log,0.0138269172180751,0.4852995403865227,druggability
+liver_table,n_gwas_log,0.0538181023250214,1.915816188008513e-16,GWAS burden
+liver_table,is_secreted,-0.0159733718713837,0.1420275324891178,secreted
+liver_table,is_enzyme,0.0046097029086421,1.0,enzyme
+liver_table,is_membrane,0.0253897067201295,0.0013621639645835,membrane
+liver_table,causal_nonEGFR,-0.0001324053934285,1.0,causal status
+liver_table,has_arch,0.0021741069862888,1.0,has cis-QTL
+adipose_table,loeuf,-0.0185785907867745,0.1413067578388169,LOEUF
+adipose_table,tau,-0.0036756560306948,1.0,tissue-spec. (τ)
+adipose_table,n_drug_log,0.007952930419189,1.0,druggability
+adipose_table,n_gwas_log,-0.0024628888574602,1.0,GWAS burden
+adipose_table,is_secreted,-0.0102482556233522,1.0,secreted
+adipose_table,is_enzyme,-0.011087001993844,1.0,enzyme
+adipose_table,is_membrane,-0.0058539173060706,1.0,membrane
+adipose_table,causal_nonEGFR,-0.004703355866696,1.0,causal status
+adipose_table,has_arch,0.0189295685702362,1.0,has cis-QTL
+gse141221_adipose_table,loeuf,0.0008013685559671,1.0,LOEUF
+gse141221_adipose_table,tau,0.098963063327986,7.445724167419139e-27,tissue-spec. (τ)
+gse141221_adipose_table,n_drug_log,0.039135849303872,0.0001562616151648,druggability
+gse141221_adipose_table,n_gwas_log,-0.0039789261132894,1.0,GWAS burden
+gse141221_adipose_table,is_secreted,0.024703907864772,0.0699388716781217,secreted
+gse141221_adipose_table,is_enzyme,0.0056226468577178,1.0,enzyme
+gse141221_adipose_table,is_membrane,0.0056976257362855,1.0,membrane
+gse141221_adipose_table,causal_nonEGFR,-0.00104569730866,1.0,causal status
+gse141221_adipose_table,has_arch,0.0235006919007528,1.0,has cis-QTL
+gse273902_blood_table,loeuf,0.021679700548439,0.1771996983618419,LOEUF
+gse273902_blood_table,tau,0.0102594713750025,1.0,tissue-spec. (τ)
+gse273902_blood_table,n_drug_log,0.0454767646759961,7.385406772407696e-06,druggability
+gse273902_blood_table,n_gwas_log,-0.039288957691487,0.0001052076824578,GWAS burden
+gse273902_blood_table,is_secreted,0.0362189653242329,0.0022764554061804,secreted
+gse273902_blood_table,is_enzyme,-0.0282318098303745,0.0120138032120716,enzyme
+gse273902_blood_table,is_membrane,-0.0473972008841733,7.654825166274394e-07,membrane
+gse273902_blood_table,causal_nonEGFR,-0.016635726547525,1.0,causal status
+gse273902_blood_table,has_arch,0.0340136977203517,1.0,has cis-QTL
+gse157585_muscle_table,loeuf,-0.0159485010126346,0.8567809543136964,LOEUF
+gse157585_muscle_table,tau,0.0805136424017661,1.0498753218232288e-18,tissue-spec. (τ)
+gse157585_muscle_table,n_drug_log,0.0150006452582476,1.0,druggability
+gse157585_muscle_table,n_gwas_log,0.0190396150162548,0.4463079197697842,GWAS burden
+gse157585_muscle_table,is_secreted,0.0688823680664158,3.076204426672906e-11,secreted
+gse157585_muscle_table,is_enzyme,-0.0097844339937882,1.0,enzyme
+gse157585_muscle_table,is_membrane,0.0381208781885013,0.0001667350004461,membrane
+gse157585_muscle_table,causal_nonEGFR,-0.002590863735967,1.0,causal status
+gse157585_muscle_table,has_arch,0.0130894532067242,1.0,has cis-QTL
+gse43471_adipose_table,loeuf,0.0039707395216012,1.0,LOEUF
+gse43471_adipose_table,tau,0.0140468582287522,1.0,tissue-spec. (τ)
+gse43471_adipose_table,n_drug_log,0.0192981145646366,0.1577735569972697,druggability
+gse43471_adipose_table,n_gwas_log,0.0053372132755853,1.0,GWAS burden
+gse43471_adipose_table,is_secreted,0.0120013954681242,1.0,secreted
+gse43471_adipose_table,is_enzyme,0.0084302643805512,1.0,enzyme
+gse43471_adipose_table,is_membrane,0.0212209282366296,0.0557294516441867,membrane
+gse43471_adipose_table,causal_nonEGFR,-0.0076553126109434,1.0,causal status
+gse43471_adipose_table,has_arch,-0.0046180860622039,1.0,has cis-QTL
+gse83352_muscle_exercise_table,loeuf,-0.0001150488055027,1.0,LOEUF
+gse83352_muscle_exercise_table,tau,0.0449653133493856,9.60156505327899e-06,tissue-spec. (τ)
+gse83352_muscle_exercise_table,n_drug_log,0.0083845104150546,1.0,druggability
+gse83352_muscle_exercise_table,n_gwas_log,0.0103375195798919,1.0,GWAS burden
+gse83352_muscle_exercise_table,is_secreted,-0.0111573860230938,1.0,secreted
+gse83352_muscle_exercise_table,is_enzyme,0.0106027385251082,1.0,enzyme
+gse83352_muscle_exercise_table,is_membrane,0.0220271929629424,0.113289655558296,membrane
+gse83352_muscle_exercise_table,causal_nonEGFR,-0.0048507542300492,1.0,causal status
+gse83352_muscle_exercise_table,has_arch,0.0127450175894745,1.0,has cis-QTL
+gse106737_liver_bariatric_table,loeuf,0.0030135591171841,1.0,LOEUF
+gse106737_liver_bariatric_table,tau,-0.0096608162323269,1.0,tissue-spec. (τ)
+gse106737_liver_bariatric_table,n_drug_log,0.0237059977667174,0.0141924941161805,druggability
+gse106737_liver_bariatric_table,n_gwas_log,0.025427353722185,0.0023811511832243,GWAS burden
+gse106737_liver_bariatric_table,is_secreted,0.0087802553965093,1.0,secreted
+gse106737_liver_bariatric_table,is_enzyme,-0.0099194112405961,1.0,enzyme
+gse106737_liver_bariatric_table,is_membrane,0.0246033838814323,0.0050046336943953,membrane
+gse106737_liver_bariatric_table,causal_nonEGFR,0.0001424873372764,1.0,causal status
+gse106737_liver_bariatric_table,has_arch,0.0114111524004688,1.0,has cis-QTL
+gse77962_adipose_diet_table,loeuf,-0.0390431768875361,1.8822630200777336e-05,LOEUF
+gse77962_adipose_diet_table,tau,0.0434814800342185,6.351447871774142e-07,tissue-spec. (τ)
+gse77962_adipose_diet_table,n_drug_log,0.0159594213620712,0.5283827220140607,druggability
+gse77962_adipose_diet_table,n_gwas_log,0.0181234685078526,0.2878122681186384,GWAS burden
+gse77962_adipose_diet_table,is_secreted,0.0039539499330356,1.0,secreted
+gse77962_adipose_diet_table,is_enzyme,0.0115150878315706,1.0,enzyme
+gse77962_adipose_diet_table,is_membrane,-0.0263651675641588,0.0069655695695859,membrane
+gse77962_adipose_diet_table,causal_nonEGFR,-0.0088666362801884,1.0,causal status
+gse77962_adipose_diet_table,has_arch,0.0156520154713297,1.0,has cis-QTL

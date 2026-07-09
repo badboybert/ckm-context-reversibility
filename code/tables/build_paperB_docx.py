@@ -1,0 +1,126 @@
+#!/usr/bin/env python
+"""Build Paper_B_MANUSCRIPT.docx from an assembled MANUSCRIPT.md (python-docx; node/pandoc absent).
+Adapted from ../../4-layers null/build_manuscript_docx.py. Embeds main figures F1-F6 and
+Extended Data figures ED1-ED6 above their legend line. Arial 11 pt, 1.5 spacing, US Letter, line numbers.
+Usage: python build_paperB_docx.py [input.md] [output.docx]"""
+import os, re, sys
+from datetime import datetime
+from docx import Document
+from docx.shared import Pt, Inches
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
+from docx.oxml.ns import qn
+from docx.oxml import OxmlElement
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+MD = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(HERE, "MANUSCRIPT.md")
+OUT = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else os.path.join(HERE, "Paper_B_MANUSCRIPT.docx")
+FIG = os.path.join(HERE, "figures")
+
+def fig_path(kind, num):
+    fn = ("Figure_ED%s.png" % num) if kind == "ED" else ("Figure_%s.png" % num)
+    return os.path.join(FIG, fn)
+
+# legend-line -> rendered image. Matches "**Figure N." and "**Extended Data Fig(ure) N."
+LEGEND_RE = re.compile(r"^\*\*(Extended Data Fig(?:ure)?\.?|Figure)\s+(\d+)\b")
+def legend_image(line):
+    m = LEGEND_RE.match(line)
+    if not m:
+        return None
+    kind = "ED" if m.group(1).startswith("Extended") else "F"
+    p = fig_path(kind, m.group(2))
+    return p if os.path.exists(p) else None
+
+doc = Document()
+n = doc.styles["Normal"]
+n.font.name = "Arial"; n.font.size = Pt(11)
+pf = n.paragraph_format; pf.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE; pf.space_after = Pt(6)
+
+sect = doc.sections[0]
+sect.page_width, sect.page_height = Pt(612), Pt(792)  # US Letter
+for m in ("top_margin", "bottom_margin", "left_margin", "right_margin"):
+    setattr(sect, m, Pt(72))
+ln = OxmlElement("w:lnNumType"); ln.set(qn("w:countBy"), "1"); ln.set(qn("w:restart"), "continuous")
+sect._sectPr.append(ln)
+
+INLINE = re.compile(r"(\*\*[^*]+\*\*|\*[^*]+\*)")
+def strip_links(t):
+    t = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", t)
+    return t.replace("`", "")
+def add_runs(par, text):
+    for seg in INLINE.split(strip_links(text)):
+        if not seg:
+            continue
+        if seg.startswith("**") and seg.endswith("**"):
+            par.add_run(seg[2:-2]).bold = True
+        elif seg.startswith("*") and seg.endswith("*"):
+            par.add_run(seg[1:-1]).italic = True
+        else:
+            par.add_run(seg)
+
+def add_table(rows):
+    cells = [[c.strip() for c in r.strip().strip("|").split("|")] for r in rows]
+    header, body = cells[0], cells[2:]
+    t = doc.add_table(rows=1, cols=len(header)); t.style = "Light Grid Accent 1"
+    for j, h in enumerate(header):
+        p = t.rows[0].cells[j].paragraphs[0]; add_runs(p, h)
+        for run in p.runs:
+            run.bold = True
+    for brow in body:
+        rc = t.add_row().cells
+        for j in range(len(header)):
+            add_runs(rc[j].paragraphs[0], brow[j] if j < len(brow) else "")
+    for row in t.rows:
+        for c in row.cells:
+            for p in c.paragraphs:
+                p.paragraph_format.space_after = Pt(1)
+                for run in p.runs:
+                    run.font.size = Pt(9)
+    doc.add_paragraph()
+
+raw = open(MD, encoding="utf-8").read()
+raw = re.sub(r"<!--.*?-->", "", raw, flags=re.DOTALL)
+lines = raw.splitlines()
+i = 0
+while i < len(lines):
+    ln_ = lines[i]
+    if re.match(r"^\|.*\|", ln_):
+        blk = []
+        while i < len(lines) and lines[i].strip().startswith("|"):
+            blk.append(lines[i]); i += 1
+        if len(blk) >= 2:
+            add_table(blk)
+        continue
+    if ln_.startswith("# "):
+        h = doc.add_heading("", level=0); add_runs(h, ln_[2:]); h.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    elif ln_.startswith("## "):
+        doc.add_heading(strip_links(ln_[3:]), level=1)
+    elif ln_.startswith("### "):
+        doc.add_heading(strip_links(ln_[4:]), level=2)
+    elif ln_.startswith("---"):
+        pass
+    elif re.match(r"^[-*] ", ln_):
+        add_runs(doc.add_paragraph(style="List Bullet"), ln_[2:])
+    elif re.match(r"^\d+\. ", ln_):
+        add_runs(doc.add_paragraph(style="List Number"), re.sub(r"^\d+\. ", "", ln_))
+    elif ln_.strip() == "":
+        pass
+    else:
+        img = legend_image(ln_)
+        if img:
+            pic = doc.add_paragraph(); pic.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            pic.add_run().add_picture(img, width=Inches(6.5))
+        add_runs(doc.add_paragraph(), ln_)
+    i += 1
+
+# core-properties author metadata (global CLAUDE.md §8): creator/author = Bertrand Chin-Ming Tan;
+# clear the python-docx default description; fixed modified/created date (no datetime.now()).
+_STAMP = datetime(2026, 7, 9)
+cp = doc.core_properties
+cp.author = "Bertrand Chin-Ming Tan"
+cp.last_modified_by = "Bertrand Chin-Ming Tan"
+cp.comments = ""            # clears default "generated by python-docx" description (dc:description)
+cp.created = _STAMP
+cp.modified = _STAMP
+
+doc.save(OUT)
+print("wrote", OUT, "(", len(doc.paragraphs), "paragraphs )")

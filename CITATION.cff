@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite both the manuscript and this archived software release."
+title: "Analysis code and frozen source data for: A multi-omic atlas defines context, not molecular identity, as the determinant of weight-loss reversibility"
+type: software
+version: "1.0"
+license: MIT
+authors:
+  - family-names: Tan
+    given-names: Bertrand Chin-Ming
+    orcid: "https://orcid.org/0000-0002-2218-7115"
+    affiliation: "Department of Biomedical Sciences, College of Medicine, Chang Gung University, Taoyuan, Taiwan"
+# AUTHOR TODO: add the full co-author list above (one - family-names/given-names/orcid block each),
+# in manuscript author order, before tagging the release.
+# doi: 10.5281/zenodo.XXXXXXXX   # add the Zenodo concept DOI once the record is published.
+keywords:
+  - weight loss
+  - multi-omics
+  - molecular reversibility
+  - tissue context
+  - Mendelian randomization
+  - precision medicine
+preferred-citation:
+  type: article
+  title: "A multi-omic atlas defines context, not molecular identity, as the determinant of weight-loss reversibility"
+  authors:
+    - family-names: Tan
+      given-names: Bertrand Chin-Ming
+      orcid: "https://orcid.org/0000-0002-2218-7115"
+  journal: "Genome Medicine"
+  year: 2026
+  # doi: 10.xxxx/xxxxx   # add the article DOI once published.

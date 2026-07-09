@@ -1,0 +1,5 @@
+tissue,mean_within_r,n_contexts
+liver,0.407,3
+adipose,0.19,8
+muscle,0.056,3
+blood,-0.035,4

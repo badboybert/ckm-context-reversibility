@@ -1,0 +1,5 @@
+intervention,n_panels,n_tissues,n_systemic_consensus,kind
+bariatric,5,4,18,systemic
+diet,6,3,64,systemic
+exercise,3,3,0,tissue-specific
+drug,2,2,0,tissue-specific

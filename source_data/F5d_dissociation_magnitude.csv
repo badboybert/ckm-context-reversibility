@@ -1,0 +1,3 @@
+stratum,n_pairs,median_abs_sig05,label
+remission,7,0.4818,remitter
+no_remission,8,0.8264,non-remitter

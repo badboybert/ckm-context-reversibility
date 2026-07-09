@@ -1,0 +1,15 @@
+tissue,gene,mean_rev_beta,n_recurrent,theme
+liver,SERPINE1,-1.564,3,acute-phase / stress
+liver,JUN,-1.166,2,acute-phase / stress
+liver,DUSP1,-1.104,2,acute-phase / stress
+liver,CRP,-1.073,2,acute-phase / stress
+liver,GADD45B,-1.024,3,acute-phase / stress
+liver,JUNB,-0.991,2,acute-phase / stress
+adipose,SFRP4,-0.863,4,lipid metabolism
+adipose,C6,0.861,5,lipid metabolism
+adipose,SLC27A2,0.825,5,lipid metabolism
+adipose,CES1,-0.778,4,lipid metabolism
+adipose,NQO1,-0.723,4,lipid metabolism
+adipose,CIDEA,0.671,4,lipid metabolism
+muscle,MSTN,-0.356,2,myostatin only
+blood,(none),0.0,0,none (no private program)

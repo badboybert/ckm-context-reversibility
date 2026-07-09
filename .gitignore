@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.Rhistory
+.RData
+.Rproj.user/
+.DS_Store
+Thumbs.db
+*.log
+# rendered outputs are not tracked; regenerate from code/ + source_data/
+figures_out/
+*.tmp

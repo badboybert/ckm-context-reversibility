@@ -1,0 +1,31 @@
+"pair","class_pair","metric","value","p","within_metric_significant","samedir_frac","agree","flag"
+"MS × DiRECT","DIET x SURGERY","effect_size_rho",0.124,0.040061436875606,TRUE,1,"discordant",FALSE
+"MS × DiRECT","DIET x SURGERY","overlap_fold",1.021,0.507577850684638,FALSE,1,"discordant",FALSE
+"BBS × DiRECT","DIET x SURGERY","effect_size_rho",0.203,1.55891439188107e-10,TRUE,0.762,"concordant-positive",FALSE
+"BBS × DiRECT","DIET x SURGERY","overlap_fold",1.144,0.0031824209118684,TRUE,0.762,"concordant-positive",FALSE
+"BBS × MS","within-SURGERY","effect_size_rho",0.178,0.0476285784572811,TRUE,1,"discordant",FALSE
+"BBS × MS","within-SURGERY","overlap_fold",1.33,0.483871277295533,FALSE,1,"discordant",FALSE
+"metformin × MS","DRUG x SURGERY","effect_size_rho",-0.06,0.601448322663032,FALSE,0,"concordant-null",FALSE
+"metformin × MS","DRUG x SURGERY","overlap_fold",1.053,0.686338977478218,FALSE,0,"concordant-null",FALSE
+"empagliflozin × MS","DRUG x SURGERY","effect_size_rho",-0.043,0.641605930458497,FALSE,0.667,"concordant-null",FALSE
+"empagliflozin × MS","DRUG x SURGERY","overlap_fold",1.837,0.185034639670731,FALSE,0.667,"concordant-null",FALSE
+"empagliflozin × BBS","DRUG x SURGERY","effect_size_rho",0.004,0.886149513420056,FALSE,0.619,"discordant",TRUE
+"empagliflozin × BBS","DRUG x SURGERY","overlap_fold",1.151,0.0015564642222936,TRUE,0.619,"discordant",TRUE
+"semaglutide × MS","DRUG x SURGERY","effect_size_rho",0.196,0.0003788429991773,TRUE,0.854,"concordant-positive",FALSE
+"semaglutide × MS","DRUG x SURGERY","overlap_fold",1.481,4.14876157713184e-06,TRUE,0.854,"concordant-positive",FALSE
+"metformin × BBS","DRUG x SURGERY","effect_size_rho",0.246,2.59062676662082e-06,TRUE,0.791,"concordant-positive",FALSE
+"metformin × BBS","DRUG x SURGERY","overlap_fold",1.38,0.0013740624484984,TRUE,0.791,"concordant-positive",FALSE
+"semaglutide × BBS","DRUG x SURGERY","effect_size_rho",0.319,4.93824465367227e-31,TRUE,0.806,"concordant-positive",FALSE
+"semaglutide × BBS","DRUG x SURGERY","overlap_fold",1.281,1.4210350683796e-12,TRUE,0.806,"concordant-positive",FALSE
+"metformin × DiRECT","DIET x DRUG","effect_size_rho",0.026,0.660243805728491,FALSE,0.469,"discordant",FALSE
+"metformin × DiRECT","DIET x DRUG","overlap_fold",1.247,0.0447246965531263,TRUE,0.469,"discordant",FALSE
+"empagliflozin × DiRECT","DIET x DRUG","effect_size_rho",0.082,0.0145635030145741,TRUE,0.569,"discordant",TRUE
+"empagliflozin × DiRECT","DIET x DRUG","overlap_fold",1.016,0.420456369411372,FALSE,0.569,"discordant",TRUE
+"semaglutide × DiRECT","DIET x DRUG","effect_size_rho",0.305,2.03061744562487e-89,TRUE,0.776,"concordant-positive",FALSE
+"semaglutide × DiRECT","DIET x DRUG","overlap_fold",1.155,1.65580800602145e-08,TRUE,0.776,"concordant-positive",FALSE
+"empagliflozin × semaglutide","within-DRUG","effect_size_rho",0.05,0.0924887157330817,FALSE,0.536,"discordant",TRUE
+"empagliflozin × semaglutide","within-DRUG","overlap_fold",1.105,0.0109066020834825,TRUE,0.536,"discordant",TRUE
+"metformin × semaglutide","within-DRUG","effect_size_rho",0.291,3.65280197333479e-08,TRUE,0.804,"concordant-positive",FALSE
+"metformin × semaglutide","within-DRUG","overlap_fold",1.178,0.0254077626832681,TRUE,0.804,"concordant-positive",FALSE
+"metformin × empagliflozin","within-DRUG","effect_size_rho",0.296,1.24812436351807e-08,TRUE,0.423,"discordant",TRUE
+"metformin × empagliflozin","within-DRUG","overlap_fold",0.788,0.976908114193415,FALSE,0.423,"discordant",TRUE

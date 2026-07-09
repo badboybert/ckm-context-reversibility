@@ -1,0 +1,32 @@
+=== A) reversible sig-set overlap vs chance (hypergeometric) ===
+  liver    vs adi-CR  : overlap=  42 exp=    30 enrich=1.39x p=1.6e-02
+  liver    vs adi-diet: overlap=1329 exp=  1253 enrich=1.06x p=1.9e-04
+  liver    vs blood   : overlap= 281 exp=   265 enrich=1.06x p=1.2e-01
+  adi-CR   vs adi-diet: overlap= 173 exp=   106 enrich=1.63x p=6.1e-26
+  adi-CR   vs blood   : overlap=  22 exp=    20 enrich=1.11x p=3.3e-01
+  adi-diet vs blood   : overlap= 619 exp=   654 enrich=0.95x p=9.9e-01
+
+=== B) continuous rev_beta Spearman matrix ===
+             liver   adi-CR adi-diet    blood
+  liver      +1.00    +0.11    -0.03    +0.13
+  adi-CR     +0.11    +1.00    +0.52    +0.19
+  adi-diet    -0.03    +0.52    +1.00    -0.06
+  blood      +0.13    +0.19    -0.06    +1.00
+
+=== C) directional concordance on shared sig genes (fraction same sign) ===
+  liver    vs adi-CR  :   42 shared-sig same-dir=0.71
+  liver    vs adi-diet: 1329 shared-sig same-dir=0.37
+  liver    vs blood   :  281 shared-sig same-dir=0.79
+  adi-CR   vs adi-diet:  173 shared-sig same-dir=0.99
+  adi-CR   vs blood   :   22 shared-sig same-dir=0.73
+  adi-diet vs blood   :  619 shared-sig same-dir=0.46
+
+=== D) persistent-set overlap vs chance ===
+  liver    vs adi-CR  : overlap=2286 exp= 2200 enrich=1.04x p=3.6e-03
+  liver    vs adi-diet: overlap=1021 exp=  981 enrich=1.04x p=3.7e-02
+  liver    vs blood   : overlap=1000 exp=  971 enrich=1.03x p=9.6e-02
+  adi-CR   vs adi-diet: overlap=1381 exp= 1176 enrich=1.17x p=2.3e-18
+  adi-CR   vs blood   : overlap=1181 exp= 1170 enrich=1.01x p=3.2e-01
+  adi-diet vs blood   : overlap=1103 exp= 1154 enrich=0.96x p=9.9e-01
+
+-> ALL converge: reversibility is TISSUE-ORGANIZED (tissue>>intervention); within-tissue shared (+0.52/0.98/1.68x), cross-tissue ~0/opposite (~1.05x).

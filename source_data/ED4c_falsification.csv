@@ -1,0 +1,13 @@
+pair,pole,cond,fold
+blood × muscle,persistent,raw,5.111926208834762
+blood × muscle,persistent,edge-conditioned,1.356650993987628
+blood × muscle,reversible,raw,1.5244305163894278
+blood × muscle,reversible,edge-conditioned,2.479103004509297
+blood × adipose,persistent,raw,3.502736958029013
+blood × adipose,persistent,edge-conditioned,1.2240572510683645
+blood × adipose,reversible,raw,4.746469345029984
+blood × adipose,reversible,edge-conditioned,2.426404660045661
+muscle × adipose,persistent,raw,2.411857350079176
+muscle × adipose,persistent,edge-conditioned,0.9028559826229364
+muscle × adipose,reversible,raw,2.910580974742748
+muscle × adipose,reversible,edge-conditioned,3.9332646322763183

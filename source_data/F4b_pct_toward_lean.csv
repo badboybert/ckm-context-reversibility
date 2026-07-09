@@ -1,0 +1,14 @@
+context,tissue,intervention,pct_toward_lean,wl_tier
+DiRECT,plasma,diet,63,high
+BBS,plasma,surgery,59,high
+semaglutide,plasma,GLP-1RA,57,mod
+MS bariatric,plasma,surgery,55,high
+metformin,plasma,drug,54,low
+EMPEROR,plasma,SGLT2i,52,low
+RYGB,adipose,surgery,68,high
+CR,adipose,diet,57,high
+diet,adipose,diet,54,mod
+LCD,adipose,diet,52,mod
+GSE83452,liver,diet+surgery,53,high
+GSE106737,liver,surgery,54,high
+GSE273902,blood,surgery,52,high

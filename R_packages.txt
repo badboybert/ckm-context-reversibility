@@ -1,0 +1,8 @@
+# R dependencies for the figure scripts (R >= 4.4). Install with:
+#   install.packages(c("ggplot2","cowplot","scales","patchwork","dplyr"))
+ggplot2
+cowplot
+scales
+patchwork
+dplyr
+# Figure scripts source code/figures/theme_publication_ckm.R (the locked publication theme).

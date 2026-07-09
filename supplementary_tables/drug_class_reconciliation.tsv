@@ -1,0 +1,29 @@
+pair_a	pair_b	n	rho	rho_p	overlap_U	sig_a	sig_b	overlap_obs	overlap_exp	overlap_fold	overlap_p	samedir_frac	class_a	class_b	mech_a	mech_b	rho_state	overlap_state	agree	supported_shared	powered_both	class_pair
+BBS	DiRECT	976	0.203	1.558914391881067e-10	976	376.0	372.0	164.0	143.31	1.144	0.0031824209118684	0.762	SURGERY	DIET	bariatric	diet	pos	enriched	concordant-positive	True	True	DIET x SURGERY
+BBS	MS_bariatric	125	0.178	0.0476285784572811	125	47.0	4.0	2.0	1.5	1.33	0.4838712772955333	1.0	SURGERY	SURGERY	bariatric	bariatric	pos	null	discordant	False	True	within-SURGERY
+MS_bariatric	DiRECT	276	0.124	0.040061436875606	276	44.0	129.0	21.0	20.57	1.021	0.5075778506846379	1.0	SURGERY	DIET	bariatric	diet	pos	null	discordant	False	True	DIET x SURGERY
+dapagliflozin	BBS	12			12								DRUG	SURGERY	SGLT2i	bariatric	underpowered	underpowered	underpowered	False	False	DRUG x SURGERY
+dapagliflozin	DiRECT	31	0.129	0.4875625634570869	31								DRUG	DIET	SGLT2i	diet	null	underpowered	underpowered	False	False	DIET x DRUG
+dapagliflozin	MS_bariatric	26			26								DRUG	SURGERY	SGLT2i	bariatric	underpowered	underpowered	underpowered	False	False	DRUG x SURGERY
+dapagliflozin	empagliflozin	12			12								DRUG	DRUG	SGLT2i	SGLT2i	underpowered	underpowered	underpowered	False	False	within-DRUG
+dapagliflozin	liraglutide	1			1								DRUG	DRUG	SGLT2i	GLP1RA	underpowered	underpowered	underpowered	False	False	within-DRUG
+dapagliflozin	semaglutide	34	0.422	0.0129326385215985	34								DRUG	DRUG	SGLT2i	GLP1RA	pos	underpowered	underpowered	False	False	within-DRUG
+empagliflozin	BBS	1272	0.004	0.8861495134200562	1272	417.0	501.0	189.0	164.24	1.151	0.0015564642222936	0.619	DRUG	SURGERY	SGLT2i	bariatric	null	enriched	discordant	False	True	DRUG x SURGERY
+empagliflozin	DiRECT	883	0.082	0.0145635030145741	883	310.0	345.0	123.0	121.12	1.016	0.4204563694113722	0.569	DRUG	DIET	SGLT2i	diet	pos	null	discordant	False	True	DIET x DRUG
+empagliflozin	MS_bariatric	120	-0.043	0.6416059304584969	120	49.0	4.0	3.0	1.63	1.837	0.1850346396707313	0.667	DRUG	SURGERY	SGLT2i	bariatric	null	null	concordant-null	False	True	DRUG x SURGERY
+empagliflozin	liraglutide	20			20								DRUG	DRUG	SGLT2i	GLP1RA	underpowered	underpowered	underpowered	False	False	within-DRUG
+empagliflozin	semaglutide	1115	0.05	0.0924887157330817	1115	374.0	529.0	196.0	177.44	1.105	0.0109066020834825	0.536	DRUG	DRUG	SGLT2i	GLP1RA	null	enriched	discordant	False	True	within-DRUG
+liraglutide	BBS	23			23								DRUG	SURGERY	GLP1RA	bariatric	underpowered	underpowered	underpowered	False	False	DRUG x SURGERY
+liraglutide	DiRECT	65	0.151	0.2309270446436906	65	65.0	26.0	26.0	26.0	1.0	1.0	0.769	DRUG	DIET	GLP1RA	diet	null	degenerate	underpowered	False	False	DIET x DRUG
+liraglutide	MS_bariatric	22			22								DRUG	SURGERY	GLP1RA	bariatric	underpowered	underpowered	underpowered	False	False	DRUG x SURGERY
+liraglutide	semaglutide	87	-0.292	0.0061249024216747	87	87.0	33.0	33.0	33.0	1.0	1.0	0.364	DRUG	DRUG	GLP1RA	GLP1RA	neg	degenerate	underpowered	False	False	within-DRUG
+metformin	BBS	356	0.246	2.5906267666208164e-06	356	73.0	152.0	43.0	31.17	1.38	0.0013740624484984	0.791	DRUG	SURGERY	biguanide	bariatric	pos	enriched	concordant-positive	True	True	DRUG x SURGERY
+metformin	DiRECT	290	0.026	0.660243805728491	290	61.0	122.0	32.0	25.66	1.247	0.0447246965531263	0.469	DRUG	DIET	biguanide	diet	null	enriched	discordant	False	True	DIET x DRUG
+metformin	MS_bariatric	79	-0.06	0.6014483226630325	79	25.0	3.0	1.0	0.95	1.053	0.6863389774782178	0.0	DRUG	SURGERY	biguanide	bariatric	null	null	concordant-null	False	True	DRUG x SURGERY
+metformin	dapagliflozin	7			7								DRUG	DRUG	biguanide	SGLT2i	underpowered	underpowered	underpowered	False	False	within-DRUG
+metformin	empagliflozin	356	0.296	1.2481243635180689e-08	356	73.0	161.0	26.0	33.01	0.788	0.9769081141934152	0.423	DRUG	DRUG	biguanide	SGLT2i	pos	null	discordant	False	True	within-DRUG
+metformin	liraglutide	11			11								DRUG	DRUG	biguanide	GLP1RA	underpowered	underpowered	underpowered	False	False	within-DRUG
+metformin	semaglutide	344	0.291	3.652801973334786e-08	344	73.0	204.0	51.0	43.29	1.178	0.0254077626832681	0.804	DRUG	DRUG	biguanide	GLP1RA	pos	enriched	concordant-positive	True	True	within-DRUG
+semaglutide	BBS	1253	0.319	4.938244653672271e-31	1253	578.0	462.0	273.0	213.12	1.281	1.4210350683796022e-12	0.806	DRUG	SURGERY	GLP1RA	bariatric	pos	enriched	concordant-positive	True	True	DRUG x SURGERY
+semaglutide	DiRECT	4113	0.305	2.0306174456248658e-89	4113	1570.0	1388.0	612.0	529.82	1.155	1.6558080060214484e-08	0.776	DRUG	DIET	GLP1RA	diet	pos	enriched	concordant-positive	True	True	DIET x DRUG
+semaglutide	MS_bariatric	324	0.196	0.0003788429991773	324	195.0	46.0	41.0	27.69	1.481	4.148761577131838e-06	0.854	DRUG	SURGERY	GLP1RA	bariatric	pos	enriched	concordant-positive	True	True	DRUG x SURGERY
