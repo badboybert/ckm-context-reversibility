@@ -26,7 +26,7 @@ pa <- ggplot(dt2, aes(pooled_beta, lab)) +
   geom_point(color=TXN, size=1.6) +
   scale_x_continuous(limits=c(-0.08,0.08), breaks=c(-0.05,0,0.05)) +
   annotate("text", x=0.078, y=1.4, label="all |β| < 0.029", hjust=1, size=2.3, fontface="italic") +
-  labs(x="pooled standardized β", y=NULL, title="Determinant model (k=9)")
+  labs(x="pooled standardized β", y=NULL)
 
 # b) causal status on the RAW / interpretable scale — the standardized coef in (a) is
 #    compressed ~50x by this feature's rare-binary SD (9 of ~18,600 transcripts), so it is
@@ -41,19 +41,23 @@ pb <- ggplot(csr, aes(pooled, lab)) +
   geom_point(color=TXN, size=2.4) +
   geom_text(aes(label=sprintf("%+.2f", pooled)), vjust=-1.05, size=2.2) +
   scale_x_continuous(limits=c(-0.46,0.20), breaks=c(-0.4,-0.2,0)) +
-  annotate("text", x=-0.45, y=0.58, hjust=0, vjust=1, size=1.75, fontface="italic", color="grey35", lineheight=0.95,
-           label="(a) std. coef is compressed;\n(b) raw effect, see Table S14") +
-  labs(x="raw group difference (SD)", y=NULL, title="Genetic causal status:\nunderpowered (n = 9)")
+  # (in-panel footnote REMOVED: the legend already states that the standardized coefficient is
+  #  compressed, is not an effect size, and is reported on the raw scale in Supplementary Table 14.
+  #  Any text long enough to say it ran across the x=0 reference line, which struck through it;
+  #  a white label box would instead occlude that line. The legend carries it.)
+  labs(x="raw group difference (SD)", y=NULL)
 
 # c) layer power
 lp <- rbind(data.frame(layer="transcriptome\n(k=9)", ci=dt$ci_halfwidth),
             data.frame(layer="proteome\n(k=3)", ci=dp$ci_halfwidth))
 lp$layer <- factor(lp$layer, levels=c("transcriptome\n(k=9)","proteome\n(k=3)"))
+set.seed(11)   # geom_jitter below is stochastic; seed so the figure is reproducible
 pc <- ggplot(lp, aes(layer, ci, color=layer)) +
   geom_jitter(width=0.16, height=0, size=1.4, alpha=0.9) +
   scale_color_manual(values=c("transcriptome\n(k=9)"=TXN, "proteome\n(k=3)"=PRO), guide="none") +
   scale_y_log10() +
-  labs(x=NULL, y="95% CI half-width (SD)", title="Layer power", subtitle="powered vs inconclusive")
+  labs(x=NULL, y="95% CI half-width (SD)") +
+  theme(axis.text.x=element_text(angle=35, hjust=1, lineheight=0.9))  # 35° = same tilt as d/e/f
 
 # d) predictive null
 pnl <- data.frame(ctx=factor(pn$context, levels=pn$context), within=pn$within_spearman, loco=pn$loco_spearman)
@@ -66,7 +70,7 @@ pdn <- ggplot(pnl) +
                     breaks=c("within-context","leave-one-out (LOCO)")) +
   scale_y_continuous(limits=c(-0.06,0.31), breaks=c(0,0.1,0.2,0.3)) +
   annotate("text", x=3, y=-0.048, label="LOCO mean +0.002", size=2.2, fontface="italic") +
-  labs(x=NULL, y="Spearman (pred vs actual)", title="Predictive null") +
+  labs(x=NULL, y="Spearman (pred vs actual)") +
   theme(axis.text.x=element_text(angle=35, hjust=1),
         legend.position="inside", legend.position.inside=c(0.30,1.0), legend.justification=c(0,1),
         legend.key.size=unit(7,"pt"), legend.text=element_text(size=6.3),
@@ -82,7 +86,7 @@ pe <- ggplot(abm, aes(ctx, auc, fill=set)) +
   geom_hline(yintercept=0.5, linetype="dashed", linewidth=0.4) +
   scale_fill_manual(values=c("all"=NEU, "intrinsic"=TXN, "measurability"=PRO), name=NULL) +
   coord_cartesian(ylim=c(0.45,0.85)) +
-  labs(x=NULL, y="cross-context AUC", title="Detectability ablation") +
+  labs(x=NULL, y="cross-context AUC") +
   theme(axis.text.x=element_text(angle=35, hjust=1),
         legend.position="inside", legend.position.inside=c(0.40,0.99), legend.justification=c(0,1),
         legend.key.size=unit(7,"pt"), legend.text=element_text(size=6.3),
@@ -99,15 +103,15 @@ pf <- ggplot(tf, aes(x, v, fill=x)) +
   geom_text(aes(label=lbl), vjust=tf$vj, size=2.3) +
   scale_fill_manual(values=setNames(c(UP,DN,"#9ecae1"), levels(tf$x)), guide="none") +
   coord_cartesian(ylim=c(-0.08,0.13)) +
-  labs(x=NULL, y="τ → outcome (β)", title="τ: magnitude, not direction") +
+  labs(x=NULL, y="τ → outcome (β)") +
   theme(axis.text.x=element_text(angle=35, hjust=1))
 
-fig <- wrap_plots(pa, pb, pc, free(pdn, type="space", side="l"), pe, pf, ncol=3) +
+# free(pc, side="b"): panel c's tilted two-line x-labels are taller than a/b's, and patchwork
+# aligns the shared bottom-space row, which pushed a/b's x-axis titles far below their axes.
+fig <- wrap_plots(pa, pb, free(pc, type="space", side="b"), free(pdn, type="space", side="l"), pe, pf, ncol=3) +
   plot_annotation(tag_levels="a") &
   theme(plot.tag = element_text(face="bold", size=11, hjust=0, vjust=1),
         plot.tag.position = c(0.01, 1.02),
-        plot.title = element_text(size=8.5, hjust=0, margin=margin(t=2, b=4)),
-        plot.subtitle = element_text(size=7, color="grey25", margin=margin(b=3)),
         plot.margin = margin(11, 6, 10, 6, "pt"))
 save_figure_ckm(fig, "Figure_3", width_mm=183, height_mm=170, output_dir=".")
 cat("done\n")

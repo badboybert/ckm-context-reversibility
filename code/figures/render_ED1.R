@@ -14,9 +14,10 @@ pa <- ggplot(za, aes(Z, layer, fill=layer)) +
   scale_fill_manual(values=LC, guide="none") +
   scale_x_continuous(limits=c(0,4), breaks=c(0,1,2,3,4)) +
   geom_vline(xintercept=1.96, linetype="dashed", linewidth=0.35, color="grey45") +
-  annotate("text", x=1.96, y=4.6, label="Z=1.96", size=2.0, color="grey40", vjust=0) +
-  labs(x="responsiveness Z (folded magnitude)", y=NULL, title="Per-layer score distributions",
-       subtitle="folded: piles at 0, heavy responder tail")
+  # (in-plot "Z=1.96" label removed: the legend already states that the dashed line marks
+  #  Z = 1.96 (nominal significance), and at y=4.6 it sat on the discrete scale's upper
+  #  expansion boundary, so it only ever rendered as a clipped sliver.)
+  labs(x="responsiveness Z (folded magnitude)", y=NULL)
 
 # b) biology face-validity (signed Z) — score recovers known weight-loss biology
 bi <- rd("ED1b_biology.csv"); bi <- bi[bi$gene!="IGFBP1",]
@@ -28,10 +29,12 @@ pb <- ggplot(bi, aes(signed_Z, gene, color=signed_Z>0)) +
   scale_color_manual(values=c(`TRUE`=UP, `FALSE`=DN), labels=c("down (toward lean)","up"), name=NULL,
                      breaks=c(FALSE,TRUE)) +
   scale_x_continuous(limits=c(-3,1.2), breaks=c(-2,-1,0,1)) +
-  labs(x="signed responsiveness Z", y=NULL, title="Score recovers known biology",
-       subtitle="SAA1/SAA2/CRP/LEP ↓, GDF15 ↑") +
+  labs(x="signed responsiveness Z", y=NULL) +
   theme(axis.text.y=element_text(face="italic"),
-        legend.position="inside", legend.position.inside=c(0.55,0.04), legend.justification=c(0,0),
+        # TOP-LEFT: every bottom row (SAA1/SAA2/LEP) has a segment running leftward from 0, so any
+        # bottom placement overlaps the data — and the key is too wide for right-justification to
+        # clear it. Only GDF15 (top row) points rightward, leaving the top-left quadrant empty.
+        legend.position="inside", legend.position.inside=c(0.02,0.98), legend.justification=c(0,1),
         legend.key.size=unit(7,"pt"), legend.text=element_text(size=6.3),
         legend.background=element_rect(fill=alpha("white",0.7), color=NA))
 
@@ -41,18 +44,14 @@ pc <- ggplot(mc, aes(meas_mean, Z_responsiveness)) +
   geom_point(size=0.4, alpha=0.18, color=TXN) +
   geom_smooth(method="lm", se=FALSE, color="black", linewidth=0.5, formula=y~x) +
   scale_y_continuous(limits=c(0,4)) +
-  annotate("label", x=Inf, y=4, hjust=1, vjust=1, size=2.3, fill="white", label.size=0,
+  annotate("label", x=Inf, y=4, hjust=1, vjust=1, size=2.3, fill="white", linewidth=0,
            label=sprintf("ρ = %+.2f  (n=%s)", cc$corr[1], format(cc$n[1],big.mark=","))) +
-  labs(x="measurability (mean logCPM)", y="responsiveness Z", title="Not a measurability proxy",
-       subtitle="independent of detectability")
+  labs(x="measurability (mean logCPM)", y="responsiveness Z")
 
 fig <- wrap_plots(pa, pb, pc, ncol=3) +
   plot_annotation(tag_levels="a",
-    title="Additional file 1 | The reversibility score is valid: folded-magnitude distributions, biological face-validity, measurability-independent",
     theme=theme(plot.background=element_rect(fill="white", color=NA))) &
   theme(plot.tag=element_text(face="bold", size=11, hjust=0, vjust=1), plot.tag.position=c(0.01,1.04),
-        plot.title=element_text(size=8.3, hjust=0, margin=margin(t=2,b=4)),
-        plot.subtitle=element_text(size=7, color="grey25", margin=margin(b=3)),
         plot.margin=margin(13,6,8,6,"pt"))
 save_figure_ckm(fig, "Figure_ED1", width_mm=183, height_mm=82, output_dir=".")
 cat("done\n")

@@ -63,13 +63,11 @@ pa <- base_pt(pa) +
   geom_label(data=data.frame(classf=factor(cdisp["within-DRUG"],levels=cdisp[clev]),
                              value=0.385, pair=factor("empagliflozin × semaglutide",levels=ord$pair)),
              aes(x=value,y=pair), inherit.aes=FALSE, hjust=1, vjust=0.5, size=2.05,
-             label="empagliflozin ≈ 0 vs\nweight-loss panels", fill="white", label.size=0,
+             label="empagliflozin ≈ 0 vs\nweight-loss panels", fill="white", linewidth=0,
              lineheight=0.92, color="grey20") +
-  labs(x="effect-size Spearman ρ", y=NULL,
-       title="Effect-size correlation", subtitle="reference = 0") +
+  labs(x="effect-size Spearman ρ", y=NULL) +
   theme(strip.text.y=element_blank(), strip.background=element_blank(),
-        axis.text.y=element_text(size=8), legend.position="none",
-        plot.title=element_text(size=8.5), plot.subtitle=element_text(size=7, color="grey30"))
+        axis.text.y=element_text(size=8), legend.position="none")
 
 # ---- Panel B: significant-reverser overlap fold ----
 pb <- ggplot(Bd, aes(value, pair)) +
@@ -80,22 +78,21 @@ pb <- base_pt(pb) +
   facet_grid(classf ~ ., scales="free_y", space="free_y") +
   scale_x_continuous(limits=c(0.62,2.02), breaks=c(0.8,1.0,1.2,1.4,1.6,1.8)) +
   geom_text(aes(x=2.0, label=sprintf("%.0f%%",100*samedir_frac)), hjust=1, size=1.9, color=Bd$dircol) +
-  labs(x="sig-reverser overlap (fold)", y=NULL,
-       title="Significant-reverser overlap", subtitle="reference = 1.0; right # = same-direction fraction (red = chance-level)") +
+  labs(x="sig-reverser overlap (fold)", y=NULL) +
   theme(axis.text.y=element_blank(), axis.ticks.y=element_blank(),
         strip.text.y=element_text(size=7.4, angle=0, lineheight=0.9),
-        plot.title=element_text(size=8.5), plot.subtitle=element_text(size=7, color="grey30"),
         legend.position="right", legend.box="vertical",
         legend.title=element_text(size=7.5), legend.text=element_text(size=7))
 
 fig <- (pa | pb) + plot_layout(widths=c(1,1.06)) +
   plot_annotation(
-    title="Effect-size correlation and significant-reverser overlap reconciled: empagliflozin-specific, not SGLT2i-class, decoupling",
+    # title removed (duplicates the Additional file 9 legend headline). Subtitle KEPT: it is the
+    # panel's only colour key (orange ring / blue) and the legend does not carry that encoding.
     subtitle="15 adequately powered pairs (underpowered excluded by design). Orange ring marks the empagliflozin-specific decoupling; blue = concordant on both metrics.",
     tag_levels="a") &
-  theme(plot.tag=element_text(face="bold", size=11, hjust=0, vjust=1), plot.tag.position=c(0.005,1.01),
+  theme(plot.tag=element_text(face="bold", size=11, hjust=0, vjust=1), plot.tag.position=c(0.005,1.045),
         plot.title=element_text(size=8.8, hjust=0, margin=margin(t=2,b=2)),
         plot.subtitle=element_text(size=7, color="grey30", margin=margin(b=4)),
-        plot.margin=margin(11,6,7,6,"pt"))
+        plot.margin=margin(16,6,7,6,"pt"))
 save_figure_ckm(fig, "Figure_S7", width_mm=183, height_mm=150, output_dir=FIGDIR)
 cat("done S7\n")

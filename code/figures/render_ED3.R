@@ -21,8 +21,7 @@ pa <- ggplot() +
   geom_jitter(data=a, aes(beta, feat), width=0, height=0.16, size=0.7, alpha=0.5, color="grey45") +
   geom_point(data=mt, aes(pooled_beta, feat), shape=23, size=2.1, fill=TXN, color="black", stroke=0.5) +
   scale_x_continuous(limits=c(-0.12,0.12), breaks=c(-0.1,0,0.1)) +
-  labs(x="standardized β (grey = 9 panels, ◆ = pooled)", y=NULL,
-       title="Determinant forest is powered (k=9)", subtitle="per-panel effects small; pooled near MDE band") +
+  labs(x="standardized β (grey = 9 panels, ◆ = pooled)", y=NULL) +
   theme(axis.text.y=element_text(size=8))
 
 # b) tau sign-flip by panel (dynamic-range, not a determinant)
@@ -33,8 +32,7 @@ pb <- ggplot(tb, aes(beta, panel, color=beta>0)) +
   scale_color_manual(values=c(`TRUE`=UP, `FALSE`=DN), guide="none") +
   scale_y_discrete(labels=PMAP) +
   scale_x_continuous(limits=c(-0.12,0.12), breaks=c(-0.1,0,0.1)) +
-  labs(x="τ β per panel", y=NULL, title="τ flips sign by panel",
-       subtitle="6 positive / 3 negative = dynamic-range") +
+  labs(x="τ β per panel", y=NULL) +
   theme(axis.text.y=element_text(size=7.5))
 
 # c) causal status NS in every panel
@@ -46,17 +44,13 @@ pc <- ggplot(cc, aes(beta, panel)) +
   geom_point(size=1.8, color=NEU) +
   scale_y_discrete(labels=PMAP) +
   scale_x_continuous(limits=c(-0.06,0.06), breaks=c(-0.05,0,0.05)) +
-  labs(x="causal-status β", y=NULL, title="Causal status: NS everywhere",
-       subtitle="Bonferroni NS 9/9; pooled −0.004") +
+  labs(x="causal-status β", y=NULL) +
   theme(axis.text.y=element_text(size=7.5))
 
 fig <- wrap_plots(pa, pb, pc, ncol=3) +
   plot_annotation(tag_levels="a",
-    title="Additional file 3 | The determinant null is powered, not under-powered (transcriptome k=9; proteome k=3 inconclusive, not shown)",
     theme=theme(plot.background=element_rect(fill="white", color=NA))) &
   theme(plot.tag=element_text(face="bold", size=11, hjust=0, vjust=1), plot.tag.position=c(0.01,1.04),
-        plot.title=element_text(size=8.0, hjust=0, margin=margin(t=2,b=4)),
-        plot.subtitle=element_text(size=7, color="grey25", margin=margin(b=3)),
         plot.margin=margin(13,6,8,6,"pt"))
 save_figure_ckm(fig, "Figure_ED3", width_mm=183, height_mm=88, output_dir=".")
 cat("done\n")

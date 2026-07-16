@@ -36,11 +36,8 @@ pa <- ggplot(f, aes(unique_R2, disp, fill=grp)) +
            size=2.05, fontface="italic", color="#7A1E1E") +
   scale_fill_manual(values=grpcol, guide="none") +
   scale_x_continuous(limits=c(0,0.44), breaks=c(0,0.1,0.2,0.3), expand=expansion(mult=c(0,0.02))) +
-  labs(x="unique variance explained  (unique R², jackknife range)", y=NULL,
-       title="Unique variance in pairwise reversibility correlation",
-       subtitle="green = context (tissue, intervention); grey = platform control") +
-  theme(axis.text.y=element_text(size=8.4),
-        plot.title=element_text(size=8.6), plot.subtitle=element_text(size=7, color="grey30"))
+  labs(x="unique variance explained  (unique R², jackknife range)", y=NULL) +
+  theme(axis.text.y=element_text(size=8.4))
 
 # ---- Panel b: 2x2 cell means (stored as term-rows; value in beta_ols, count in n_same) ----
 cval <- function(term) v$beta_ols[v$term==term]
@@ -60,19 +57,13 @@ pb <- ggplot(cm, aes(family, tissue, fill=rho)) +
   scale_color_manual(values=c(`TRUE`="white",`FALSE`="grey10")) +
   scale_fill_gradient(low="white", high="#1B7837", limits=c(0,0.36),
                       breaks=c(0,0.1,0.2,0.3), name="mean ρ") +
-  labs(x="intervention family", y="tissue",
-       title="Context is super-additive",
-       subtitle="within-tissue ρ +0.162 vs cross-tissue +0.020") +
+  labs(x="intervention family", y="tissue") +
   theme(legend.position="right", legend.key.width=unit(6,"pt"), legend.key.height=unit(11,"pt"),
-        legend.title=element_text(size=7.5), legend.text=element_text(size=7),
-        plot.title=element_text(size=8.6), plot.subtitle=element_text(size=7, color="grey30"))
+        legend.title=element_text(size=7.5), legend.text=element_text(size=7))
 
 fig <- (pa | pb) + plot_layout(widths=c(1.55,1)) +
-  plot_annotation(
-    title="Reversibility correlation is governed by shared context (tissue and intervention), not assay platform",
-    tag_levels="a") &
+  plot_annotation(tag_levels="a") &
   theme(plot.tag=element_text(face="bold", size=11, hjust=0, vjust=1), plot.tag.position=c(0.005,1.03),
-        plot.title=element_text(size=8.8, hjust=0, margin=margin(t=2,b=4)),
         plot.margin=margin(12,6,7,6,"pt"))
 save_figure_ckm(fig, "Figure_S9", width_mm=183, height_mm=92, output_dir=FIGDIR)
 cat("done S9\n")

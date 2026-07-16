@@ -19,14 +19,14 @@ pa <- ggplot() + xlim(0,10) + ylim(0,10) +
   annotate("rect", xmin=2.0,xmax=8.0, ymin=6.35,ymax=7.35, fill="#E7F1ED", color=TXN, linewidth=0.4) +
   annotate("text", x=5,y=6.85, size=2.2, label="per-mark reversibility score") +
   annotate("segment", x=5,xend=5, y=6.35,yend=5.25, arrow=arr, linewidth=0.45) +
-  annotate("rect", xmin=1.0,xmax=9.0, ymin=2.6,ymax=5.15, fill="#FBEEE4", color=MEY, linewidth=0.4) +
-  annotate("text", x=5,y=4.5, size=2.3, fontface="bold", lineheight=1.0,
+  annotate("rect", xmin=0.6,xmax=9.4, ymin=2.15,ymax=5.15, fill="#FBEEE4", color=MEY, linewidth=0.4) +
+  annotate("text", x=5,y=4.60, size=2.2, fontface="bold", lineheight=1.0,
            label="Does any mark-intrinsic\nproperty predict reversal?") +
-  annotate("text", x=5,y=3.25, size=1.9, lineheight=1.0,
-           label="constraint · druggability · disease assoc.\ncis-architecture · causal status") +
-  annotate("segment", x=5,xend=5, y=2.6,yend=1.5, arrow=arr, linewidth=0.45) +
+  annotate("text", x=5,y=3.18, size=1.5, lineheight=0.92,
+           label="constraint · druggability\ndisease assoc. · cis-architecture\ncausal status") +
+  annotate("segment", x=5,xend=5, y=2.15,yend=1.4, arrow=arr, linewidth=0.45) +
   annotate("text", x=5,y=0.9, size=2.2, fontface="italic", color=TXN, label="→ context, not the molecule") +
-  labs(title="Study design") + theme_void(base_family=BASE_FONT) +
+  theme_void(base_family=BASE_FONT) +
   theme(plot.title=element_text(size=8.5, hjust=0, margin=margin(b=4)))
 
 # b) data landscape (layer x tissue, bubble = paired n)
@@ -42,9 +42,9 @@ pb <- ggplot(ag, aes(tis, layer, size=np, color=layer)) +
   geom_point(alpha=0.85) +
   scale_size_area(max_size=9, breaks=c(100,1000,3000), name="paired n") +
   scale_color_manual(values=LAYERCOL, guide="none") +
-  scale_x_discrete(labels=c("plasma/serum"="plasma/\nserum","blood"="blood","adipose"="adipose","liver"="liver","muscle"="muscle")) +
-  labs(x=NULL, y=NULL, title="Data landscape") +
-  theme(axis.text.x=element_text(size=8),
+  scale_x_discrete(labels=c("plasma/serum"="plasma/serum","blood"="blood","adipose"="adipose","liver"="liver","muscle"="muscle")) +
+  labs(x=NULL, y=NULL) +
+  theme(axis.text.x=element_text(size=8, angle=30, hjust=1),
         legend.position="right", legend.key.size=unit(8,"pt"), legend.title=element_text(size=7), legend.text=element_text(size=6.5))
 
 # c) score is not a sample-size proxy
@@ -58,7 +58,7 @@ pc <- ggplot(qc, aes(layer, r, fill=layer)) +
   annotate("text", x=2.5, y=-0.315, label="power-artifact threshold (|r| = 0.3)", size=2.0, color="grey35") +
   scale_fill_manual(values=LAYERCOL, guide="none") +
   coord_cartesian(ylim=c(-0.36,0.04)) +
-  labs(x=NULL, y="corr(score, log N)", title="Score is not a power proxy") +
+  labs(x=NULL, y="corr(score, log N)") +
   theme(axis.text.x=element_text(angle=35, hjust=1))
 
 # d) replication across INDEPENDENT cohorts (CENTRAL x DIRECT-PLUS methylome)
@@ -68,8 +68,7 @@ pd <- ggplot(rp, aes(test, val)) +
   geom_col(width=0.62, fill=TXN, color="black", linewidth=0.2) +
   geom_text(aes(label=sprintf("%.2f", val)), vjust=-0.4, size=2.2) +
   coord_cartesian(ylim=c(0,1.04)) +
-  labs(x=NULL, y="Spearman / concordance", title="Replicates across cohorts",
-       subtitle="CENTRAL × DIRECT-PLUS (methylome)") +
+  labs(x=NULL, y="Spearman / concordance") +
   theme(axis.text.x=element_text(size=8, angle=25, hjust=1))
 
 # e) within-cohort split-half reproducibility (internal stability; distinct from d's cross-cohort transfer)
@@ -81,8 +80,7 @@ pe <- ggplot(sh, aes(layer, sp_signed, fill=layer)) +
   geom_text(aes(label=sprintf("rev %.1f×", rev_enr)), y=0.06, size=2.0, color="white") +
   scale_fill_manual(values=c(transcriptome=TXN, methylome=MEY), guide="none") +
   coord_cartesian(ylim=c(0,0.95)) +
-  labs(x=NULL, y="signed Spearman (half vs half)", title="Reproducible within a cohort",
-       subtitle="split-half: same tissue + intervention") +
+  labs(x=NULL, y="signed Spearman (half vs half)") +
   theme(axis.text.x=element_text(size=8, angle=18, hjust=1))
 
 # f) cross-ancestry generalizability + its limits (directional-only, n=12 underpowered)
@@ -96,17 +94,15 @@ pf <- ggplot(anr, aes(metric, value, fill=metric)) +
   scale_fill_manual(values=c("BLACK vs EUR"="grey62","EUR vs EUR (ceiling)"=TXN), guide="none") +
   scale_x_discrete(labels=c("BLACK vs EUR"="BLACK\nvs EUR","EUR vs EUR (ceiling)"="EUR vs EUR\n(ceiling)")) +
   coord_cartesian(ylim=c(-0.16,0.42)) +
-  annotate("label", x=1.5, y=0.40, size=1.95, fill="white", label.size=0, lineheight=0.95, vjust=1,
+  annotate("label", x=1.5, y=0.40, size=1.72, fill="white", linewidth=0, lineheight=0.95, vjust=1,
            label=sprintf("directional concord. %.0f%% (p=0.009)\nn=12 — genome-wide underpowered", conc*100)) +
-  labs(x=NULL, y="genome-wide ρ", title="Cross-ancestry (directional)",
-       subtitle="Black-female muscle, n=12") +
+  labs(x=NULL, y="genome-wide ρ") +
   theme(axis.text.x=element_text(size=8))
 
 fig <- wrap_plots(pa, pb, pc, pd, pe, pf, ncol=3) +
   plot_annotation(tag_levels="a") &
   theme(plot.tag=element_text(face="bold", size=11, hjust=0, vjust=1),
         plot.tag.position=c(0.01,1.02),
-        plot.title=element_text(size=8.5, hjust=0, margin=margin(t=2,b=4)),
-        plot.margin=margin(11,6,8,6,"pt"))
+        plot.margin=margin(11,8,8,6,"pt"))
 save_figure_ckm(fig, "Figure_1", width_mm=183, height_mm=150, output_dir=".")
 cat("done\n")

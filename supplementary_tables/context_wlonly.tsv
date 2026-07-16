@@ -1,0 +1,13 @@
+scenario	term	beta_ols	p_ols	marginal_R2	unique_R2	perm_p_marginal_tissue	n_same	n_diff
+lenient12	same_tissue	0.1761	8.69911e-05	0.277313	0.186951	0.00019999	19	47
+lenient12	same_platform	-0.0175503	0.636511	3.54542e-05	0.00239071		39	27
+lenient12	same_intervention_family	0.0906106	0.0198266	0.155745	0.0606217		30	36
+lenient12	within_tissue_mean_rho	0.281803					19	
+lenient12	cross_tissue_mean_rho	0.0787793					47	
+lenient12	MODEL_full_R2			0.342836				
+strict11	same_tissue	0.199525	0.000102527	0.297101	0.223221	0.000649968	14	41
+strict11	same_platform	0.00369351	0.928039	0.00124389	0.000103565		31	24
+strict11	same_intervention_family	0.0914748	0.0315691	0.131398	0.0614444		25	30
+strict11	within_tissue_mean_rho	0.318355					14	
+strict11	cross_tissue_mean_rho	0.0953299					41	
+strict11	MODEL_full_R2			0.358791				

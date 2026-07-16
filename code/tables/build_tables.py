@@ -43,7 +43,7 @@ ed1.columns=['Panel / accession','Layer','Platform','Intervention','Tissue','n (
              'Sig. basis','BMI axis','Baseline SD','Role','Status','Scores','Persist.','Note']
 ed1=ed1.sort_values(['Layer','Tissue','Panel / accession'])
 write_sheet(wb,'Table 2','Table 2 | Cohort and study-design inventory',
-  'Every paired human intervention panel analysed (40 ANALYZED; 4 layers; 26 contribute to the reversibility score, 8 persistence-eligible). '
+  'Every human intervention panel analysed (40 ANALYZED; 4 layers; 26 contribute to the reversibility score, 8 persistence-eligible). '
   'Proteome baseline SD = population-variance proxy (UKB-PPP/deCODE), caveated. GSE199063 = Affymetrix Clariom-D (AceView novel transcripts excluded from gene-level analyses). '
   'Source: results/panel_manifest_full.tsv.',
   ed1,[26,13,11,15,10,9,9,9,12,20,16,17,14,8,9,40],
@@ -63,14 +63,20 @@ dm['I² (%)']=dm['I2'].round(1)
 dm['τ²']=dm['tau2'].apply(lambda x:'0' if x==0 else f"{x:.2e}")
 dm['Cochran Q (df)']=dm.apply(lambda r:f"{r.Q:.2f} ({int(r.df)})",axis=1)
 dm['n genes (median)']=dm['n_genes_median'].astype(int)
-dm['Predicts reversibility?']=dm.apply(lambda r:'inconclusive (underpowered)' if r['inconclusive'] else
-    ('no (|β| < 0.03)' if abs(r.pooled_beta)<0.03 else 'small effect'),axis=1)
+def _predicts(r):
+    if r['feature']=='causal_nonEGFR' and r['layer']=='transcriptome':
+        return 'underpowered rare-binary (see S14)'
+    if r['inconclusive']:
+        return 'inconclusive (underpowered)'
+    return 'no (|β| < 0.03)' if abs(r.pooled_beta)<0.03 else 'small effect'
+dm['Predicts reversibility?']=dm.apply(_predicts,axis=1)
 dm['Layer (k panels)']=dm['layer']+' (k='+dm['k'].astype(str)+')'
 t2=dm[['Feature','Layer (k panels)','Pooled β (SD)','95% CI','MDE (SD)','I² (%)','τ²','Cochran Q (df)','n genes (median)','Predicts reversibility?']]
 t2=t2.sort_values(['Layer (k panels)','Feature'])
 write_sheet(wb,'Table 1','Table 1 | Portable mark-intrinsic features do not predict practically meaningful transcriptome reversibility (determinant meta-analysis)',
   "Standardized determinant coefficients (HC3 OLS per panel, measurability-residualized outcome; Hartung-Knapp random-effects meta across panels). "
-  "Transcriptome (k=9 contexts / 4 tissues) is the powered test: every |pooled β| < 0.029 SD against median MDE 0.013 SD; genetic causal status −0.004 (3.6x below MDE), homogeneous across contexts (I²=0%). "
+  "Transcriptome (k=9 contexts / 4 tissues) is the powered test: across the continuous mark-intrinsic features every |pooled β| < 0.029 SD against median MDE 0.013 SD, none reaching the ±0.05 SD SESOI. "
+  "Genetic causal status is a rare 0/1 feature (9 transcripts); its standardized coefficient is compressed by the small predictor variance and is not an effect size (interpretable raw contrast −0.18 SD, 95% CI −0.37 to +0.01, underpowered rather than equivalent; Supplementary Table 14). "
   "Proteome (k=3) is reported as inconclusive (wide CIs). Heterogeneity across the k contributing panels is summarised by I², τ² and Cochran's Q (df=k-1); between-panel dispersion is propagated into each pooled estimate through Hartung-Knapp random-effects confidence intervals. Source: results/determinant_meta.tsv.",
   t2,[30,20,13,21,11,9,11,13,14,26],
   center_cols={'Pooled β (SD)','MDE (SD)','Layer (k panels)','I² (%)','τ²','Cochran Q (df)','n genes (median)'})
@@ -193,10 +199,11 @@ to['I² (%)']=to['I2'].round(1)
 s9=to[['Feature','Pooled β (SD)','SE','90% CI','TOST P (±0.05 SD)','Equivalent ±0.05',
        'TOST P (±0.03 SD)','Equivalent ±0.03','I² (%)']]
 write_sheet(wb,'S9 - equivalence (TOST)','Supplementary Table 9 | Formal practical-equivalence testing (two one-sided tests, TOST)',
-  'Equivalence of each transcriptome determinant coefficient to zero against a pre-declared symmetric SESOI of ±0.05 SD (primary) and ±0.03 SD (secondary). '
-  '12 of 13 features are statistically equivalent within ±0.05 SD (TOST P<0.05), including all four determinant-carrying features (graded genetic causal status and the three cis-QTL '
-  'architecture terms); 10 of 13 within ±0.03 SD. Only tissue-specificity (τ) is inconclusive (I²=96.9%, CI too wide), consistent with its dynamic-range-covariate role. For causal status the 90% CI '
-  'excludes zero yet lies entirely inside the SESOI - the signature of a coefficient resolvable at this sample size but too small to carry a determinant interpretation. Source: results/determinant_tost.tsv.',
+  'Equivalence of each transcriptome determinant coefficient to zero against a symmetric SESOI of ±0.05 SD (primary) and ±0.03 SD (secondary), specified for the equivalence analysis. '
+  'Across the continuous determinant coefficients, 11 of 12 are statistically equivalent within ±0.05 SD (TOST P<0.05) and 9 of 12 within ±0.03 SD; only tissue-specificity (τ) is inconclusive '
+  '(I²=96.9%, CI too wide), consistent with its dynamic-range-covariate role. Genetic causal status is displayed for completeness but is a rare 0/1 binary (9 transcripts) interpreted separately '
+  '(Supplementary Table 14; Fig S8 / Additional file 10): its 90% CI lies inside the SESOI only because the standardized coefficient is compressed by the small predictor variance; on the interpretable '
+  'raw scale it is −0.18 SD (95% CI −0.37 to +0.01) and underpowered — not shown equivalent to zero. Source: results/determinant_tost.tsv.',
   s9,[30,14,11,22,17,15,17,15,9],
   center_cols={'Pooled β (SD)','SE','TOST P (±0.05 SD)','Equivalent ±0.05','TOST P (±0.03 SD)','Equivalent ±0.03','I² (%)'})
 
@@ -212,7 +219,7 @@ mo=mo.sort_values(['Feature','_mo'])
 s10=mo[['Feature','Mode','k','Pooled β (SD)','95% CI','I² (%)']]
 write_sheet(wb,'S10 - determinant modes','Supplementary Table 10 | Determinant null under three measurability-adjustment schemes',
   'Determinant meta-analysis re-estimated under three measurability-adjustment schemes: unadjusted, measurability as a covariate, and measurability-residualized outcome (the canonical primary). '
-  'Genetic causal status stays negligible in all three (pooled β = −0.003 / −0.004 / −0.004; ~8-fold below the 0.03-SD bound) and no feature reaches a moderate effect under any scheme '
+  'The genetic causal-status standardized coefficient is stable across all three modes (β = −0.003 / −0.004 / −0.004); this standardized value is compressed by the rare-binary predictor and is not an effect size (interpretable raw contrast −0.18 SD; Supplementary Table 14), and no continuous feature reaches a moderate effect under any scheme '
   '(global max |β| = 0.040, druggability unadjusted). The two annotation features exceeding 0.03 SD without residualization (druggability, secreted-protein status) are abundance-correlated and shrink '
   'once measurability is modelled - residualization removes an abundance confound rather than manufacturing the null. Source: results/determinant_modes.tsv.',
   s10,[30,24,7,14,22,9],
@@ -228,9 +235,9 @@ ccm['n (median)']=ccm['n'].astype(int); ccm['n (min)']=ccm['n_min'].astype(int)
 b1=ccm[['Feature','k','Pooled β (SD)','95% CI','Cochran Q','I² (%)','n (median)','n (min)']]
 ws11=write_sheet(wb,'S11 - sensitivity + missingness','Supplementary Table 11 | Determinant sensitivity (complete-case, nominatable-universe) and intrinsic-feature missingness',
   'Robustness of the determinant null to imputation and to the causal-status contrast definition, plus the intrinsic-feature missingness floor. '
-  '(A) Complete-case meta-analysis - genes with LOEUF and τ observed, no imputation (10,681-16,630 genes/panel): genetic causal status β = −0.004 (95% CI [−0.008, −0.001]) ≈ the primary −0.004, '
+  '(A) Complete-case meta-analysis - genes with LOEUF and τ observed, no imputation (10,681-16,630 genes/panel): genetic causal-status standardized β = −0.004 (95% CI [−0.008, −0.001]) ≈ the primary standardized estimate (compressed rare-binary coefficient, not an effect size; interpretable raw contrast −0.18 SD, Supplementary Table 14), '
   'so the null is not an imputation artifact; τ +0.030 (I²≈97%) is the known sign-blind dynamic-range effect, not a determinant. '
-  '(B) Nominatable-universe contrast - restricted to the 1,432 cis-instrumented MR-tested genes (nominated vs tested-but-not-nominated; not-testable excluded): causal status β = −0.014 multivariable / −0.009 univariable, '
+  '(B) Nominatable-universe contrast - restricted to the 1,432 cis-instrumented MR-tested genes (nominated vs tested-but-not-nominated; not-testable excluded): causal-status standardized β = −0.014 multivariable / −0.009 univariable (interpretable raw contrast −0.12 SD, 95% CI −0.32 to +0.08, Supplementary Table 14), '
   'CI includes zero from power loss (~8 nominated genes/panel) = a point-estimate consistency check, not a precisely-estimated null. '
   '(C) Missingness floor: architecture and causal-status annotations are available for only ~5-6% of genes/panel (missing 93.5-95.0%); LOEUF missing 13.3-43.5% (25.2% pooled); τ 2.9-26.5% (14.5% pooled). '
   'Sources: results/determinant_completecase.tsv, causal_nominatable_universe.tsv, intrinsic_missingness.tsv.',
@@ -289,7 +296,7 @@ vt['n same pairs']=vt['n_same'].astype(int); vt['n diff pairs']=vt['n_diff'].ast
 s12=vt[['Predictor','Unique R²','Type-II (% total var)','Jackknife 95% [min, max]','Permutation P (unique)','Marginal R²','n same pairs','n diff pairs']]
 ws12=write_sheet(wb,'S12 - variance partition','Supplementary Table 12 | Variance partition of pairwise reversal-signature correlations (context, not platform)',
   'Partition of the variance in all 153 pairwise reversal-signature correlations (full-model R²=0.34). Reversibility is organized by shared biological context: shared tissue and shared intervention family '
-  'each explain comparable, mutually independent variance (unique R²=0.13 and 0.15; permutation P=1.5×10⁻⁴ and 5×10⁻⁵), whereas shared assay platform explains essentially none (unique R²=0.005, P=0.28, NS) - '
+  'each explain comparable, mutually independent variance (unique R²=0.13 and 0.15; permutation P=1.5×10⁻⁴ and 5×10⁻⁵), whereas shared assay platform explains essentially none (unique R²=0.005, P=0.27, NS) - '
   'ruling out a batch/assay artifact. Context is co-governed by tissue AND intervention family, not by tissue alone and not by platform. Source: results/variance_partition.tsv.',
   s12,[26,12,20,26,22,13,13,13],
   center_cols={'Unique R²','Type-II (% total var)','Permutation P (unique)','Marginal R²','n same pairs','n diff pairs'})
@@ -350,9 +357,56 @@ write_sheet(wb,'S14 - causal status effects','Supplementary Table 14 | Genetic c
   'causal status is UNDERPOWERED for reversibility rather than shown equivalent to zero (unlike the continuous intrinsic features). Source: results/causal_status_effect.tsv.',
   s14,[42,26,11,22,7,58],center_cols={'Pooled','k'})
 
+# ---------- S15: true-weight-loss-only sensitivity (determinant null + tissue organization) ----------
+wl=RD('sensitivity_wlonly/determinant_meta_wlonly.tsv').copy()
+SCENN={'k9_canonical':'All 9 panels (anchor)','k6_strict':'Diet + surgery, strict (k=6; 3 tissues)',
+       'k7_keepdietex':'Diet + surgery + diet-exercise (k=7)'}
+wl['Scenario']=wl['scenario'].map(SCENN)
+wl['Feature']=wl['feature'].map(NAME)
+wl['Pooled β (SD)']=wl['pooled_beta'].round(4)
+wl['95% CI']=wl.apply(lambda r:f"({r.ci_lo:+.4f}, {r.ci_hi:+.4f})",axis=1)
+wl['I² (%)']=wl['I2'].round(1)
+wl['Reaches ±0.05 SESOI']=wl['exceeds_SESOI'].map(_yn)
+wl['_o']=wl['scenario'].map({'k9_canonical':0,'k6_strict':1,'k7_keepdietex':2})
+wl=wl.sort_values(['_o','Feature'])
+s15=wl[['Scenario','k','Feature','Pooled β (SD)','95% CI','I² (%)','Reaches ±0.05 SESOI']]
+ws15=write_sheet(wb,'S15 - weight-loss-only','Supplementary Table 15 | True-weight-loss-only sensitivity (determinant null and tissue organization)',
+  'The transcriptome determinant meta-analysis and the tissue/intervention variance partition recomputed after excluding every metformin, SGLT2-inhibitor, GLP-1-agonist and exercise panel, retaining only '
+  'caloric-restriction, dietary and bariatric-surgery panels. Determinant block (below): per-feature Hartung-Knapp pooled coefficients for the full nine-panel meta (anchor; reproduces the canonical result to '
+  '~1e-16), the strict six-panel diet-and-surgery set (three tissues: adipose/liver/blood) and a seven-panel variant retaining the single diet-plus-exercise panel. No feature reaches the ±0.05 SD SESOI on the '
+  'point estimate in any set (largest |pooled β| = 0.029 SD, 1.7-fold below the bound); tissue-specificity (τ) and, in the strict set, the LOEUF-missing indicator remain heterogeneous (I²≈91–97%) and CI-wide, the '
+  'known dynamic-range/annotation features rather than novel determinants. Genetic causal status stays small and its CI crosses zero in the strict set (compressed rare-binary standardized coefficient, not an effect '
+  'size; interpretable raw contrast −0.18 SD, 95% CI −0.37 to +0.01, nine transcripts; Supplementary Table 14). Empagliflozin (EMPEROR) is a proteome panel and never enters the transcriptome determinant meta. '
+  'Context block (further below): within- versus cross-tissue mean reversal correlation and the shared-tissue/intervention/platform variance partition on the weight-loss-only panels, under a twelve-panel definition '
+  '(diet+exercise retained as diet) and a strict eleven-panel definition (diet+exercise also dropped). Sources: results/sensitivity_wlonly/determinant_meta_wlonly.tsv, results/sensitivity_wlonly/context_wlonly.tsv.',
+  s15,[34,7,30,14,22,9,20],center_cols={'k','Pooled β (SD)','I² (%)','Reaches ±0.05 SESOI'})
+# --- context block ---
+cw=RD('sensitivity_wlonly/context_wlonly.tsv').copy()
+def _cv(scen,term,col):
+    r=cw[(cw['scenario']==scen)&(cw['term']==term)]
+    return r[col].iloc[0] if len(r) else float('nan')
+CSCEN=[('lenient12','12 panels (diet+exercise retained)'),('strict11','11 panels (diet+exercise dropped)')]
+cctx=pd.DataFrame([{
+    'Panel definition':lbl,
+    'Within-tissue mean ρ':f"{_cv(sc,'within_tissue_mean_rho','beta_ols'):+.3f} (n={int(_cv(sc,'within_tissue_mean_rho','n_same'))})",
+    'Cross-tissue mean ρ':f"{_cv(sc,'cross_tissue_mean_rho','beta_ols'):+.3f} (n={int(_cv(sc,'cross_tissue_mean_rho','n_same'))})",
+    'Shared-tissue unique R²':round(_cv(sc,'same_tissue','unique_R2'),3),
+    'Shared-tissue perm P':_sci(_cv(sc,'same_tissue','perm_p_marginal_tissue')),
+    'Shared-platform unique R²':round(_cv(sc,'same_platform','unique_R2'),4),
+    'Shared-intervention-family unique R²':round(_cv(sc,'same_intervention_family','unique_R2'),3),
+} for sc,lbl in CSCEN])
+r0=4+len(s15)+2
+ws15.cell(r0,1,'Context (tissue-governor + variance partition) on the weight-loss-only panels:').font=NOTE_FONT
+for j,col in enumerate(cctx.columns,1):
+    c=ws15.cell(r0+1,j,col); c.fill=HDR_FILL; c.font=HDR_FONT; c.alignment=CENTER; c.border=BORDER
+for i,(_,row) in enumerate(cctx.iterrows(),r0+2):
+    for j,col in enumerate(cctx.columns,1):
+        c=ws15.cell(i,j,row[col]); c.font=BODY; c.alignment=LEFT if col=='Panel definition' else CENTER
+ws15.auto_filter.ref=None  # multi-block sheet
+
 wb.properties.creator='Bertrand Chin-Ming Tan'; wb.properties.lastModifiedBy='Bertrand Chin-Ming Tan'
 wb.save(os.path.join(HERE,'Paper_B_Tables.xlsx'))
 print('wrote manuscript/tables/Paper_B_Tables.xlsx with sheets:', wb.sheetnames)
 print('ED1 rows=%d | Table1(det) rows=%d | core=%d | drugclass=%d'%(len(ed1),len(t2),len(core),len(dc)))
-print('S8=%d S9=%d S10=%d S11:complete-case=%d nominatable=%d missingness=%d S12=%d S13=%d S14=%d'%(
-    len(s8),len(s9),len(s10),len(b1),len(b2),len(mm),len(s12),len(s13),len(s14)))
+print('S8=%d S9=%d S10=%d S11:complete-case=%d nominatable=%d missingness=%d S12=%d S13=%d S14=%d S15=%d'%(
+    len(s8),len(s9),len(s10),len(b1),len(b2),len(mm),len(s12),len(s13),len(s14),len(s15)))

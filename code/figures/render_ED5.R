@@ -7,7 +7,7 @@ SD <- "source_data"; rd <- function(p) read.csv(file.path(SD, p), stringsAsFacto
 SIGc<-"#B2182B"; NSc<-"grey65"; NEU<-"#333333"
 sm <- rd("ED5_summary.csv")
 
-mkscatter <- function(file, pair, title, sub) {
+mkscatter <- function(file, pair) {
   d <- rd(file); d$expr_sig <- d$expr_sig %in% c("True", TRUE, "TRUE")
   qx <- quantile(d$meth_delta, c(.01,.99), na.rm=TRUE); qy <- quantile(d$expr_delta, c(.01,.99), na.rm=TRUE)
   s <- sm[sm$pair==pair,]
@@ -17,12 +17,12 @@ mkscatter <- function(file, pair, title, sub) {
     geom_point(data=subset(d, expr_sig), size=0.5, alpha=0.5, color=SIGc) +
     geom_smooth(method="lm", se=FALSE, color="black", linewidth=0.5, formula=y~x) +
     coord_cartesian(xlim=qx, ylim=qy) +
-    annotate("label", x=qx[1], y=qy[2], hjust=0, vjust=1, size=2.1, fill="white", label.size=0, lineheight=0.95,
+    annotate("label", x=qx[1], y=qy[2], hjust=0, vjust=1, size=2.1, fill="white", linewidth=0, lineheight=0.95,
              label=sprintf("ρ(all) = %+.2f  (n=%d)\nρ(expr-sig) = %+.2f  (n=%d)", s$rho_all, s$n_all, s$rho_sig, s$n_sig)) +
-    labs(x="methylation Δβ (post−pre)", y="expression Δ (post−pre)", title=title, subtitle=sub)
+    labs(x="methylation Δβ (post−pre)", y="expression Δ (post−pre)")
 }
-pa <- mkscatter("ED5_muscle_scatter.csv","muscle","Muscle: weak negative coupling","GSE60655 meth × GSE60590 expr")
-pb <- mkscatter("ED5_blood_scatter.csv","blood","Blood: no coupling","GSE193730 meth × GSE193771 expr")
+pa <- mkscatter("ED5_muscle_scatter.csv","muscle")
+pb <- mkscatter("ED5_blood_scatter.csv","blood")
 
 # c) the NO-GO disclosure (honest negative; the abandoned capstone)
 pc <- ggplot() + xlim(0,10) + ylim(0,10) +
@@ -39,16 +39,12 @@ pc <- ggplot() + xlim(0,10) + ylim(0,10) +
   theme_void(base_family=BASE_FONT) +
   theme(plot.title=element_text(size=8.5,hjust=0,margin=margin(b=4)),
         plot.background=element_rect(fill="white", color=NA),
-        panel.background=element_rect(fill="white", color=NA)) +
-  labs(title="Why the capstone was not pursued")
+        panel.background=element_rect(fill="white", color=NA))
 
 fig <- wrap_plots(pa, pb, pc, ncol=3) +
   plot_annotation(tag_levels="a",
-    title="Additional file 5 | Cross-layer node concordance is a NO-GO, disclosed as an honest negative",
     theme=theme(plot.background=element_rect(fill="white", color=NA))) &
   theme(plot.tag=element_text(face="bold", size=11, hjust=0, vjust=1), plot.tag.position=c(0.01,1.04),
-        plot.title=element_text(size=8.5, hjust=0, margin=margin(t=2,b=4)),
-        plot.subtitle=element_text(size=7, color="grey25", margin=margin(b=3)),
         plot.margin=margin(13,6,8,6,"pt"))
 save_figure_ckm(fig, "Figure_ED5", width_mm=183, height_mm=82, output_dir=".")
 cat("done\n")
