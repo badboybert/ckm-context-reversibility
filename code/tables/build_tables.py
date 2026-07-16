@@ -55,7 +55,7 @@ write_sheet(wb,'Table 2','Table 2 | Cohort and study-design inventory',
   'Persist. = persistence-eligible; BMI axis = restoration-eligible (and the axis source); Determinant = enters the determinant meta-analysis, marked Y (k=9) for the '
   'powered transcriptome contexts and Y (k=3) for the inconclusive plasma-proteome contexts. '
   'Proteome baseline SD = population-variance proxy (UKB-PPP/deCODE), caveated. GSE199063 = Affymetrix Clariom-D (AceView novel transcripts excluded from gene-level analyses). '
-  'Source: results/panel_manifest_full.tsv; results/determinant_per_panel.tsv.',
+  'Source: supplementary_tables/panel_manifest_full.tsv; supplementary_tables/determinant_per_panel.tsv.',
   ed1,[26,13,11,15,10,9,9,9,12,20,16,17,14,8,9,12,40],
   center_cols={'Layer','Platform','n (pairs)','n marks','Sig. marks','Scores','Persist.','Determinant'})
 
@@ -93,7 +93,7 @@ write_sheet(wb,'Table 1','Table 1 | Portable mark-intrinsic features do not pred
   "Standardized determinant coefficients (HC3 OLS per panel, measurability-residualized outcome; Hartung-Knapp random-effects meta across panels). "
   "Transcriptome (k=9 contexts / 4 tissues) is the powered test: across the continuous mark-intrinsic features every |pooled β| < 0.029 SD against median MDE 0.013 SD, none reaching the ±0.05 SD SESOI. "
   "Genetic causal status is a rare 0/1 feature (9 transcripts); its standardized coefficient is compressed by the small predictor variance and is not an effect size (interpretable raw contrast −0.18 SD, 95% CI −0.37 to +0.01, underpowered rather than equivalent; Supplementary Table 14). "
-  "Proteome (k=3) is reported as inconclusive (wide CIs). Heterogeneity across the k contributing panels is summarised by I², τ² and Cochran's Q (df=k-1); between-panel dispersion is propagated into each pooled estimate through Hartung-Knapp random-effects confidence intervals. Source: results/determinant_meta.tsv.",
+  "Proteome (k=3) is reported as inconclusive (wide CIs). Heterogeneity across the k contributing panels is summarised by I², τ² and Cochran's Q (df=k-1); between-panel dispersion is propagated into each pooled estimate through Hartung-Knapp random-effects confidence intervals. Source: supplementary_tables/determinant_meta.tsv.",
   t2,[30,20,13,21,11,9,11,13,14,26],
   center_cols={'Pooled β (SD)','MDE (SD)','Layer (k panels)','I² (%)','τ²','Cochran Q (df)','n genes (median)'})
 
@@ -102,7 +102,7 @@ core=RD('universal_reversible_core.tsv').copy()
 core.columns=['Gene','Tissue pairs shared (of 6)']
 write_sheet(wb,'S1 - universal core','Supplementary Table 1 | Universal cross-tissue reversible core (100 genes)',
   'Genes in the strongly-reversible consensus of >=2 tissues (union of cross-tissue reversible-consensus intersections). '
-  'Inflammation/innate-immune + metabolic-remodelling programme. Source: results/universal_reversible_core.tsv.',
+  'Inflammation/innate-immune + metabolic-remodelling programme. Source: supplementary_tables/universal_reversible_core.tsv.',
   core,[16,26],center_cols={'Tissue pairs shared (of 6)'})
 
 # ---------- Supp: drug-class correlations ----------
@@ -129,7 +129,7 @@ write_sheet(wb,'S2 - drug class','Supplementary Table 2 | Cross-intervention pla
   'sheet contains a counter-example that is unpowered but should be read rather than hidden — dapagliflozin x semaglutide (rho=+0.42, P=0.013) is the largest rho in the table, but rests on only '
   '34 jointly measured proteins, is flagged not-powered, and is excluded from Figure 5; dapagliflozin is a corroboration-only panel (7-34 shared proteins across its pairs). Empagliflozin is the '
   'only adequately powered SGLT2-inhibitor panel, so no SGLT2-class-level conclusion is drawn from either. '
-  'Cross-platform >= same-platform => not a platform artifact. Source: results/drug_class_corr.tsv; power flag from results/drug_class_reconciliation.tsv.',
+  'Cross-platform >= same-platform => not a platform artifact. Source: supplementary_tables/drug_class_corr.tsv; power flag from supplementary_tables/drug_class_reconciliation.tsv.',
   dc,[16,16,10,12,12,12,12,15],center_cols={'n shared','Spearman ρ','P','Class A','Class B','Powered (both panels)'})
 
 # ---------- Supp: per-context reversibility atlas ----------
@@ -138,14 +138,14 @@ at=at[['layer','context','tissue','intervention','rank','mark','rev_beta']]
 at['rev_beta']=at['rev_beta'].round(3)
 at.columns=['Layer','Context','Tissue','Intervention','Rank','Gene/mark','Reversal β']
 write_sheet(wb,'S3 - context atlas','Supplementary Table 3 | Per-context reversibility atlas (top-25 reversers × 10 contexts)',
-  'The strongest-reversing marks in each tissue×intervention context (rank 1–25 by |reversal β|). Source: results/context_signatures.tsv.',
+  'The strongest-reversing marks in each tissue×intervention context (rank 1–25 by |reversal β|). Source: supplementary_tables/context_signatures.tsv.',
   at,[14,26,12,20,8,14,12],center_cols={'Rank','Reversal β','Layer'})
 
 # ---------- Supp: per-intervention systemic consensus ----------
 iv2=RD('intervention_systemic_consensus.tsv').copy()
 iv2.columns=['Intervention','n panels','n tissues','Cross-tissue consensus genes','Top genes']
 write_sheet(wb,'S4 - intervention consensus','Supplementary Table 4 | Per-intervention cross-tissue consensus',
-  'Genes reversed by an intervention across >=half its tissue panels. Surgery/diet write systemic (cross-tissue) signatures; exercise/drug do not. Source: results/intervention_systemic_consensus.tsv + consensus_signatures.txt.',
+  'Genes reversed by an intervention across >=half its tissue panels. Surgery/diet write systemic (cross-tissue) signatures; exercise/drug do not. Source: supplementary_tables/intervention_systemic_consensus.tsv + consensus_signatures.txt.',
   iv2,[16,10,10,28,60],center_cols={'n panels','n tissues','Cross-tissue consensus genes'})
 
 # ---------- Supp: context structure (tissue >> intervention) ----------
@@ -157,7 +157,7 @@ mat=fa.pivot(index='ctx_a',columns='ctx_b',values='rho').round(3).reset_index().
 write_sheet(wb,'S5 - context structure','Supplementary Table 5 | Reversibility is tissue-organized (context correlation + concordance)',
   'Top: genome-wide rev_beta Spearman between the 4 powered transcriptome contexts, computed on the genes measured in BOTH contexts of each pair (within-adipose +0.52, cross-tissue ~0). '
   'The lower block reports, per pair, that shared MEASURED universe (the denominator of the genome-wide rho) alongside the shared SIGNIFICANT count (the denominator of the directional concordance) — '
-  'the two are different numbers and are not interchangeable. Sources: results/cross_context_summary.txt; manuscript/figures/source_data/F6{a,b}_*.csv.',
+  'the two are different numbers and are not interchangeable. Sources: supplementary_tables/cross_context_summary.txt; manuscript/figures/source_data/F6{a,b}_*.csv.',
   mat,[16,12,12,12,12],center_cols=set(mat.columns)-{'Context'})
 fb['concordance']=fb['concordance'].round(3)
 fb=fb[['pair','n_measured_both','n_shared','concordance','kind']]
@@ -178,7 +178,7 @@ for c in ['within_spearman','loco_spearman','within_auc','loco_auc','loco_auc_fu
 pn=pn[['context','n','within_spearman','loco_spearman','within_auc','loco_auc','loco_auc_intrinsic_only','loco_auc_measurability_only']]
 pn.columns=['Context','n genes','Within ρ','LOCO ρ','Within AUC','LOCO AUC','LOCO AUC (intrinsic only)','LOCO AUC (measurability only)']
 write_sheet(wb,'S6 - predictive null','Supplementary Table 6 | Predictive null (within-context vs leave-one-context-out)',
-  'Gradient-boosted reversibility prediction: learns within a context (within ρ +0.13, perm→0) but does not transfer (LOCO ρ +0.002). The only cross-context signal is detectability (measurability-only ablation). Source: results/predictive_null{,_ablation}.tsv.',
+  'Gradient-boosted reversibility prediction: learns within a context (within ρ +0.13, perm→0) but does not transfer (LOCO ρ +0.002). The only cross-context signal is detectability (measurability-only ablation). Source: supplementary_tables/predictive_null{,_ablation}.tsv.',
   pn,[14,9,11,11,11,11,22,24],center_cols={'n genes','Within ρ','LOCO ρ','Within AUC','LOCO AUC','LOCO AUC (intrinsic only)','LOCO AUC (measurability only)'})
 
 # ---------- Supp: durable reversers (canonical) ----------
@@ -192,7 +192,7 @@ durtab=sigd.reindex(sigd.rev2.abs().sort_values(ascending=False).index).head(60)
 durtab[['rev2','rev5','ratio']]=durtab[['rev2','rev5','ratio']].round(3)
 durtab.columns=['Gene','2-yr reversal','5-yr reversal','5yr/2yr ratio','Class']
 write_sheet(wb,'S7 - durable reversers','Supplementary Table 7 | Adipose durable vs rebound reversers (RYGB, 2yr→5yr; canonical genes)',
-  'Top-60 significant 2-yr reversers (canonical HGNC genes; GSE199063 Affymetrix, AceView novel transcripts excluded). durable = 5yr/2yr ratio>0.7; rebound <0.3. Source: results/durability_GSE199063.tsv.',
+  'Top-60 significant 2-yr reversers (canonical HGNC genes; GSE199063 Affymetrix, AceView novel transcripts excluded). durable = 5yr/2yr ratio>0.7; rebound <0.3. Source: supplementary_tables/durability_GSE199063.tsv.',
   durtab,[14,14,14,14,10],center_cols={'2-yr reversal','5-yr reversal','5yr/2yr ratio','Class'})
 
 # =====================================================================================
@@ -220,7 +220,7 @@ write_sheet(wb,'S8 - causal status','Supplementary Table 8 | Genetic causal-stat
   'Per-feature cis-Mendelian-randomization causal-status screen. 153 rows = 9 transcripts + 144 protein-outcome rows spanning 123 unique proteins '
   '(107 causal for a single non-eGFR cardiovascular-kidney-metabolic outcome + 16 for two or more). Transcript gate: Bonferroni-significant, Steiger-forward, F>=10 (GTEx-liver eQTL); '
   'protein gate: FDR q<0.10, non-MHC (UKB-PPP/Olink pQTL); eGFR-only nominations excluded a priori. MR beta and q are from the companion cis-MR screen; coloc PP.H4 and PP.H4/PP.H3 are '
-  'populated only for coloc-staged rows (remainder MR-only, shown as "NA (not coloc-staged)"). Source: results/causal_status_supp_table.tsv.',
+  'populated only for coloc-staged rows (remainder MR-only, shown as "NA (not coloc-staged)"). Source: supplementary_tables/causal_status_supp_table.tsv.',
   s8,[13,13,9,16,15,9,9,10,10,11,12,46,14,13,15,13],
   center_cols={'Layer','Outcome','n instr','F-stat','MR β','MR P','MR q','Coloc PP.H4','PP.H4/PP.H3','# non-eGFR causal outcomes','In determinant','Panels measured','In Paper A S2'})
 
@@ -239,7 +239,7 @@ write_sheet(wb,'S9 - equivalence (TOST)','Supplementary Table 9 | Formal practic
   'Across the continuous determinant coefficients, 11 of 12 are statistically equivalent within ±0.05 SD (TOST P<0.05) and 9 of 12 within ±0.03 SD; only tissue-specificity (τ) is inconclusive '
   '(I²=96.9%, CI too wide), consistent with its dynamic-range-covariate role. Genetic causal status is displayed for completeness but is a rare 0/1 binary (9 transcripts) interpreted separately '
   '(Supplementary Table 14; Fig S8 / Additional file 10): its 90% CI lies inside the SESOI only because the standardized coefficient is compressed by the small predictor variance; on the interpretable '
-  'raw scale it is −0.18 SD (95% CI −0.37 to +0.01) and underpowered — not shown equivalent to zero. Source: results/determinant_tost.tsv.',
+  'raw scale it is −0.18 SD (95% CI −0.37 to +0.01) and underpowered — not shown equivalent to zero. Source: supplementary_tables/determinant_tost.tsv.',
   s9,[30,14,11,22,17,15,17,15,9],
   center_cols={'Pooled β (SD)','SE','TOST P (±0.05 SD)','Equivalent ±0.05','TOST P (±0.03 SD)','Equivalent ±0.03','I² (%)'})
 
@@ -257,7 +257,7 @@ write_sheet(wb,'S10 - determinant modes','Supplementary Table 10 | Determinant n
   'Determinant meta-analysis re-estimated under three measurability-adjustment schemes: unadjusted, measurability as a covariate, and measurability-residualized outcome (the canonical primary). '
   'The genetic causal-status standardized coefficient is stable across all three modes (β = −0.003 / −0.004 / −0.004); this standardized value is compressed by the rare-binary predictor and is not an effect size (interpretable raw contrast −0.18 SD; Supplementary Table 14), and no continuous feature reaches a moderate effect under any scheme '
   '(global max |β| = 0.040, druggability unadjusted). The two annotation features exceeding 0.03 SD without residualization (druggability, secreted-protein status) are abundance-correlated and shrink '
-  'once measurability is modelled - residualization removes an abundance confound rather than manufacturing the null. Source: results/determinant_modes.tsv.',
+  'once measurability is modelled - residualization removes an abundance confound rather than manufacturing the null. Source: supplementary_tables/determinant_modes.tsv.',
   s10,[30,24,7,14,22,9],
   center_cols={'Mode','k','Pooled β (SD)','I² (%)'})
 
@@ -276,7 +276,7 @@ ws11=write_sheet(wb,'S11 - sensitivity + missingness','Supplementary Table 11 | 
   '(B) Nominatable-universe contrast - restricted to the 1,432 cis-instrumented MR-tested genes (nominated vs tested-but-not-nominated; not-testable excluded): causal-status standardized β = −0.014 multivariable / −0.009 univariable (interpretable raw contrast −0.12 SD, 95% CI −0.32 to +0.08, Supplementary Table 14), '
   'CI includes zero from power loss (~8 nominated genes/panel) = a point-estimate consistency check, not a precisely-estimated null. '
   '(C) Missingness floor: architecture and causal-status annotations are available for only ~5-6% of genes/panel (missing 93.5-95.0%); LOEUF missing 13.3-43.5% (25.2% pooled); τ 2.9-26.5% (14.5% pooled). '
-  'Sources: results/determinant_completecase.tsv, causal_nominatable_universe.tsv, intrinsic_missingness.tsv.',
+  'Sources: supplementary_tables/determinant_completecase.tsv, causal_nominatable_universe.tsv, intrinsic_missingness.tsv.',
   b1,[30,7,14,22,12,10,12,12],center_cols={'k','Pooled β (SD)','Cochran Q','I² (%)','n (median)','n (min)'})
 ws11.cell(3,1,'(A) Complete-case meta-analysis (genes with LOEUF & τ observed; no imputation)').font=NOTE_FONT
 # --- Block B: nominatable universe (2 META rows) ---
@@ -333,7 +333,7 @@ s12=vt[['Predictor','Unique R²','Type-II (% total var)','Jackknife 95% [min, ma
 ws12=write_sheet(wb,'S12 - variance partition','Supplementary Table 12 | Variance partition of pairwise reversal-signature correlations (context, not platform)',
   'Partition of the variance in all 153 pairwise reversal-signature correlations (full-model R²=0.34). Reversibility is organized by shared biological context: shared tissue and shared intervention family '
   'each explain comparable, mutually independent variance (unique R²=0.13 and 0.15; permutation P=1.5×10⁻⁴ and 5×10⁻⁵), whereas shared assay platform explains essentially none (unique R²=0.005, P=0.27, NS) - '
-  'ruling out a batch/assay artifact. Context is co-governed by tissue AND intervention family, not by tissue alone and not by platform. Source: results/variance_partition.tsv.',
+  'ruling out a batch/assay artifact. Context is co-governed by tissue AND intervention family, not by tissue alone and not by platform. Source: supplementary_tables/variance_partition.tsv.',
   s12,[26,12,20,26,22,13,13,13],
   center_cols={'Unique R²','Type-II (% total var)','Permutation P (unique)','Marginal R²','n same pairs','n diff pairs'})
 # cell-means block (2x2 super-additivity) + model R2
@@ -369,7 +369,7 @@ write_sheet(wb,'S13 - downsampling','Supplementary Table 13 | Downsampling / det
   '(Spearman ρ=0.84 across 90,666 marks; 0.80 for multi-panel marks); the primary anti-artifact evidence is that the score itself correlates negatively with statistical power (corr(Z, log Σn)=−0.28), '
   'the opposite of a detectability artefact. Under simulated power reduction (standard-error-scaled Gaussian noise with model-based effective n, not subject-level resampling) the ranking degrades gracefully '
   '(ρ=0.83 at half effective n; no cliff), and a direction-agnostic magnitude ranking correlates only moderately (ρ=0.51, k≥2), consistent with the score rewarding cross-context direction-consistency. '
-  'Source: results/downsampling_sensitivity.tsv.',
+  'Source: supplementary_tables/downsampling_sensitivity.tsv.',
   s13,[40,30,12,11,18,13,60],
   center_cols={'Spearman ρ','n marks','Downsample fraction','n replicates'})
 
@@ -390,7 +390,7 @@ write_sheet(wb,'S14 - causal status effects','Supplementary Table 14 | Genetic c
   'These are the interpretable raw effect sizes underlying the reframed causal-status determinant. The raw group SMD is −0.18 SD (95% CI −0.37 to +0.01, includes zero); directionally concordant '
   'after multivariable adjustment (−0.19 SD) and in the fairer nominatable universe (−0.12 SD). The standardized anchor coefficient (−0.0036 SD) reproduces the canonical determinant meta-analysis but is '
   'COMPRESSED by the predictor SD (SD_x≈0.020) and is NOT an effect size. No specification is a significant, well-powered association: the estimate rests on nine genes with wide intervals, so genetic '
-  'causal status is UNDERPOWERED for reversibility rather than shown equivalent to zero (unlike the continuous intrinsic features). Source: results/causal_status_effect.tsv.',
+  'causal status is UNDERPOWERED for reversibility rather than shown equivalent to zero (unlike the continuous intrinsic features). Source: supplementary_tables/causal_status_effect.tsv.',
   s14,[42,26,11,22,7,58],center_cols={'Pooled','k'})
 
 # ---------- S15: true-weight-loss-only sensitivity (determinant null + tissue organization) ----------
@@ -414,7 +414,7 @@ ws15=write_sheet(wb,'S15 - weight-loss-only','Supplementary Table 15 | True-weig
   'known dynamic-range/annotation features rather than novel determinants. Genetic causal status stays small and its CI crosses zero in the strict set (compressed rare-binary standardized coefficient, not an effect '
   'size; interpretable raw contrast −0.18 SD, 95% CI −0.37 to +0.01, nine transcripts; Supplementary Table 14). Empagliflozin (EMPEROR) is a proteome panel and never enters the transcriptome determinant meta. '
   'Context block (further below): within- versus cross-tissue mean reversal correlation and the shared-tissue/intervention/platform variance partition on the weight-loss-only panels, under a twelve-panel definition '
-  '(diet+exercise retained as diet) and a strict eleven-panel definition (diet+exercise also dropped). Sources: results/sensitivity_wlonly/determinant_meta_wlonly.tsv, results/sensitivity_wlonly/context_wlonly.tsv.',
+  '(diet+exercise retained as diet) and a strict eleven-panel definition (diet+exercise also dropped). Sources: supplementary_tables/determinant_meta_wlonly.tsv, supplementary_tables/context_wlonly.tsv.',
   s15,[34,7,30,14,22,9,20],center_cols={'k','Pooled β (SD)','I² (%)','Reaches ±0.05 SESOI'})
 # --- context block ---
 cw=RD('sensitivity_wlonly/context_wlonly.tsv').copy()
@@ -470,7 +470,7 @@ write_sheet(wb,'S16 - restoration uncertainty',
   'a gene-label permutation cannot repair this because it randomises gene identity, so inter-mark correlation cannot enter its null by construction '
   '(its SD is deterministic given the margins, perm_SD/binom_SD = 4*sqrt(a(1-a)b(1-b))). A correlation-respecting interval would require subject-level resampling, which these '
   'published per-mark summary panels do not permit. The percentages therefore anchor to the canonical engines (max |delta| 0.43 pp) but are reported with "near-random" wording '
-  'rather than as precisely-bounded estimates. Source: results/restoration_uncertainty/restoration_uncertainty.tsv (src/restoration_uncertainty.py).',
+  'rather than as precisely-bounded estimates. Source: supplementary_tables/restoration_uncertainty.tsv (src/restoration_uncertainty.py).',
   s16,[26,10,9,13,16,20,16,20,20,20,16,20],
   center_cols=set(s16.columns)-{'Context'})
 
