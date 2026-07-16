@@ -79,19 +79,24 @@ def _predicts(r):
     # and an MDE of 0.079 — i.e. it asserted a null the data cannot support, which is the same
     # underpowered-null-as-equivalence error the paper corrects elsewhere. The verdict is therefore
     # driven by CI containment within the ±0.05 SESOI, not by |β| alone.
-    if r['feature']=='causal_nonEGFR':
-        return 'underpowered rare-binary (see S14)'          # rare binary in EITHER layer
+    # The rare-binary carve-out is TRANSCRIPTOME-ONLY, and the layer condition is load-bearing:
+    # causal status is carried by 9 of 18,615 transcripts (0.05%, SD_x~0.022 -> the ~50x compression S14
+    # documents) but by 123 of 1,463 proteins (8.4%, SD_x~0.28 -> no meaningful compression). The proteome
+    # row must therefore fall through to the CI test and read "inconclusive", like every other proteome
+    # coefficient: its problem is the underpowered k=3 arm (MDE 0.079), not standardization.
+    if r['feature']=='causal_nonEGFR' and r['layer']=='transcriptome':
+        return 'underpowered rare-binary (see S14)'
     ci_lo, ci_hi = r.pooled_beta - r.ci_halfwidth, r.pooled_beta + r.ci_halfwidth
     if r['inconclusive'] or ci_lo < -0.05 or ci_hi > 0.05:
         return 'inconclusive (underpowered)'
-    return 'no (|β| < 0.03)' if abs(r.pooled_beta)<0.03 else 'small effect'
+    return 'no (95% CI within ±0.05 SESOI)' if abs(r.pooled_beta)<0.03 else 'small effect'
 dm['Predicts reversibility?']=dm.apply(_predicts,axis=1)
 dm['Layer (k panels)']=dm['layer']+' (k='+dm['k'].astype(str)+')'
 t2=dm[['Feature','Layer (k panels)','Pooled β (SD)','95% CI','MDE (SD)','I² (%)','τ²','Cochran Q (df)','n genes (median)','Predicts reversibility?']]
 t2=t2.sort_values(['Layer (k panels)','Feature'])
 write_sheet(wb,'Table 1','Table 1 | Portable mark-intrinsic features do not predict practically meaningful transcriptome reversibility (determinant meta-analysis)',
   "Standardized determinant coefficients (HC3 OLS per panel, measurability-residualized outcome; Hartung-Knapp random-effects meta across panels). "
-  "Transcriptome (k=9 contexts / 4 tissues) is the powered test: across the continuous mark-intrinsic features every |pooled β| < 0.029 SD against median MDE 0.013 SD, none reaching the ±0.05 SD SESOI. "
+  "Transcriptome (k=9 contexts / 4 tissues) is the powered test: across the continuous mark-intrinsic features every |pooled β| < 0.029 SD against median MDE 0.013 SD, none reaching the ±0.05 SD SESOI. Verdicts are assigned by containment of the 95% CI within the ±0.05 SD SESOI, not by |β| alone: tissue-specificity (τ) has |β| = 0.026 but its interval reaches +0.061, so it reads inconclusive rather than equivalent, matching Supplementary Table 9. "
   "Genetic causal status is a rare 0/1 feature (9 transcripts); its standardized coefficient is compressed by the small predictor variance and is not an effect size (interpretable raw contrast −0.18 SD, 95% CI −0.37 to +0.01, underpowered rather than equivalent; Supplementary Table 14). "
   "Proteome (k=3) is reported as inconclusive (wide CIs). Heterogeneity across the k contributing panels is summarised by I², τ² and Cochran's Q (df=k-1); between-panel dispersion is propagated into each pooled estimate through Hartung-Knapp random-effects confidence intervals. Source: supplementary_tables/determinant_meta.tsv.",
   t2,[30,20,13,21,11,9,11,13,14,26],
@@ -215,14 +220,14 @@ s8=cs8[['gene','layer','outcome','instrument_rsid','n_instr','F-stat','MR β','M
         'determinant_panels_measured','in_PaperA_S2']].copy()
 s8.columns=['Gene','Layer','Outcome','Instrument (cis)','n instr','F-stat','MR β','MR P','MR q',
             'Coloc PP.H4','PP.H4/PP.H3','Tier / MR gate','# non-eGFR causal outcomes','In determinant',
-            'Panels measured','In Paper A S2']
+            'Panels measured','Coloc-staged in the companion cis-MR screen (ref. 17)']
 write_sheet(wb,'S8 - causal status','Supplementary Table 8 | Genetic causal-status screen underlying the graded causal-status determinant',
   'Per-feature cis-Mendelian-randomization causal-status screen. 153 rows = 9 transcripts + 144 protein-outcome rows spanning 123 unique proteins '
   '(107 causal for a single non-eGFR cardiovascular-kidney-metabolic outcome + 16 for two or more). Transcript gate: Bonferroni-significant, Steiger-forward, F>=10 (GTEx-liver eQTL); '
   'protein gate: FDR q<0.10, non-MHC (UKB-PPP/Olink pQTL); eGFR-only nominations excluded a priori. MR beta and q are from the companion cis-MR screen; coloc PP.H4 and PP.H4/PP.H3 are '
   'populated only for coloc-staged rows (remainder MR-only, shown as "NA (not coloc-staged)"). Source: supplementary_tables/causal_status_supp_table.tsv.',
   s8,[13,13,9,16,15,9,9,10,10,11,12,46,14,13,15,13],
-  center_cols={'Layer','Outcome','n instr','F-stat','MR β','MR P','MR q','Coloc PP.H4','PP.H4/PP.H3','# non-eGFR causal outcomes','In determinant','Panels measured','In Paper A S2'})
+  center_cols={'Layer','Outcome','n instr','F-stat','MR β','MR P','MR q','Coloc PP.H4','PP.H4/PP.H3','# non-eGFR causal outcomes','In determinant','Panels measured','Coloc-staged in the companion cis-MR screen (ref. 17)'})
 
 # ---------- S9: equivalence testing (TOST) (B5; 13 rows) ----------
 to=RD('determinant_tost.tsv').copy()

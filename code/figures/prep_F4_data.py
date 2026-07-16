@@ -32,7 +32,7 @@ summ.to_csv(os.path.join(OUT,'F4a_summary.csv'),index=False)
 ctx=[ # context, tissue, intervention, pct_toward_lean, weight-loss tier (for ordering/shading)
  ('DiRECT','plasma','diet',63,'high'),('BBS','plasma','surgery',59,'high'),
  ('semaglutide','plasma','GLP-1RA',57,'mod'),('MS bariatric','plasma','surgery',55,'high'),
- ('metformin','plasma','drug',54,'low'),('EMPEROR','plasma','SGLT2i',52,'low'),
+ ('metformin','plasma','drug',54,'low'),('empagliflozin','plasma','SGLT2i',52,'low'),
  ('RYGB','adipose','surgery',68,'high'),('CR','adipose','diet',57,'high'),
  ('diet','adipose','diet',54,'mod'),('LCD','adipose','diet',52,'mod'),
  ('GSE83452','liver','diet+surgery',53.2,'high'),('GSE106737','liver','surgery',54.4,'high'),
@@ -45,13 +45,13 @@ _b=pd.DataFrame(ctx,columns=['context','tissue','intervention','pct_toward_lean'
 # every other context has P < 1e-3. Read from the engine so the flag cannot drift from its evidence.
 _u=pd.read_csv(os.path.join(SIG,'results','restoration_uncertainty','restoration_uncertainty.tsv'),sep='\t')
 _KEY={'DiRECT':'DiRECT (plasma)','BBS':'By-Band-Sleeve (plasma)','semaglutide':'semaglutide (plasma)',
-      'MS bariatric':'MS bariatric (plasma)','metformin':'metformin (plasma)','EMPEROR':'empagliflozin (plasma)',
+      'MS bariatric':'MS bariatric (plasma)','metformin':'metformin (plasma)','empagliflozin':'empagliflozin (plasma)',
       'RYGB':'RYGB (adipose)','CR':'CR (adipose)','diet':'diet GSE77962 (adipose)','LCD':'LCD DiOGenes (adipose)',
       'GSE83452':'GSE83452 (liver)','GSE106737':'GSE106737 (liver)','GSE273902':'GSE273902 (blood)'}
 _p=_u.set_index('context')['binom_p_vs_50'].to_dict()
 _b['binom_p_vs_50']=_b['context'].map(lambda c:_p[_KEY[c]])
 _b['ns_vs_chance']=_b['binom_p_vs_50']>=0.05
-assert set(_b.loc[_b.ns_vs_chance,'context'])=={'MS bariatric','metformin','EMPEROR','GSE273902'}, \
+assert set(_b.loc[_b.ns_vs_chance,'context'])=={'MS bariatric','metformin','empagliflozin','GSE273902'}, \
     f"ns set changed: {sorted(_b.loc[_b.ns_vs_chance,'context'])}"
 _b.to_csv(os.path.join(OUT,'F4b_pct_toward_lean.csv'),index=False)
 

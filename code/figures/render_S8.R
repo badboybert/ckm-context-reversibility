@@ -61,12 +61,12 @@ p <- p +
              curvature=0.2, linewidth=0.3, color="grey45", arrow=arrow(length=unit(3.5,"pt"),type="closed")) +
   geom_label(data=data.frame(1), aes(x=-0.063,y=yc+3.0), inherit.aes=FALSE, hjust=0, vjust=0.5, size=1.9,
              label="genetic causal status: rare 0/1 feature (9 transcripts).\nStandardized β is compressed ~50× — not an effect size.\nRaw contrast −0.18 SD (95% CI −0.37, +0.01):\nunderpowered, not shown equivalent (Table S14).",
-             fill="white", linewidth=0, lineheight=0.95, color="#5A2A6E") +
+             fill=NA, label.size=NA, lineheight=0.95, color="#5A2A6E") +
   geom_curve(data=data.frame(1), aes(x=-0.004,y=yt-0.9,xend=0.0246,yend=yt-0.12), inherit.aes=FALSE,
              curvature=-0.25, linewidth=0.3, color="grey45", arrow=arrow(length=unit(3.5,"pt"),type="closed")) +
   geom_label(data=data.frame(1), aes(x=-0.006,y=yt-0.9), inherit.aes=FALSE, hjust=1, vjust=0.5, size=2.0,
              label="τ inconclusive — CI crosses the SESOI\n(dynamic-range covariate, not a determinant)",
-             fill="white", linewidth=0, lineheight=0.92, color="#8C3A00")
+             fill=NA, label.size=NA, lineheight=0.92, color="#8C3A00")
 
 save_figure_ckm(p, "Figure_S8", width_mm=183, height_mm=105, output_dir=FIGDIR)
 cat("done S8\n")

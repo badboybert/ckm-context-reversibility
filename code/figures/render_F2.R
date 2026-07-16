@@ -29,7 +29,7 @@ pa <- ggplot(pa_d, aes(kind, rho)) +
   # cross label is raised to y=0.58, clear of that column's maximum (rho=0.448).
   annotate("text", x=1, y=0.74, label="mean +0.162", size=2.4) +
   annotate("text", x=2, y=0.58, label="mean +0.020", size=2.4) +
-  annotate("text", x=1.5, y=0.84, label="Welch t = 4.4", size=2.5, fontface="italic") +
+  annotate("text", x=1.5, y=0.84, label="Welch t = 4.4 (descriptive)", size=2.5, fontface="italic") +
   labs(x=NULL, y="Spearman r (panel pair)") +
   theme(legend.position="inside", legend.position.inside=c(0.62,0.04), legend.justification=c(0,0),
         legend.key.size=unit(7,"pt"), legend.text=element_text(size=6.3),

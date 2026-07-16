@@ -16,7 +16,7 @@ pa <- ggplot(sa, aes(base_sd_mean, Z_responsiveness, color=class)) +
   scale_color_manual(values=c(reversible=REV, persistent=PERS), name=NULL) +
   scale_fill_manual(values=c(reversible=REV, persistent=PERS), guide="none") +
   scale_x_continuous(limits=c(0,0.8)) + scale_y_continuous(limits=c(0,1.2)) +
-  annotate("label", x=0.78, y=1.15, hjust=1, vjust=1, size=2.1, fill="white", linewidth=0, lineheight=0.95,
+  annotate("label", x=0.78, y=1.15, hjust=1, vjust=1, size=2.1, fill=NA, linewidth=0, lineheight=0.95,
            label="persistent: base_sd 0.24, Z 0.15\nreversible: base_sd 0.27, Z 0.41\nbase_sd ratio 0.90 (median)") +
   labs(x="baseline SD", y="responsiveness Z") +
   theme(legend.position="inside", legend.position.inside=c(0.98,0.03), legend.justification=c(1,0),

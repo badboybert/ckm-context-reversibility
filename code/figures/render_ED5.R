@@ -17,7 +17,7 @@ mkscatter <- function(file, pair) {
     geom_point(data=subset(d, expr_sig), size=0.5, alpha=0.5, color=SIGc) +
     geom_smooth(method="lm", se=FALSE, color="black", linewidth=0.5, formula=y~x) +
     coord_cartesian(xlim=qx, ylim=qy) +
-    annotate("label", x=qx[1], y=qy[2], hjust=0, vjust=1, size=2.1, fill="white", linewidth=0, lineheight=0.95,
+    annotate("label", x=qx[1], y=qy[2], hjust=0, vjust=1, size=2.1, fill=NA, linewidth=0, lineheight=0.95,
              label=sprintf("ρ(all) = %+.2f  (n=%d)\nρ(expr-sig) = %+.2f  (n=%d)", s$rho_all, s$n_all, s$rho_sig, s$n_sig)) +
     labs(x="methylation Δβ (post−pre)", y="expression Δ (post−pre)")
 }
