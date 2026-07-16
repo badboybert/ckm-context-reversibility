@@ -1,5 +1,10 @@
 # A multi-omic atlas of weight-loss molecular reversibility: context, not molecular identity (CKM)
 
+> Code and summary-level source data for a multi-omic atlas of molecular reversibility across 40 human
+> weight-loss and cardiometabolic-intervention panels (proteome, transcriptome, methylome, metabolome),
+> testing whether reversibility is an intrinsic property of a molecular mark or a property of tissue and
+> intervention context.
+
 Analysis code and frozen source data for:
 
 > **A multi-omic atlas defines context, not molecular identity, as the determinant of weight-loss reversibility.**
