@@ -132,7 +132,7 @@ write_sheet(wb,'S2 - drug class','Supplementary Table 2 | Cross-intervention pla
   'loss — bariatric surgery (+0.32, 95% CI +0.27 to +0.37, n=1,253) and diet (+0.31, +0.28 to +0.33, n=4,113) — but not empagliflozin (+0.05, -0.01 to +0.11, n=1,115, ns); those differences are '
   'powered as contrasts (Fisher z = 6.8 and 7.8). NOT a claim that drug class is absent: the within-pharmacotherapy pairs are too few (k=3 informative) to support an equivalence bound, and this '
   'sheet contains a counter-example that is unpowered but should be read rather than hidden — dapagliflozin x semaglutide (rho=+0.42, P=0.013) is the largest rho in the table, but rests on only '
-  '34 jointly measured proteins, is flagged not-powered, and is excluded from Figure 5; dapagliflozin is a corroboration-only panel (7-34 shared proteins across its pairs). Empagliflozin is the '
+  '34 jointly measured proteins, is flagged not-powered, and is excluded from Figure 5; dapagliflozin is a corroboration-only panel (1-34 shared proteins across its pairs). Empagliflozin is the '
   'only adequately powered SGLT2-inhibitor panel, so no SGLT2-class-level conclusion is drawn from either. '
   'Cross-platform >= same-platform => not a platform artifact. Source: supplementary_tables/drug_class_corr.tsv; power flag from supplementary_tables/drug_class_reconciliation.tsv.',
   dc,[16,16,10,12,12,12,12,15],center_cols={'n shared','Spearman ρ','P','Class A','Class B','Powered (both panels)'})

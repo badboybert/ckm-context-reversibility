@@ -29,7 +29,7 @@ code/
              build_paperB_docx.py (manuscript docx), assemble_manuscript_GM.py (Genome
              Medicine assembly), build_gm_package.py (submission-package assembler).
 source_data/          frozen, machine-readable inputs for every figure panel (+ manifest).
-supplementary_tables/ results tables backing Supplementary Tables S1-S14 + the per-mark
+supplementary_tables/ results tables backing Supplementary Tables S1-S16 + the per-mark
                       reproducibility atlas (per_mark_atlas.parquet).
 ```
 
@@ -51,7 +51,7 @@ data is needed to reproduce the display items.**
 | Figure 6 (context-not-molecule synthesis) | `code/figures/render_F6.R` | `prep_F6_data.py` | `F6a_context_corr.csv`, `F6b_concordance.csv`, `F6c_exemplars.csv`, `F6d_reversible_overlap.csv`, `F6e_persistent_overlap.csv` |
 | Extended Data ED1-ED6 | `render_ED1.R` … `render_ED6.R` | `prep_ED1_data.py`, `prep_ED2_ED6_data.py`, `prep_ED3_data.py`, `prep_ED4_data.py`, `prep_ED5_data.py` | `source_data/ED1*.csv` … `ED6*.csv` |
 | Suppl. Figs S7-S9 | `render_S7.R`, `render_S8.R`, `render_S9.R` | (self-contained) | `S7_drug_class_reconciliation.csv`; `S8_determinant_tost_forest.csv`; `S9a_variance_partition.csv`, `S9b_cell_means.csv` |
-| Table 1 (determinant), Table 2 (cohort inventory), Supp. Tables S1-S14 | `code/tables/build_tables.py` | — | `supplementary_tables/*.tsv` (e.g. `determinant_meta.tsv`, `panel_manifest_full.tsv`, `causal_status_*.tsv`, `determinant_{tost,modes,per_panel,completecase}.tsv`, `variance_partition.tsv`, `downsampling_sensitivity.tsv`, `drug_class_*.tsv`, `predictive_null*.tsv`, `tissue_pair_correlations.tsv`, `context_signatures.tsv`, `intervention_systemic_consensus.tsv`, `universal_reversible_core.tsv`, `causal_nominatable_universe.tsv`, `intrinsic_missingness.tsv`) |
+| Table 1 (determinant), Table 2 (cohort inventory), Supp. Tables S1-S16 | `code/tables/build_tables.py` | — | `supplementary_tables/*.tsv` (e.g. `determinant_meta.tsv`, `panel_manifest_full.tsv`, `causal_status_*.tsv`, `determinant_{tost,modes,per_panel,completecase}.tsv`, `variance_partition.tsv`, `downsampling_sensitivity.tsv`, `drug_class_*.tsv`, `predictive_null*.tsv`, `tissue_pair_correlations.tsv`, `context_signatures.tsv`, `intervention_systemic_consensus.tsv`, `universal_reversible_core.tsv`, `causal_nominatable_universe.tsv`, `intrinsic_missingness.tsv`) |
 | Per-mark reproducibility atlas (Additional file 12) | — | `code/analysis/build_per_mark_atlas.py` | `supplementary_tables/per_mark_atlas.parquet` (903,025 mark x layer records; the 207 MB `.tsv` is not bundled and regenerates from this script) |
 
 `source_data/source_data_manifest.tsv` maps every panel to its file and both scripts.
