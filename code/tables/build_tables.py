@@ -108,16 +108,29 @@ write_sheet(wb,'S1 - universal core','Supplementary Table 1 | Universal cross-ti
 # ---------- Supp: drug-class correlations ----------
 dc=RD('drug_class_corr.tsv').copy()
 dc=dc[pd.notna(dc['rho'])][['a','b','n','rho','p','ca','cb']].copy()
-dc.columns=['Intervention A','Intervention B','n shared','Spearman ρ','P','Class A','Class B']
+# Carry the engine's OWN powered flag onto the sheet. The note used to say "powered pairs only, n>=30"
+# while the sheet filtered nothing: dapagliflozin x semaglutide (n=34, rho=+0.42) therefore sat at the
+# TOP of a rho-sorted sheet whose note said empagliflozin is the only adequately powered SGLT2-inhibitor
+# panel. The engine flags that pair powered_both=False and Figure 5 excludes it. Label, don't hide.
+_rec=RD('drug_class_reconciliation.tsv')[['pair_a','pair_b','powered_both']]
+_pw={}
+for r in _rec.itertuples(index=False):
+    _pw[frozenset((r.pair_a, r.pair_b))]=bool(r.powered_both)
+dc['powered']=[ ('Yes' if _pw.get(frozenset((a,b)), False) else 'No') for a,b in zip(dc['a'],dc['b']) ]
+dc=dc[['a','b','n','rho','p','ca','cb','powered']]
+dc.columns=['Intervention A','Intervention B','n shared','Spearman ρ','P','Class A','Class B','Powered (both panels)']
 dc['Spearman ρ']=dc['Spearman ρ'].round(3); dc['P']=dc['P'].apply(lambda x:f"{x:.1e}")
 dc=dc.sort_values('Spearman ρ',ascending=False)
 write_sheet(wb,'S2 - drug class','Supplementary Table 2 | Cross-intervention plasma-proteome reversal correlations',
-  'Pairwise Spearman of reversal effects across interventions (powered pairs only, n>=30). In these available powered plasma-proteome panels, semaglutide\'s reversal signature tracks the '
-  'magnitude of weight loss — bariatric surgery (+0.32, 95% CI +0.27 to +0.37, n=1,253) and diet (+0.31, +0.28 to +0.33, n=4,113) — but not empagliflozin (+0.05, -0.01 to +0.11, n=1,115, ns); '
-  'those differences are powered as contrasts (Fisher z = 6.8 and 7.8). Empagliflozin is the only adequately powered SGLT2-inhibitor panel, so no class-level claim is made from it, and the '
-  'within-pharmacotherapy pairs are too few (k=3 informative) to support an equivalence bound — an absence of class structure is NOT claimed. '
-  'Cross-platform >= same-platform => not a platform artifact. Source: results/drug_class_corr.tsv.',
-  dc,[16,16,10,12,12,12,12],center_cols={'n shared','Spearman ρ','P','Class A','Class B'})
+  'Pairwise Spearman of reversal effects across every intervention pair with an estimable correlation. ALL pairs are listed; the "Powered (both panels)" column carries the analysis\'s own '
+  'power flag, and only powered pairs enter Figure 5 and the inferences below. In the available powered plasma-proteome panels, semaglutide\'s reversal signature tracks the magnitude of weight '
+  'loss — bariatric surgery (+0.32, 95% CI +0.27 to +0.37, n=1,253) and diet (+0.31, +0.28 to +0.33, n=4,113) — but not empagliflozin (+0.05, -0.01 to +0.11, n=1,115, ns); those differences are '
+  'powered as contrasts (Fisher z = 6.8 and 7.8). NOT a claim that drug class is absent: the within-pharmacotherapy pairs are too few (k=3 informative) to support an equivalence bound, and this '
+  'sheet contains a counter-example that is unpowered but should be read rather than hidden — dapagliflozin x semaglutide (rho=+0.42, P=0.013) is the largest rho in the table, but rests on only '
+  '34 jointly measured proteins, is flagged not-powered, and is excluded from Figure 5; dapagliflozin is a corroboration-only panel (7-34 shared proteins across its pairs). Empagliflozin is the '
+  'only adequately powered SGLT2-inhibitor panel, so no SGLT2-class-level conclusion is drawn from either. '
+  'Cross-platform >= same-platform => not a platform artifact. Source: results/drug_class_corr.tsv; power flag from results/drug_class_reconciliation.tsv.',
+  dc,[16,16,10,12,12,12,12,15],center_cols={'n shared','Spearman ρ','P','Class A','Class B','Powered (both panels)'})
 
 # ---------- Supp: per-context reversibility atlas ----------
 at=RD('context_signatures.tsv').copy()
