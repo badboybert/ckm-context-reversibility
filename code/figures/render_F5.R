@@ -35,7 +35,9 @@ pb <- ggplot(pb_d, aes(rho, ylab)) +
   geom_vline(xintercept=0, linewidth=0.4, color="grey55") +
   geom_segment(aes(x=0, xend=rho, yend=ylab, color=class), linewidth=0.6) +
   geom_point(aes(color=class), size=2.4) +
-  geom_text(aes(label=ifelse(sig=="True"|sig==TRUE,"","ns")), nudge_x=0.024, size=2.0, color="grey45") +
+  # left-align the "ns" and clear the marker: at nudge_x=0.024 with the default hjust=0.5 the label's
+  # leading glyph sat on the point and was clipped by it (the same occlusion class as Fig 2a).
+  geom_text(aes(label=ifelse(sig=="True"|sig==TRUE,"","ns")), nudge_x=0.030, hjust=0, size=2.0, color="grey45") +
   scale_color_manual(values=CLS, guide="none") +
   scale_x_continuous(limits=c(-0.02,0.42), breaks=c(0,0.1,0.2,0.3,0.4)) +
   annotate("label", x=0.42, y=1.55, hjust=1, vjust=0.5, size=2.05, fill="white", linewidth=0, lineheight=0.95, color="grey25",

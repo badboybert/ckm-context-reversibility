@@ -37,17 +37,27 @@ m=RD('panel_manifest_full.tsv').copy()
 m['n_pairs']=m['n_pairs'].apply(lambda x:'—' if x is not None and x<0 else x)   # sig-only corroboration panels: n unknown
 m['contributes_to_score']=m['contributes_to_score'].map({True:'Y',False:'',1:'Y',0:''}).fillna('')
 m['persistence_eligible']=m['persistence_eligible'].map({True:'Y',False:'',1:'Y',0:''}).fillna('')
+# Determinant-eligibility routing (round-2 review asked which panels feed which analysis; the k=9/k=3
+# determinant contexts were previously enumerated only in the Methods). Derived, not hardcoded.
+_dp=RD('determinant_per_panel.tsv')
+_det={p: lay for p, lay in _dp.drop_duplicates('panel').set_index('panel')['layer'].items()}
+m['determinant']=m['panel'].map(lambda p: {'transcriptome':'Y (k=9)','proteome':'Y (k=3)'}.get(_det.get(p),''))
+assert (m['determinant']=='Y (k=9)').sum()==9 and (m['determinant']=='Y (k=3)').sum()==3, \
+    f"determinant routing mismatch: {m['determinant'].value_counts().to_dict()}"
 ed1=m[['panel','layer','platform','intervention','tissue','n_pairs','n_marks','sig_marks','sig_basis',
-       'bmi_axis','base_sd','role','status','contributes_to_score','persistence_eligible','note']].copy()
+       'bmi_axis','base_sd','role','status','contributes_to_score','persistence_eligible','determinant','note']].copy()
 ed1.columns=['Panel / accession','Layer','Platform','Intervention','Tissue','n (pairs)','n marks','Sig. marks',
-             'Sig. basis','BMI axis','Baseline SD','Role','Status','Scores','Persist.','Note']
+             'Sig. basis','BMI axis','Baseline SD','Role','Status','Scores','Persist.','Determinant','Note']
 ed1=ed1.sort_values(['Layer','Tissue','Panel / accession'])
 write_sheet(wb,'Table 2','Table 2 | Cohort and study-design inventory',
   'Every human intervention panel analysed (40 ANALYZED; 4 layers; 26 contribute to the reversibility score, 8 persistence-eligible). '
+  'The Role, Status, Scores, Persist., BMI axis and Determinant columns route each panel to the analyses it enters: Scores = contributes to the reversibility score; '
+  'Persist. = persistence-eligible; BMI axis = restoration-eligible (and the axis source); Determinant = enters the determinant meta-analysis, marked Y (k=9) for the '
+  'powered transcriptome contexts and Y (k=3) for the inconclusive plasma-proteome contexts. '
   'Proteome baseline SD = population-variance proxy (UKB-PPP/deCODE), caveated. GSE199063 = Affymetrix Clariom-D (AceView novel transcripts excluded from gene-level analyses). '
-  'Source: results/panel_manifest_full.tsv.',
-  ed1,[26,13,11,15,10,9,9,9,12,20,16,17,14,8,9,40],
-  center_cols={'Layer','Platform','n (pairs)','n marks','Sig. marks','Scores','Persist.'})
+  'Source: results/panel_manifest_full.tsv; results/determinant_per_panel.tsv.',
+  ed1,[26,13,11,15,10,9,9,9,12,20,16,17,14,8,9,12,40],
+  center_cols={'Layer','Platform','n (pairs)','n marks','Sig. marks','Scores','Persist.','Determinant'})
 
 # ---------- Table 2: determinant model ----------
 NAME={'loeuf':'Genetic constraint (LOEUF)','n_drug_log':'Druggability (log)','n_gwas_log':'GWAS burden (log)',
@@ -64,9 +74,15 @@ dm['τ²']=dm['tau2'].apply(lambda x:'0' if x==0 else f"{x:.2e}")
 dm['Cochran Q (df)']=dm.apply(lambda r:f"{r.Q:.2f} ({int(r.df)})",axis=1)
 dm['n genes (median)']=dm['n_genes_median'].astype(int)
 def _predicts(r):
-    if r['feature']=='causal_nonEGFR' and r['layer']=='transcriptome':
-        return 'underpowered rare-binary (see S14)'
-    if r['inconclusive']:
+    # A "no" verdict is only defensible where the interval can actually EXCLUDE a meaningful effect.
+    # Round-2 Critical: the proteome causal-status row read "no (|β| < 0.03)" on a CI of (-0.069, +0.089)
+    # and an MDE of 0.079 — i.e. it asserted a null the data cannot support, which is the same
+    # underpowered-null-as-equivalence error the paper corrects elsewhere. The verdict is therefore
+    # driven by CI containment within the ±0.05 SESOI, not by |β| alone.
+    if r['feature']=='causal_nonEGFR':
+        return 'underpowered rare-binary (see S14)'          # rare binary in EITHER layer
+    ci_lo, ci_hi = r.pooled_beta - r.ci_halfwidth, r.pooled_beta + r.ci_halfwidth
+    if r['inconclusive'] or ci_lo < -0.05 or ci_hi > 0.05:
         return 'inconclusive (underpowered)'
     return 'no (|β| < 0.03)' if abs(r.pooled_beta)<0.03 else 'small effect'
 dm['Predicts reversibility?']=dm.apply(_predicts,axis=1)
@@ -96,7 +112,10 @@ dc.columns=['Intervention A','Intervention B','n shared','Spearman ρ','P','Clas
 dc['Spearman ρ']=dc['Spearman ρ'].round(3); dc['P']=dc['P'].apply(lambda x:f"{x:.1e}")
 dc=dc.sort_values('Spearman ρ',ascending=False)
 write_sheet(wb,'S2 - drug class','Supplementary Table 2 | Cross-intervention plasma-proteome reversal correlations',
-  'Pairwise Spearman of reversal effects across interventions (powered pairs only, n>=30). Semaglutide tracks weight loss (surgery/diet), not drug class (SGLT2i ns). '
+  'Pairwise Spearman of reversal effects across interventions (powered pairs only, n>=30). In these available powered plasma-proteome panels, semaglutide\'s reversal signature tracks the '
+  'magnitude of weight loss — bariatric surgery (+0.32, 95% CI +0.27 to +0.37, n=1,253) and diet (+0.31, +0.28 to +0.33, n=4,113) — but not empagliflozin (+0.05, -0.01 to +0.11, n=1,115, ns); '
+  'those differences are powered as contrasts (Fisher z = 6.8 and 7.8). Empagliflozin is the only adequately powered SGLT2-inhibitor panel, so no class-level claim is made from it, and the '
+  'within-pharmacotherapy pairs are too few (k=3 informative) to support an equivalence bound — an absence of class structure is NOT claimed. '
   'Cross-platform >= same-platform => not a platform artifact. Source: results/drug_class_corr.tsv.',
   dc,[16,16,10,12,12,12,12],center_cols={'n shared','Spearman ρ','P','Class A','Class B'})
 
@@ -123,9 +142,13 @@ fa=_pd.read_csv(os.path.join(HERE,'..','figures','source_data','F6a_context_corr
 fb=_pd.read_csv(os.path.join(HERE,'..','figures','source_data','F6b_concordance.csv'))
 mat=fa.pivot(index='ctx_a',columns='ctx_b',values='rho').round(3).reset_index().rename(columns={'ctx_a':'Context'})
 write_sheet(wb,'S5 - context structure','Supplementary Table 5 | Reversibility is tissue-organized (context correlation + concordance)',
-  'Top: genome-wide rev_beta Spearman between the 4 powered transcriptome contexts (within-adipose +0.52, cross-tissue ~0). Source: results/cross_context_summary.txt.',
+  'Top: genome-wide rev_beta Spearman between the 4 powered transcriptome contexts, computed on the genes measured in BOTH contexts of each pair (within-adipose +0.52, cross-tissue ~0). '
+  'The lower block reports, per pair, that shared MEASURED universe (the denominator of the genome-wide rho) alongside the shared SIGNIFICANT count (the denominator of the directional concordance) — '
+  'the two are different numbers and are not interchangeable. Sources: results/cross_context_summary.txt; manuscript/figures/source_data/F6{a,b}_*.csv.',
   mat,[16,12,12,12,12],center_cols=set(mat.columns)-{'Context'})
-fb['concordance']=fb['concordance'].round(3); fb.columns=['Context pair','n shared sig','Directional concordance','Kind']
+fb['concordance']=fb['concordance'].round(3)
+fb=fb[['pair','n_measured_both','n_shared','concordance','kind']]
+fb.columns=['Context pair','n genes measured in both','n shared sig','Directional concordance','Kind']
 ws_cs=wb['S5 - context structure']; r0=4+len(mat)+2
 ws_cs.cell(r0,1,'Directional concordance (same- vs cross-tissue):').font=NOTE_FONT
 for j,col in enumerate(fb.columns,1):
@@ -403,6 +426,40 @@ for i,(_,row) in enumerate(cctx.iterrows(),r0+2):
     for j,col in enumerate(cctx.columns,1):
         c=ws15.cell(i,j,row[col]); c.font=BODY; c.alignment=LEFT if col=='Panel definition' else CENTER
 ws15.auto_filter.ref=None  # multi-block sheet
+
+# ---------- Supp: restoration uncertainty (round-2: CIs / binomial-permutation P for the 52-54% contexts) ----------
+ru=RD('restoration_uncertainty/restoration_uncertainty.tsv').copy()
+ru=ru.sort_values('pct_toward_lean',ascending=False)
+s16=pd.DataFrame({
+    'Context':ru['context'], 'Tissue':ru['tissue'], 'n marks':ru['n_marks'],
+    '% toward lean':ru['pct_toward_lean'].round(2),
+    '95% CI (Wilson)':ru.apply(lambda r:f"({r.wilson_ci_lo:.1f}, {r.wilson_ci_hi:.1f})",axis=1),
+    'P vs 50% (exact binomial)':ru['binom_p_vs_50'].map(_sci),
+    'Distinguishable from 50%':ru['sig_vs_50'].map(_yn),
+    'Marginal-conditioned baseline (%)':ru['chance_baseline_p0'].round(2),
+    'P vs that baseline (permutation)':ru['perm_p_vs_p0'].map(_sci),
+    'Same verdict under both baselines':ru['agrees_across_baselines'].map(_yn),
+    '% of reversal effects positive':ru['pct_rev_up'],
+    'Verdict changes if the panel is median-centred':ru['flips_on_centring'].map(_yn),
+})
+write_sheet(wb,'S16 - restoration uncertainty',
+  'Supplementary Table 16 | Uncertainty of the restoration (% toward lean) statistic, and why an interval on it is weak',
+  'The round-2 review asked, for the 52-54% contexts, for confidence intervals, binomial/permutation P values, or explicit "near-random" wording. All three are given here. '
+  'Exact binomial vs the 50% line (the manuscript\'s baseline): four contexts are NOT distinguishable from chance — MS bariatric (55%, P = 0.12), metformin (54%, P = 0.23), '
+  'empagliflozin/EMPEROR (52%, P = 0.31) and GSE273902 blood (51.5%, P = 0.10); all four are small-n plasma or blood panels, and all are marked with open circles in Fig. 4b. '
+  'A SECOND baseline is reported for robustness only: panels differ in the marginal sign balance of their reversal vector (90% of EMPEROR plasma proteins rise — the documented '
+  'plasma-volume-contraction effect of SGLT2 inhibition — versus 84% falling for metformin and 50% for semaglutide), so a random pairing against a sign-imbalanced BMI axis does not '
+  'yield 50% but p0 = P(bmi>0)P(rev<0) + P(bmi<0)P(rev>0), here 47.0-53.2% (closed form; confirmed against a 10,000-fold gene-label permutation to 0.02 pp). '
+  'p0 is a DIFFERENT ESTIMAND, not a correction to 50%: P(rev>0) is post-treatment and not ancillary, so conditioning on it conditions away part of a genuine global restorative shift. '
+  'Only verdicts agreeing under both baselines are relied on; the two that disagree (metformin, blood) are marked and no claim rests on them. Empagliflozin is not distinguishable from '
+  'chance under the 50% line (P = 0.31), under p0 (P = 0.20), or after median-centring (P = 0.09) — the one baseline-independent conclusion among the near-chance contexts. '
+  'CAVEAT ON THE INSTRUMENT ITSELF: a binomial interval treats marks as independent replicates, which they are not, and the relevant replication unit is the subject, not the mark; '
+  'a gene-label permutation cannot repair this because it randomises gene identity, so inter-mark correlation cannot enter its null by construction '
+  '(its SD is deterministic given the margins, perm_SD/binom_SD = 4*sqrt(a(1-a)b(1-b))). A correlation-respecting interval would require subject-level resampling, which these '
+  'published per-mark summary panels do not permit. The percentages therefore anchor to the canonical engines (max |delta| 0.43 pp) but are reported with "near-random" wording '
+  'rather than as precisely-bounded estimates. Source: results/restoration_uncertainty/restoration_uncertainty.tsv (src/restoration_uncertainty.py).',
+  s16,[26,10,9,13,16,20,16,20,20,20,16,20],
+  center_cols=set(s16.columns)-{'Context'})
 
 wb.properties.creator='Bertrand Chin-Ming Tan'; wb.properties.lastModifiedBy='Bertrand Chin-Ming Tan'
 wb.save(os.path.join(HERE,'Paper_B_Tables.xlsx'))

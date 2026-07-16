@@ -24,17 +24,36 @@ summ=pd.DataFrame({'layer':['proteome','metabolome'],
                    'pct_restorative':[100*pro.restorative.mean(),100*met.restorative.mean()]})
 summ.to_csv(os.path.join(OUT,'F4a_summary.csv'),index=False)
 
-# b) %toward-lean per context (verified values: proteome Part C; adipose Part C; liver/blood restoration_liver_blood.txt)
+# b) %toward-lean per context. Values transcribed from the canonical engines:
+#   plasma + adipose -> results/restoration_persistence_revisit.txt PART C (printed to 0 dp)
+#   liver + blood    -> results/restoration_liver_blood.txt (printed to 1 dp: 53.2 / 54.4 / 51.5)
+# NB blood is 51.5 (canonical 51.47%), NOT 52 — it had been double-rounded up (51.5 -> 52), which
+# nudged the one near-chance context the round-2 review asked about away from the 50% line.
 ctx=[ # context, tissue, intervention, pct_toward_lean, weight-loss tier (for ordering/shading)
  ('DiRECT','plasma','diet',63,'high'),('BBS','plasma','surgery',59,'high'),
  ('semaglutide','plasma','GLP-1RA',57,'mod'),('MS bariatric','plasma','surgery',55,'high'),
  ('metformin','plasma','drug',54,'low'),('EMPEROR','plasma','SGLT2i',52,'low'),
  ('RYGB','adipose','surgery',68,'high'),('CR','adipose','diet',57,'high'),
  ('diet','adipose','diet',54,'mod'),('LCD','adipose','diet',52,'mod'),
- ('GSE83452','liver','diet+surgery',53,'high'),('GSE106737','liver','surgery',54,'high'),
- ('GSE273902','blood','surgery',52,'high')]
-pd.DataFrame(ctx,columns=['context','tissue','intervention','pct_toward_lean','wl_tier']).to_csv(
-    os.path.join(OUT,'F4b_pct_toward_lean.csv'),index=False)
+ ('GSE83452','liver','diet+surgery',53.2,'high'),('GSE106737','liver','surgery',54.4,'high'),
+ ('GSE273902','blood','surgery',51.5,'high')]
+_b=pd.DataFrame(ctx,columns=['context','tissue','intervention','pct_toward_lean','wl_tier'])
+# Round-2 review (Figure 4 row): "mark near-chance contexts". ns_vs_chance flags the contexts whose
+# restoration is NOT distinguishable from the 50% chance line on an exact binomial test — all four are
+# the small-n plasma/blood panels. Source: results/restoration_uncertainty/restoration_uncertainty.tsv
+# (binom_p_vs_50): MS bariatric 0.124, metformin 0.225, empagliflozin/EMPEROR 0.314, GSE273902 0.101;
+# every other context has P < 1e-3. Read from the engine so the flag cannot drift from its evidence.
+_u=pd.read_csv(os.path.join(SIG,'results','restoration_uncertainty','restoration_uncertainty.tsv'),sep='\t')
+_KEY={'DiRECT':'DiRECT (plasma)','BBS':'By-Band-Sleeve (plasma)','semaglutide':'semaglutide (plasma)',
+      'MS bariatric':'MS bariatric (plasma)','metformin':'metformin (plasma)','EMPEROR':'empagliflozin (plasma)',
+      'RYGB':'RYGB (adipose)','CR':'CR (adipose)','diet':'diet GSE77962 (adipose)','LCD':'LCD DiOGenes (adipose)',
+      'GSE83452':'GSE83452 (liver)','GSE106737':'GSE106737 (liver)','GSE273902':'GSE273902 (blood)'}
+_p=_u.set_index('context')['binom_p_vs_50'].to_dict()
+_b['binom_p_vs_50']=_b['context'].map(lambda c:_p[_KEY[c]])
+_b['ns_vs_chance']=_b['binom_p_vs_50']>=0.05
+assert set(_b.loc[_b.ns_vs_chance,'context'])=={'MS bariatric','metformin','EMPEROR','GSE273902'}, \
+    f"ns set changed: {sorted(_b.loc[_b.ns_vs_chance,'context'])}"
+_b.to_csv(os.path.join(OUT,'F4b_pct_toward_lean.csv'),index=False)
 
 # c) durability: adipose 2yr vs 5yr (RYGB), CANONICAL genes only.
 # GSE199063 = Affymetrix Clariom-D (GPL23126); ~32% of probes carry AceView novel-transcript names

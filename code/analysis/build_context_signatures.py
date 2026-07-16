@@ -21,7 +21,7 @@ CTX=[('transcriptome','liver','diet+surgery','data/transcriptome/liver_reversal_
      ('transcriptome','blood','bariatric-surgery','data/transcriptome/gse273902_blood_reversal_table.tsv'),
      ('proteome','plasma','bariatric','data/proteome/reversal_olink_bbs.tsv'),
      ('proteome','plasma','diet','data/proteome/reversal_somascan_direct.tsv'),
-     ('proteome','plasma','SGLT2i','data/proteome/reversal_emperor.tsv')]
+     ('proteome','plasma','empagliflozin','data/proteome/reversal_emperor.tsv')]
 rows=[]; tops={}
 for layer,tissue,lever,f in CTX:
     d=pd.read_csv(P(f),sep='\t'); cols=list(d.columns)

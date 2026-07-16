@@ -27,13 +27,22 @@ pb_d <- rd("F4b_pct_toward_lean.csv")
 pb_d$tissue <- factor(pb_d$tissue, levels=names(TIS))
 pb_d$lab <- sprintf("%s (%s)", pb_d$context, pb_d$tissue)
 pb_d <- pb_d[order(pb_d$pct_toward_lean),]; pb_d$lab <- factor(pb_d$lab, levels=pb_d$lab)
+# open circles = NOT distinguishable from the 50% chance line (exact binomial P >= 0.05) — the
+# round-2 review asked for the near-chance contexts to be marked.
+pb_d$ns <- as.logical(pb_d$ns_vs_chance)
 pb <- ggplot(pb_d, aes(pct_toward_lean, lab, color=tissue)) +
   geom_vline(xintercept=50, linetype="dashed", linewidth=0.4, color="grey40") +
   geom_segment(aes(x=50, xend=pct_toward_lean, yend=lab), linewidth=0.5) +
-  geom_point(size=2) +
+  geom_point(aes(shape=ns, fill=ns), size=2, stroke=0.7) +
   scale_color_manual(values=TIS, name=NULL) +
+  scale_shape_manual(values=c(`FALSE`=16, `TRUE`=21), guide="none") +
+  scale_fill_manual(values=c(`FALSE`=NA, `TRUE`="white"), guide="none") +
   scale_x_continuous(limits=c(48,70), breaks=c(50,55,60,65,70)) +
   annotate("text", x=50, y=0.4, label="chance", size=2.1, color="grey35", fontface="italic", vjust=0) +
+  # placed mid-right: rows 5-8 all end below 55%, and the tissue legend occupies the bottom-right
+  # (inside c(0.74,0.04)) — anchoring here keeps the note clear of both the data and the legend.
+  annotate("text", x=69.6, y=6.9, label="open = not distinguishable\nfrom chance (P ≥ 0.05)",
+           size=1.95, color="grey35", fontface="italic", hjust=1, vjust=0.5, lineheight=0.95) +
   labs(x="% of marks moving toward lean", y=NULL) +
   theme(axis.text.y=element_text(size=9),
         legend.position="inside", legend.position.inside=c(0.74,0.04), legend.justification=c(0,0),

@@ -17,15 +17,27 @@ NAME <- c(loeuf="LOEUF", n_drug_log="druggability", n_gwas_log="GWAS burden",
 mde <- median(dt$mde)
 ebh <- function(...) geom_errorbar(..., orientation="y", width=0)   # horizontal error bar (ggplot2 4.0)
 
-# a) determinant forest (uniform — no feature is a determinant)
-dt2 <- dt[order(dt$pooled_beta),]; dt2$lab <- factor(NAME[dt2$feature], levels=NAME[dt2$feature])
+# a) determinant forest. The round-2 review asked (twice) that the RARE-BINARY genetic causal status
+#    be visually separated from the continuous features: its standardized coefficient is compressed
+#    ~50x by SD_x ~ 0.020 (9 of ~18,600 transcripts), so it is not on the same footing as the others
+#    and must not read as "another equivalent-to-zero feature". It is therefore sorted to the bottom,
+#    drawn as an OPEN point, separated by a rule, and labelled with its n. Panel b gives its raw scale.
+dt$is_rare_binary <- dt$feature == "causal_nonEGFR"
+dt2 <- dt[order(dt$is_rare_binary, dt$pooled_beta, decreasing=c(TRUE, FALSE), method="radix"),]
+dt2$lab <- ifelse(dt2$is_rare_binary, "causal status\n(rare binary, n=9)", NAME[dt2$feature])
+dt2$lab <- factor(dt2$lab, levels=dt2$lab)
+y_sep <- sum(dt2$is_rare_binary) + 0.5          # rule between the binary and the continuous block
 pa <- ggplot(dt2, aes(pooled_beta, lab)) +
   annotate("rect", xmin=-mde, xmax=mde, ymin=-Inf, ymax=Inf, fill=BAND) +
   geom_vline(xintercept=0, linewidth=0.4) +
+  geom_hline(yintercept=y_sep, linetype="dotted", linewidth=0.4, color="grey45") +
   ebh(aes(xmin=pooled_beta-ci_halfwidth, xmax=pooled_beta+ci_halfwidth), color=NEU, linewidth=0.5) +
-  geom_point(color=TXN, size=1.6) +
+  geom_point(aes(shape=is_rare_binary), color=TXN, fill="white", size=1.6, stroke=0.6) +
+  scale_shape_manual(values=c(`FALSE`=16, `TRUE`=21), guide="none") +
   scale_x_continuous(limits=c(-0.08,0.08), breaks=c(-0.05,0,0.05)) +
-  annotate("text", x=0.078, y=1.4, label="all |β| < 0.029", hjust=1, size=2.3, fontface="italic") +
+  annotate("text", x=0.078, y=2.4, label="all continuous |β| < 0.029", hjust=1, size=2.3, fontface="italic") +
+  annotate("text", x=0.078, y=0.62, label="compressed — see b", hjust=1, size=2.1,
+           fontface="italic", color="grey35") +
   labs(x="pooled standardized β", y=NULL)
 
 # b) causal status on the RAW / interpretable scale — the standardized coef in (a) is

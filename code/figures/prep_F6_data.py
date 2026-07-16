@@ -18,22 +18,26 @@ for k,f in PAN.items():
     D[k]=d.set_index('mark_id')['rev_beta']; SIG_[k]=set(d[d.rev_q<0.05]['mark_id'])
 ctxs=list(PAN)
 
-# a) rev_beta Spearman matrix
+# a) rev_beta Spearman matrix. n_measured_both = the shared MEASURED universe each rho is computed on
+# (the denominator; round-2 review asked for it explicitly alongside the shared SIGNIFICANT count in b).
 rows=[]
 for a in ctxs:
     for b in ctxs:
         sh=list(set(D[a].index)&set(D[b].index))
-        rows.append({'ctx_a':a,'ctx_b':b,'rho':stats.spearmanr(D[a][sh],D[b][sh]).correlation})
+        rows.append({'ctx_a':a,'ctx_b':b,'rho':stats.spearmanr(D[a][sh],D[b][sh]).correlation,
+                     'n_measured_both':len(sh)})
 pd.DataFrame(rows).to_csv(os.path.join(OUT,'F6a_context_corr.csv'),index=False)
 
-# b) directional concordance, same- vs cross-tissue
+# b) directional concordance, same- vs cross-tissue. n_shared = shared SIGNIFICANT genes (the concordance
+# denominator); n_measured_both = shared MEASURED genes (the rho denominator) — the two are different.
 crows=[]
 for a,b in itertools.combinations(ctxs,2):
     sh=list(SIG_[a]&SIG_[b])
     if sh:
         conc=float((np.sign(D[a][sh])==np.sign(D[b][sh])).mean())
         crows.append({'pair':f'{a} × {b}','n_shared':len(sh),'concordance':conc,
-                      'kind':'same tissue' if TIS[a]==TIS[b] else 'cross tissue'})
+                      'kind':'same tissue' if TIS[a]==TIS[b] else 'cross tissue',
+                      'n_measured_both':len(set(D[a].index)&set(D[b].index))})
 pd.DataFrame(crows).to_csv(os.path.join(OUT,'F6b_concordance.csv'),index=False)
 
 # c) exemplar genes: objective context-specificity selection (measured in >=3 contexts).
