@@ -35,7 +35,7 @@ README_V5 = """# Submission package v11 - Genome Medicine
 | Folder | Files |
 |---|---|
 | `01_manuscript/` | `MANUSCRIPT.docx` (integrated Genome Medicine format: Abstract -> Keywords -> Background -> **Methods** -> Results -> Discussion -> Conclusions -> List of abbreviations -> Declarations -> References -> Figures/Tables/Additional-file legends; 6 main figures embedded), `MANUSCRIPT.md` |
-| `02_cover_declarations/` | `COVER_LETTER_AND_TITLE_PAGE` (Genome-Medicine-addressed), `DECLARATIONS` (8-item GM order) |
+| `02_cover_declarations/` | `COVER_LETTER_ONLY.docx` — **upload this one into the portal's cover-letter field**; `COVER_LETTER_AND_TITLE_PAGE` (same letter plus a title page, for filling the portal's author/affiliation fields); `DECLARATIONS` (8-item GM order) |
 | `03_main_figures/` | `Figure_1`-`Figure_6` (PDF + PNG) |
 | `05_additional_files/` | **Additional files 1-6** = Figures S1-S6 (former Extended Data figures; PDF + PNG); **Additional file 7** = the supplementary-table workbook (`Table 2 - full registry` + S1-S16; main Tables 1-2 are Word tables in the manuscript); **Additional file 8** = STROBE-MR reporting checklist; **Additional files 9-11** = new Figures S7-S9 (PDF + PNG). The per-mark atlas is NOT an additional file: at 35.81 MiB it is over the 20 MB limit and is deposited with the code under the Zenodo DOI |
 | `06_source_data/` | per-panel machine-readable CSVs (one per plotted panel) + `causal_status_effect.tsv` (source for Supplementary Table 14) + manifest + provenance |
@@ -68,6 +68,8 @@ _checks = [
     (os.path.join(MAN, "MANUSCRIPT_GM.docx"), [os.path.join(MAN, "MANUSCRIPT_GM.md")]),
     (os.path.join(MAN, "DECLARATIONS_GM.docx"), [os.path.join(MAN, "DECLARATIONS_GM.md")]),
     (os.path.join(MAN, "COVER_LETTER_GM.docx"), [os.path.join(MAN, "COVER_LETTER_GM.md")]),
+    (os.path.join(MAN, "COVER_LETTER_ONLY.md"), [os.path.join(MAN, "COVER_LETTER_GM.md")]),
+    (os.path.join(MAN, "COVER_LETTER_ONLY.docx"), [os.path.join(MAN, "COVER_LETTER_ONLY.md")]),
     (os.path.join(MAN, "STROBE_MR_CHECKLIST_GM.docx"), [os.path.join(MAN, "STROBE_MR_CHECKLIST_GM.md")]),
 ] + [(os.path.join(FIG, f"Figure_{n}.png"), [os.path.join(FIG, f"render_F{n}.R")]) for n in range(1, 7)] \
   + [(os.path.join(FIG, f"Figure_ED{n}.png"), [os.path.join(FIG, f"render_ED{n}.R")]) for n in range(1, 7)] \
@@ -89,6 +91,10 @@ cp(os.path.join(MAN,"MANUSCRIPT_GM.md"),   "01_manuscript/MANUSCRIPT.md")
 for f,dst in [("COVER_LETTER_GM","COVER_LETTER_AND_TITLE_PAGE"),("DECLARATIONS_GM","DECLARATIONS")]:
     cp(os.path.join(MAN,f+".docx"), f"02_cover_declarations/{dst}.docx")
     cp(os.path.join(MAN,f+".md"),   f"02_cover_declarations/{dst}.md")
+# Letter-only version for the portal's cover-letter field: the combined file appends a title page the
+# manuscript already carries in full, so uploading it makes the editor read a duplicate before the
+# letter. Derived from the same .md by manuscript/split_cover_letter.py, so the two cannot diverge.
+cp(os.path.join(MAN,"COVER_LETTER_ONLY.docx"), "02_cover_declarations/COVER_LETTER_ONLY.docx")
 # 03 main figures
 for n in range(1,7):
     for e in ("png","pdf"): cp(os.path.join(FIG,f"Figure_{n}.{e}"), f"03_main_figures/Figure_{n}.{e}")
