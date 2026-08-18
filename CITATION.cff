@@ -3,6 +3,7 @@ message: "If you use this code or data, please cite both the manuscript and this
 title: "Analysis code and frozen source data for: A multi-omic atlas reveals context-dependent molecular reversibility after weight loss and cardiometabolic intervention"
 type: software
 version: "1.0"
+doi: 10.5281/zenodo.21988803
 license: MIT
 authors:
   - family-names: Hsueh

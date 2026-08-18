@@ -106,4 +106,4 @@ public dataset to re-run from scratch, but no such data are copied into this rep
 
 Code released under the MIT License (see `LICENSE`). If you use this code or data, please cite the
 manuscript (Genome Medicine, 2026; citation to be added on publication) and this archived software
-release (Zenodo DOI to be added on release — see `.zenodo.json` and `CITATION.cff`).
+release: Zenodo **doi:10.5281/zenodo.21988803** (concept DOI — always resolves to the latest version; this release v1.0 is doi:10.5281/zenodo.21988804).
