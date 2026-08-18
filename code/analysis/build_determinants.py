@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 """build_determinants.py v2 — what mark-intrinsic property predicts reversibility?
-REVISED 2026-06-22 after adversarial verification wf_60910a19 (power=MAJOR, confound=SOUND_WITH_FIXES,
-interp=MAJOR). Fixes applied:
+REVISED 2026-06-22. Fixes applied:
   (1) FULL-GENE-SET refit (v1 BUG: inner-merge to eQTL-annotated local table used only 5-6% of genes,
       selected on annotation). Now: left-join all features onto EVERY panel gene; missingness indicators;
       architecture missing -> 0 + has_arch flag. PER-PANEL betas (n~14k) are the PRIMARY, well-powered object.

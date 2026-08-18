@@ -1,7 +1,7 @@
 # render_ED1.R — Extended Data 1: reversibility-score validity.
 # (a) per-layer Z distributions (folded magnitude); (b) biology face-validity (signed Z); (c) not a measurability proxy.
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-source("C:/Users/Bert/Downloads/CKM papers/paper 3.eas/analysis/tools/theme_publication_ckm.R")
+source("theme_publication_ckm.R")  # bundled alongside this script
 set_publication_defaults_ckm()
 SD <- "source_data"; rd <- function(p) read.csv(file.path(SD, p), stringsAsFactors=FALSE)
 PRO<-"#0072B2"; TXN<-"#009E73"; METAB<-"#CC79A7"; METH<-"#D55E00"; UP<-"#B2182B"; DN<-"#2166AC"; NEU<-"#333333"
@@ -44,7 +44,7 @@ pc <- ggplot(mc, aes(meas_mean, Z_responsiveness)) +
   geom_point(size=0.4, alpha=0.18, color=TXN) +
   geom_smooth(method="lm", se=FALSE, color="black", linewidth=0.5, formula=y~x) +
   scale_y_continuous(limits=c(0,4)) +
-  annotate("label", x=Inf, y=4, hjust=1, vjust=1, size=2.3, fill="white", linewidth=0,
+  annotate("label", x=Inf, y=4, hjust=1, vjust=1, size=2.8, fill="white", linewidth=0,
            label=sprintf("ρ = %+.2f  (n=%s)", cc$corr[1], format(cc$n[1],big.mark=","))) +
   labs(x="measurability (mean logCPM)", y="responsiveness Z")
 

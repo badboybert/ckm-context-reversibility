@@ -1,4 +1,4 @@
-# A multi-omic atlas of weight-loss molecular reversibility: context, not molecular identity (CKM)
+# A multi-omic atlas of context-dependent molecular reversibility after weight loss and cardiometabolic intervention (CKM)
 
 > Code and summary-level source data for a multi-omic atlas of molecular reversibility across 40 human
 > weight-loss and cardiometabolic-intervention panels (proteome, transcriptome, methylome, metabolome),
@@ -7,9 +7,9 @@
 
 Analysis code and frozen source data for:
 
-> **A multi-omic atlas defines context, not molecular identity, as the determinant of weight-loss reversibility.**
+> **A multi-omic atlas reveals context-dependent molecular reversibility after weight loss and cardiometabolic intervention.**
 
-The study asks whether the reversibility of an obesity-associated molecular mark with weight loss is an intrinsic property of the mark or a property of its biological context. Across a 40-panel human multi-omic intervention atlas (plasma/serum proteome, tissue transcriptome, blood/tissue methylome, serum metabolome; four tissues and plasma; six intervention types), each mark is summarized into a per-mark reversibility score and regressed on mark-intrinsic features (genetic constraint, druggability, disease-association burden, cis-regulatory architecture, tissue-specificity and genetically nominated causal status) and against contextual determinants (tissue, intervention, molecular layer). The powered transcriptome determinant analysis finds no continuous mark-intrinsic feature predicts a practically meaningful amount of reversibility; genetically nominated causal status is reported on the interpretable raw scale as an underpowered contrast. Reversibility is instead organized by shared biological context, is reproducible within and across cohorts, restores toward the lean state in proportion to weight loss, and is durable where it occurs.
+The study asks whether the reversibility of an obesity-associated molecular mark with weight loss is an intrinsic property of the mark or a property of its biological context. Across a 40-panel human multi-omic intervention atlas (plasma/serum proteome, tissue transcriptome, blood/tissue methylome, serum metabolome; four tissues and plasma; six intervention types), each mark is summarized into a per-mark reversibility score and regressed on mark-intrinsic features (genetic constraint, druggability, disease-association burden, cis-regulatory architecture, tissue-specificity and genetically nominated causal status) and against contextual determinants (tissue, intervention, molecular layer). The powered transcriptome determinant analysis finds no continuous mark-intrinsic feature predicts a practically meaningful amount of reversibility; genetically nominated causal status is reported on the interpretable raw scale as an underpowered contrast. Reversibility is instead organized by shared biological context, is reproducible within and across cohorts, restores toward the lean state in an ordering that tracks weight-loss magnitude (Spearman +0.80 vs weight-loss tier, P = 0.055 — an ordering, not an estimated dose-response), and is durable where measured over the long term.
 
 ## Repository layout
 
@@ -78,7 +78,8 @@ repositories and published per-feature effect estimates (accessions as stated in
 
 - **Transcriptome (GEO):** GSE84046, GSE141221, GSE77962, GSE43471, GSE199063, GSE70529, GSE107894,
   GSE224310 (subcutaneous adipose); GSE83452, GSE106737, GSE48452 (liver); GSE83352, GSE157585,
-  GSE161643, GSE60590 (skeletal muscle); GSE273902, GSE28358, GSE193771, GSE310742 (whole blood/PBMC).
+  GSE161643, GSE60590 (skeletal muscle); GSE273902, GSE193771 (whole blood); GSE28358 (PBMC);
+  GSE310742 (neutrophils isolated from peripheral blood).
   GSE117070 was excluded from signed analyses (batch-inverted directionality) and GSE114763 was retained
   only as a labelled epigenetic-memory (detraining) comparator.
 - **DNA methylation (GEO):** GSE171140, GSE193730, GSE60655 (skeletal-muscle methylation series,
@@ -105,5 +106,4 @@ public dataset to re-run from scratch, but no such data are copied into this rep
 
 Code released under the MIT License (see `LICENSE`). If you use this code or data, please cite the
 manuscript (Genome Medicine, 2026; citation to be added on publication) and this archived software
-release (Zenodo DOI to be added on release — see `.zenodo.json`, `CITATION.cff`, and
-`../SETUP_GITHUB_ZENODO.md`).
+release (Zenodo DOI to be added on release — see `.zenodo.json` and `CITATION.cff`).

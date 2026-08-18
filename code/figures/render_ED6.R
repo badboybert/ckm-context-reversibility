@@ -1,7 +1,7 @@
 # render_ED6.R — Extended Data 6: intervention classes share a reversible core by signature OVERLAP,
 # with NO within-class privilege (fold-enrichment, orthogonal to F5e correlation).
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-source("C:/Users/Bert/Downloads/CKM papers/paper 3.eas/analysis/tools/theme_publication_ckm.R")
+source("theme_publication_ckm.R")  # bundled alongside this script
 set_publication_defaults_ckm()
 SD <- "source_data"; rd <- function(p) read.csv(file.path(SD, p), stringsAsFactors=FALSE)
 TXN<-"#009E73"; UP<-"#B2182B"; DN<-"#2166AC"; NEU<-"#333333"
@@ -12,10 +12,10 @@ cm$hl <- cm$classpair=="within-DRUG"
 pa <- ggplot(cm, aes(mean_fold, classpair, fill=hl)) +
   geom_vline(xintercept=1, linetype="dashed", linewidth=0.4, color="grey45") +
   geom_col(width=0.62, color="black", linewidth=0.2) +
-  geom_text(aes(label=sprintf("%.2f×", mean_fold)), hjust=-0.2, size=2.2) +
+  geom_text(aes(label=sprintf("%.2f×", mean_fold)), hjust=-0.2, size=2.8) +
   scale_fill_manual(values=c(`TRUE`=UP, `FALSE`="grey65"), guide="none") +
   scale_x_continuous(limits=c(0,1.6), breaks=c(0,0.5,1,1.5)) +
-  annotate("text", x=1, y=0.45, label="chance", size=2.0, color="grey35", fontface="italic", hjust=1, vjust=0) +
+  annotate("text", x=1, y=0.45, label="chance", size=2.8, color="grey35", fontface="italic", hjust=1, vjust=0) +
   labs(x="mean sig-set fold-enrichment", y=NULL) +
   theme(axis.text.y=element_text(size=7.5))
 
@@ -33,7 +33,7 @@ pb <- ggplot(pp, aes(fold, lab, color=grp)) +
   scale_color_manual(values=c("within-DRUG"=UP, "cross-class (weight-loss)"=TXN,
                               "within-SURGERY"="grey55", "other"="grey75"), name=NULL) +
   # upper limit must cover the largest fold (empagliflozin×MS_bariatric = 1.84): the old
-  # limits=c(0.7,1.6) silently dropped that pair, so only 16 of the 17 powered pairs plotted.
+  # limits=c(0.7,1.6) silently dropped that pair, so only 16 of the 17 overlap-eligible pairs plotted.
   scale_x_continuous(limits=c(0.7,1.95), breaks=c(0.8,1.0,1.2,1.4,1.6,1.8)) +
   # (in-plot callout REMOVED: the legend already states "the within-DRUG pair metformin ×
   #  empagliflozin was depleted at 0.79-fold — fewer shared significant reversers than chance",

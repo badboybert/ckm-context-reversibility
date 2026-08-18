@@ -1,0 +1,4 @@
+"term","unique_R2","perm_p_unique","unique_R2_jack_min","unique_R2_jack_max"
+"same_tissue",0.132459,0.000149993,0.093299,0.216531
+"same_platform",0.000105382,0.881956,1.67924e-06,0.0104681
+"same_intervention_family",0.151765,4.99975e-05,0.0979006,0.173679

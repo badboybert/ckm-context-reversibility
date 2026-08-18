@@ -22,7 +22,7 @@ comp=[('BBS','surgery','cross'),('DiRECT','diet','same'),('MS_bariatric','surger
 rows=[]
 for c,cls,plat in comp:
     rho,p,n=get('semaglutide',c)
-    rows.append({'comparator':{'MS_bariatric':'MS bariatric','empagliflozin':'SGLT2i','metformin':'metformin'}.get(c,c),
+    rows.append({'comparator':{'MS_bariatric':'MS bariatric','empagliflozin':'empagliflozin','metformin':'metformin'}.get(c,c),
                  'class':cls,'platform':plat,'rho':rho,'p':p,'n':n,'sig':p<0.05})
 pd.DataFrame(rows).to_csv(os.path.join(OUT,'F5b_semaglutide_corr.csv'),index=False)
 # platform control (from drug_class_robustness): same +0.128 (k=8) vs cross +0.146 (k=11)
@@ -31,7 +31,7 @@ pd.DataFrame([{'platform':'same','mean_rho':0.128,'k':8},{'platform':'cross','me
 
 # c) layered plasma core: marker x intervention direction grid (rev_beta sign; direction-only harmonization)
 panels={'surgery\n(BBS)':'reversal_olink_bbs.tsv','diet\n(DiRECT)':'reversal_somascan_direct.tsv',
-        'SGLT2i\n(EMPEROR)':'reversal_emperor.tsv','metformin':'nowak_metformin_proteome_reversal.tsv',
+        'empagliflozin\n(EMPEROR)':'reversal_emperor.tsv','metformin':'nowak_metformin_proteome_reversal.tsv',
         'sema-\nglutide':'step_semaglutide_proteome_reversal.tsv'}
 markers={'P08833':'IGFBP1','P18065':'IGFBP2','P05231':'IL6','P41159':'LEP','P02786':'TFRC'}  # GDF15 omitted (guard: diet timepoint-confound)
 grid=[]
@@ -47,7 +47,7 @@ pd.DataFrame(grid).to_csv(os.path.join(OUT,'F5c_layered_core.csv'),index=False)
 # e) intervention-pair reversal-correlation matrix (surgery/diet agree; drugs disagree)
 IVN=['BBS','MS_bariatric','DiRECT','semaglutide','metformin','empagliflozin']  # powered set (n>=30 pairs)
 LAB={'BBS':'BBS (surg)','MS_bariatric':'MS (surg)','DiRECT':'DiRECT (diet)','semaglutide':'sema',
-     'metformin':'metformin','empagliflozin':'SGLT2i'}
+     'metformin':'metformin','empagliflozin':'empagliflozin'}
 def getrho(a,b):
     if a==b: return 1.0
     r=dc[((dc.a==a)&(dc.b==b))|((dc.a==b)&(dc.b==a))]
@@ -66,8 +66,13 @@ dd.to_csv(os.path.join(OUT,'F5d_dissociation_magnitude.csv'),index=False)
 pd.DataFrame([{'resembles_surgery_no_remission':float(bo['spearman_no_remission_vs_no_diabetes']),
               'resembles_surgery_remission':float(bo['spearman_remission_vs_no_diabetes']),
               'boot_ci_lo':float(bo['boot_diff_ci_lo']),'boot_ci_hi':float(bo['boot_diff_ci_hi']),
-              'boot_diff_mean':float(bo['boot_diff_mean']),'point_diff':float(bo['diff_nor_minus_rem_point'])}]
+              'boot_diff_mean':float(bo['boot_diff_mean']),'point_diff':float(bo['diff_nor_minus_rem_point']),
+              'med_no_remission':float(hd.set_index('stratum').loc['no_remission','median_abs_sig05']),
+              'med_remission':float(hd.set_index('stratum').loc['remission','median_abs_sig05'])}]
             ).to_csv(os.path.join(OUT,'F5d_dissociation_stats.csv'),index=False)
+# leave-one-subject-out difference estimates (leverage robustness; all positive) for the F5d spread
+R('responder_dissociation_loso.tsv')[['which','subject','diff_nor_minus_rem']].to_csv(
+    os.path.join(OUT,'F5d_loso.csv'),index=False)
 print('F5 source data written.')
 print(' intervention systemic:', dict(zip(iv.intervention, iv.n_systemic_consensus)))
 print(' sema corr:', [(r['comparator'],round(r['rho'],2)) for r in rows])

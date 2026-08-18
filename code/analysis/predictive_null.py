@@ -178,7 +178,7 @@ pc=np.nanmean(R['within_spearman'])
 print('\nPositive control learnable signal?', 'YES' if pc>0.02 else 'NO',
       f'(within-context CV Spearman mean={pc:+.3f})')
 
-# ===== ABLATION (verifier must-fix wf_20edb96f): is the cross-context binary LOCO AUC detectability or intrinsic biology? =====
+# ===== ABLATION: is the cross-context binary LOCO AUC detectability or intrinsic biology? =====
 INTR =[i for i,f in enumerate(feat_union) if f not in MEAS]   # intrinsic-only (drop measurability)
 MEASI=[i for i,f in enumerate(feat_union) if f in MEAS]       # measurability-only
 def loco_auc_cols(held,cols):

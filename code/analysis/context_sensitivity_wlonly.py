@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """context_sensitivity_wlonly.py — TRUE-WEIGHT-LOSS-ONLY sensitivity for the CONTEXT claim
 (tissue-governor + tissue/intervention variance partition). Companion to
-determinant_sensitivity_wlonly.py; same reviewer request (ROUND2_TRIAGE 2A-b).
+determinant_sensitivity_wlonly.py.
 
 STANDALONE. Reuses the crosswalk + factor definitions from variance_partition.py VERBATIM,
 reads results/tissue_pair_correlations.tsv + panel_manifest_full.tsv read-only, and writes NEW

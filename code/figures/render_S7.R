@@ -1,15 +1,15 @@
 # render_S7.R — Supplementary Fig. S7 (provisional; final number reconciled at repackage)
-# DRUG-CLASS RECONCILIATION (review §3.6/§125; workstream B1).
+# DRUG-CLASS RECONCILIATION.
 # Two complementary metrics per powered intervention pair, side by side:
 #   left  = effect-size Spearman rho over jointly-measured proteins (ref 0)
 #   right = power-normalised significant-reverser overlap fold (ref 1.0)
 # Colour = metric-agreement flag; faded = within-metric n.s.; orange ring = the
 # empagliflozin-specific decoupling cases. Source: results/drug_class_fig5_panel.tsv.
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-source("C:/Users/Bert/Downloads/CKM papers/paper 3.eas/analysis/tools/theme_publication_ckm.R")
+source("theme_publication_ckm.R")  # bundled alongside this script
 set_publication_defaults_ckm()
-FIGDIR <- "C:/Users/Bert/Downloads/CKM papers/weight-loss.omics/signature-pivot/manuscript/figures"
-RES    <- "C:/Users/Bert/Downloads/CKM papers/weight-loss.omics/signature-pivot/results"
+FIGDIR <- "."
+RES    <- "../../results"
 SD     <- file.path(FIGDIR, "source_data")
 
 d <- read.delim(file.path(RES, "drug_class_fig5_panel.tsv"), stringsAsFactors = FALSE)
@@ -62,7 +62,7 @@ pa <- base_pt(pa) +
   scale_x_continuous(limits=c(-0.10,0.40), breaks=c(0,0.1,0.2,0.3)) +
   geom_label(data=data.frame(classf=factor(cdisp["within-DRUG"],levels=cdisp[clev]),
                              value=0.385, pair=factor("empagliflozin × semaglutide",levels=ord$pair)),
-             aes(x=value,y=pair), inherit.aes=FALSE, hjust=1, vjust=0.5, size=2.05,
+             aes(x=value,y=pair), inherit.aes=FALSE, hjust=1, vjust=0.5, size=2.5,
              label="empagliflozin ≈ 0 vs\nweight-loss panels", fill="white", linewidth=0,
              lineheight=0.92, color="grey20") +
   labs(x="effect-size Spearman ρ", y=NULL) +
@@ -77,7 +77,7 @@ Bd$dircol <- ifelse(Bd$flag, "#B2182B", "grey40")   # red = empagliflozin decoup
 pb <- base_pt(pb) +
   facet_grid(classf ~ ., scales="free_y", space="free_y") +
   scale_x_continuous(limits=c(0.62,2.02), breaks=c(0.8,1.0,1.2,1.4,1.6,1.8)) +
-  geom_text(aes(x=2.0, label=sprintf("%.0f%%",100*samedir_frac)), hjust=1, size=1.9, color=Bd$dircol) +
+  geom_text(aes(x=2.0, label=sprintf("%.0f%%",100*samedir_frac)), hjust=1, size=2.8, color=Bd$dircol) +
   labs(x="sig-reverser overlap (fold)", y=NULL) +
   theme(axis.text.y=element_blank(), axis.ticks.y=element_blank(),
         strip.text.y=element_text(size=7.4, angle=0, lineheight=0.9),

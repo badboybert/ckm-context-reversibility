@@ -2,7 +2,7 @@
 # (a) 4-context rev_beta correlation matrix (tissue block); (b) same- vs cross-tissue directional concordance;
 # (c) exemplar molecules x contexts — the SAME molecule reverses differently by context. LOCKED theme.
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-source("C:/Users/Bert/Downloads/CKM papers/paper 3.eas/analysis/tools/theme_publication_ckm.R")
+source("theme_publication_ckm.R")  # bundled alongside this script
 set_publication_defaults_ckm()
 SD <- "source_data"; rd <- function(p) read.csv(file.path(SD, p), stringsAsFactors = FALSE, check.names = FALSE)
 TXN<-"#009E73"; UP<-"#B2182B"; DN<-"#2166AC"; NEU<-"#333333"
@@ -16,7 +16,7 @@ cm$ctx_a <- factor(cm$ctx_a, levels=CTXO); cm$ctx_b <- factor(cm$ctx_b, levels=r
 cm$show <- ifelse(as.integer(cm$ctx_a)==as.integer(factor(cm$ctx_b,levels=CTXO)), NA, cm$rho)  # blank diagonal
 pa <- ggplot(cm, aes(ctx_a, ctx_b, fill=show)) +
   geom_tile(color="white", linewidth=0.6) +
-  geom_text(aes(label=ifelse(is.na(show),"",sprintf("%+.2f",show))), size=2.3,
+  geom_text(aes(label=ifelse(is.na(show),"",sprintf("%+.2f",show))), size=2.5,
             color=ifelse(!is.na(cm$show) & cm$show>0.35,"white","black")) +
   scale_fill_gradient2(low=DN, mid="white", high=TXN, midpoint=0, limits=c(-0.15,0.55), oob=scales::squish,
                        na.value="grey92", name="ρ", breaks=c(0,0.25,0.5)) +
@@ -36,9 +36,9 @@ pb <- ggplot(cc, aes(kind, concordance, color=kind)) +
   geom_jitter(width=0.12, height=0, size=2, alpha=0.95) +
   scale_color_manual(values=c("same tissue"=TXN,"cross tissue"="grey55"), guide="none") +
   scale_y_continuous(limits=c(0.3,1.04), breaks=c(0.5,0.75,1.0)) +
-  scale_x_discrete(labels=c("same tissue"="same\ntissue","cross tissue"="cross\ntissue")) +
-  annotate("text", x=2.42, y=0.5, label="chance", size=2.1, color="grey35", fontface="italic", hjust=1) +
-  annotate("text", x=1, y=0.99, label="0.99", size=2.6, hjust=-0.35) +
+  scale_x_discrete(labels=c("same tissue"="same tissue\n(n = 1 pair)","cross tissue"="cross tissue\n(n = 5 pairs)")) +
+  annotate("text", x=2.42, y=0.5, label="chance", size=2.8, color="grey35", fontface="italic", hjust=1) +
+  annotate("text", x=1, y=0.99, label="0.99", size=2.8, hjust=-0.35) +
   labs(x=NULL, y="directional concordance")
 
 # ---- c) exemplar molecules x contexts (the demonstration) ----
@@ -51,7 +51,7 @@ long <- do.call(rbind, lapply(CTXO, function(c) data.frame(gene=ex$gene, context
 long$gene <- factor(long$gene, levels=rev(glev)); long$context <- factor(long$context, levels=CTXO)
 pc <- ggplot(long, aes(context, gene, fill=rev_beta)) +
   geom_tile(color="white", linewidth=0.6) +
-  geom_text(aes(label=ifelse(is.na(rev_beta),"·",sprintf("%+.1f",rev_beta))), size=1.95,
+  geom_text(aes(label=ifelse(is.na(rev_beta),"·",sprintf("%+.1f",rev_beta))), size=2.5,
             color=ifelse(!is.na(long$rev_beta) & abs(long$rev_beta)>0.9,"white","black")) +
   scale_fill_gradient2(low=DN, mid="white", high=UP, midpoint=0, limits=c(-1.5,1.5), oob=scales::squish,
                        na.value="grey90", name="reversal\nβ", breaks=c(-1.5,0,1.5), labels=c("down","0","up")) +
@@ -69,8 +69,8 @@ pd <- ggplot(od, aes(kind, fold, color=kind)) +
   geom_jitter(width=0.1, height=0, size=1.9, alpha=0.95) +
   scale_color_manual(values=c("within tissue"=TXN,"cross tissue"="grey55"), guide="none") +
   scale_y_continuous(limits=c(0.9,1.7), breaks=c(1.0,1.3,1.6)) +
-  annotate("text", x=1, y=1.63, label="1.6×", size=2.3, vjust=-0.4) +
-  annotate("text", x=2, y=0.95, label="chance", size=2.0, color="grey35", fontface="italic") +
+  annotate("text", x=1, y=1.63, label="1.6×", size=2.8, vjust=-0.4) +
+  annotate("text", x=2, y=0.95, label="chance", size=2.8, color="grey35", fontface="italic") +
   scale_x_discrete(labels=c("within tissue"="within\ntissue","cross tissue"="cross\ntissue")) +
   labs(x=NULL, y="reversible overlap (fold)")
 
@@ -82,7 +82,7 @@ pe <- ggplot(oe, aes(kind, fold, color=kind)) +
   geom_jitter(width=0.1, height=0, size=1.9, alpha=0.95) +
   scale_color_manual(values=c("within tissue"="#9970AB","cross tissue"="grey55"), guide="none") +
   scale_y_continuous(limits=c(0.9,1.7), breaks=c(1.0,1.3,1.6)) +
-  annotate("text", x=2, y=0.95, label="chance", size=2.0, color="grey35", fontface="italic") +
+  annotate("text", x=2, y=0.95, label="chance", size=2.8, color="grey35", fontface="italic") +
   scale_x_discrete(labels=c("within tissue"="within\ntissue","cross tissue"="cross\ntissue")) +
   labs(x=NULL, y="persistent overlap (fold)")
 

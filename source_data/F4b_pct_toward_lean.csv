@@ -1,14 +1,14 @@
-context,tissue,intervention,pct_toward_lean,wl_tier
-DiRECT,plasma,diet,63,high
-BBS,plasma,surgery,59,high
-semaglutide,plasma,GLP-1RA,57,mod
-MS bariatric,plasma,surgery,55,high
-metformin,plasma,drug,54,low
-EMPEROR,plasma,SGLT2i,52,low
-RYGB,adipose,surgery,68,high
-CR,adipose,diet,57,high
-diet,adipose,diet,54,mod
-LCD,adipose,diet,52,mod
-GSE83452,liver,diet+surgery,53,high
-GSE106737,liver,surgery,54,high
-GSE273902,blood,surgery,52,high
+context,tissue,intervention,pct_toward_lean,wl_tier,binom_p_vs_50,ns_vs_chance
+DiRECT,plasma,diet,63.0,high,1.349886379445013e-47,False
+BBS,plasma,surgery,59.0,high,2.1422500796513507e-07,False
+semaglutide,plasma,GLP-1RA,57.0,mod,5.492904697353355e-16,False
+MS bariatric,plasma,surgery,55.0,high,0.1237291658181115,True
+metformin,plasma,drug,54.0,low,0.225285567884466,True
+empagliflozin,plasma,drug,52.0,low,0.3135403535287689,True
+RYGB,adipose,surgery,68.0,high,0.0,False
+CR,adipose,diet,57.0,high,2.0141867477813824e-59,False
+diet,adipose,diet,54.0,mod,1.0302039349500616e-26,False
+LCD,adipose,diet,52.0,mod,0.000340563598339,False
+GSE83452,liver,diet+surgery,53.2,high,4.823994555289773e-16,False
+GSE106737,liver,surgery,54.4,high,5.9182980971860776e-30,False
+GSE273902,blood,surgery,51.5,high,0.1013184310301092,True

@@ -2,7 +2,7 @@
 """restoration_uncertainty.py — ROUND-2 item: what uncertainty can honestly be put on the
 "% of marks moving toward lean" statistic for the near-chance (52-54%) restoration contexts?
 
-The round-2 review offered three options for the 52-54% contexts:
+Three options for the 52-54% contexts:
   (i) confidence intervals, (ii) binomial/permutation P values, or (iii) "near-random" wording.
 This engine tests which instrument is admissible instead of asserting it, and reports the answer
 even where it is unflattering.

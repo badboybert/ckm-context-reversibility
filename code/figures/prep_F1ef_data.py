@@ -21,8 +21,8 @@ conc=float(a[a.metric=='directional_concordance']['value'].iloc[0])           # 
 rho_be=float(a[a.comparison.str.contains('consensus\\(mean',na=False)]['rho'].iloc[0])  # BLACK vs EUR consensus genome-wide
 rho_ee=float(a[a.metric=='spearman_rev_beta'][a.note.str.contains('ceiling',na=False)]['rho'].iloc[0])  # EUR-vs-EUR ceiling
 pd.DataFrame([
- {'kind':'directional concordance','metric':'BLACK vs EUR (cosig genes)','value':round(conc,3),'ref':0.5,'panel':'concordance'},
- {'kind':'genome-wide ρ','metric':'BLACK vs EUR','value':round(rho_be,3),'ref':0.0,'panel':'rho'},
+ {'kind':'directional concordance','metric':'Black cohort vs European (co-significant genes)','value':round(conc,3),'ref':0.5,'panel':'concordance'},
+ {'kind':'genome-wide ρ','metric':'Black cohort vs European','value':round(rho_be,3),'ref':0.0,'panel':'rho'},
  {'kind':'genome-wide ρ','metric':'EUR vs EUR (ceiling)','value':round(rho_ee,3),'ref':0.0,'panel':'rho'},
 ]).to_csv(os.path.join(OUT,'F1f_ancestry.csv'),index=False)
 print('F1e: txn sp_signed=%.2f rev_enr=%.1f | meth sp_signed=%.2f rev_enr=%.1f'%(ta['sp_signed'],ta['rev_enr'],ma['sp_signed'],ma['rev_enr']))

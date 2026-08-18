@@ -1,18 +1,17 @@
 # =============================================================================
-# theme_publication_ckm.R  --  Paper 3.EAS project figure theme
-# = the publication-figures-tables skill theme (theme_and_setup.R) with the
-# USER RULE applied: HARMONIZED 2-TIER hierarchy at +1 pt (decided 2026-06-18).
+# theme_publication_ckm.R  --  lab publication figure theme
+# = the lab publication theme (harmonized 2-tier hierarchy at +1 pt).
 # Body type (axis text = axis title = legend) is a single size; panel labels
 # are larger + bold. This supersedes the earlier +2 pt 4-level spec: the 4-level
 # steps (legend<axis-text, title only +1) read as inconsistency, not hierarchy,
 # and +2 clipped dense panels. Dimensions + gridlines (off) UNCHANGED.
-# Source this instead of the skill theme for CKM figures.
+# Source this for CKM figures.
 # =============================================================================
 suppressMessages({ library(ggplot2); library(scales)
   if (requireNamespace("patchwork", quietly = TRUE)) try(library(patchwork), silent = TRUE) })
 
 # --- fonts: harmonized 2-tier, +1 pt ----------------------------------------
-# body = 9 pt everywhere in the plot field; panel label 11 pt bold. (skill
+# body = 9 pt everywhere in the plot field; panel label 11 pt bold. (base
 # default body = 8 pt; "+1" = 9 pt. Sparse panels also tolerate +2, but +1 is
 # the locked anchor because it fits dense panels without clipping.)
 BASE_FONT            <- "Arial"
@@ -53,7 +52,7 @@ theme_publication_ckm <- function(base_size = BASE_FONT_SIZE,
     )
 }
 
-# dimensions UNCHANGED from the skill (89 single / 183 double mm)
+# dimensions: 89 single / 183 double mm
 DIM <- list(single_col_mm = 89, double_col_mm = 183, max_height_mm = 240)
 
 save_figure_ckm <- function(plot, filename_base, width_mm = 183, height_mm = 120,

@@ -1,56 +1,62 @@
-source_file	display_item	panel	prep_script	render_script	description
-ED1a_z_dist.csv	Extended Data Fig. 1	a	prep_ED1_data.py	render_ED1.R	Reversibility-score z distribution (score validity).
-ED1b_biology.csv	Extended Data Fig. 1	b	prep_ED1_data.py	render_ED1.R	Score anchored to known biology.
-ED1c_corr.csv	Extended Data Fig. 1	c	prep_ED1_data.py	render_ED1.R	Score vs log sample size correlation (not a power proxy).
-ED1c_measurability.csv	Extended Data Fig. 1	c	prep_ED1_data.py	render_ED1.R	Measurability covariate for the score-validity panel.
-ED2_summary.csv	Extended Data Fig. 2	summary	prep_ED2_ED6_data.py	render_ED2.R	Cross-ancestry transfer summary.
-ED2a_genomewide.csv	Extended Data Fig. 2	a	prep_ED2_ED6_data.py	render_ED2.R	Genome-wide per-gene reversal correlation, Black-vs-EUR (underpowered).
-ED2b_canonical.csv	Extended Data Fig. 2	b	prep_ED2_ED6_data.py	render_ED2.R	Canonical skeletal-muscle genes sign-concordance (Black vs EUR).
-ED3a_meta.csv	Extended Data Fig. 3	a	prep_ED3_data.py	render_ED3.R	Powered determinant meta-analysis (forest).
-ED3a_perpanel.csv	Extended Data Fig. 3	a	prep_ED3_data.py	render_ED3.R	Per-panel determinant estimates.
-ED3b_tau.csv	Extended Data Fig. 3	b	prep_ED3_data.py	render_ED3.R	Tissue-specificity (tau) determinant detail.
-ED3c_causal.csv	Extended Data Fig. 3	c	prep_ED3_data.py	render_ED3.R	Causal-status determinant detail.
-ED4a_class_scatter.csv	Extended Data Fig. 4	a	prep_ED4_data.py	render_ED4.R	Persistence-class scatter (persistence = variance floor, not memory).
-ED4b_class_counts.csv	Extended Data Fig. 4	b	prep_ED4_data.py	render_ED4.R	Persistence-class counts.
-ED4c_falsification.csv	Extended Data Fig. 4	c	prep_ED4_data.py	render_ED4.R	Falsification panel: persistence residual to baseline variance.
-ED5_blood_scatter.csv	Extended Data Fig. 5	blood	render_ED5.R	render_ED5.R	Cross-layer node concordance, blood (methylation vs expression reversal); NO-GO honest negative.
-ED5_muscle_scatter.csv	Extended Data Fig. 5	muscle	render_ED5.R	render_ED5.R	Cross-layer node concordance, muscle (methylation vs expression reversal); NO-GO honest negative.
-ED5_summary.csv	Extended Data Fig. 5	summary	prep_ED5_data.py	render_ED5.R	Cross-layer concordance summary/disclosure.
-ED6_classmeans.csv	Extended Data Fig. 6	a	prep_ED2_ED6_data.py	render_ED6.R	Drug-class reversal class means.
-ED6_pairs.csv	Extended Data Fig. 6	b	prep_ED2_ED6_data.py	render_ED6.R	Drug-class pairwise overlap.
-F1e_split_half.csv	Figure 1	e	prep_F1ef_data.py	render_F1.R	Within-cohort split-half reproducibility: signed reversal-effect Spearman (transcriptome GSE141221, methylome DIRECT-PLUS) + reversible-pole recurrence over chance.
-F1f_ancestry.csv	Figure 1	f	prep_F1ef_data.py	render_F1.R	Cross-ancestry generalization: per-gene reversal correlation, Black bariatric muscle (n=12) vs European consensus, with EUR-vs-EUR ceiling.
-F2a_pair_correlations.csv	Figure 2	a	prep_F2_data.py	render_F2.R	Pairwise direction-only Spearman correlations of context-level reversal signatures (tissue x intervention x layer).
-F2b_cohesion.csv	Figure 2	b	prep_F2_data.py	render_F2.R	Within- vs between-context cohesion of reversal signatures.
-F2c_pole_asymmetry.csv	Figure 2	c	prep_F2_data.py	render_F2.R	Reversible vs persistent pole asymmetry per context.
-F2d_universal_core.csv	Figure 2	d	prep_F2_data.py	render_F2.R	Universal reversible-core marks shared across contexts.
-F2f_tissue_programs.csv	Figure 2	f	prep_F2f_data.py	render_F2.R	Tissue-private reversal programs (context-specific reversible sets).
-F3a_determinant_transcriptome.csv	Figure 3	a	render_F3.py	render_F3.R	Determinant forest, transcriptome: pooled standardized beta per mark-intrinsic feature (k=9), all |beta|<MDE.
-F3c_determinant_proteome.csv	Figure 3	c	render_F3.py	render_F3.R	Determinant forest, proteome: pooled standardized beta per mark-intrinsic feature.
-F3d_predictive_null.csv	Figure 3	d	render_F3.py	render_F3.R	Constructive predictive null: cross-validated prediction of reversibility from intrinsic features.
-F3e_ablation.csv	Figure 3	e	render_F3.py	render_F3.R	Predictive-null feature-ablation sensitivity.
-F3f_tau.csv	Figure 3	f	render_F3.py	render_F3.R	Tissue-specificity (tau) dissociation panel.
-F4a_canonical_markers.csv	Figure 4	a	prep_F4_data.py	render_F4.R	Canonical marker annotations for the restoration-score panel.
-F4a_restoration_dist.csv	Figure 4	a	prep_F4_data.py	render_F4.R	Restoration-score R distribution (proteome, metabolome) oriented against the external BMI-to-omic axis.
-F4a_summary.csv	Figure 4	a	prep_F4_data.py	render_F4.R	Restoration-score panel summary medians.
-F4b_pct_toward_lean.csv	Figure 4	b	prep_F4_data.py	render_F4.R	Percentage of marks moving toward the lean state per intervention context (ranked; chance=50%).
-F4c_durability_adipose_points.csv	Figure 4	c	prep_F4_data.py	render_F4.R	Adipose 2yr-vs-5yr reversal points after RYGB (GSE199063, canonical genes).
-F4c_durability_summary.csv	Figure 4	c	prep_F4_data.py	render_F4.R	Adipose durability summary (Spearman +0.77; 96% sign-retained).
-F4d_methyl_age_drift.csv	Figure 4	e	prep_F4_data.py	render_F4.R	Methylome axis-correlation vs sampling interval (epigenetic-ageing drift confound); panel e in final figure.
-F4e_yousri_points.csv	Figure 4	d	prep_F4_data.py	render_F4.R	Plasma-proteome 2yr-vs-12yr reversal after RYGB (Yousri SomaLogic, robust z); panel d in final figure.
-F5a_intervention_systemic.csv	Figure 5	a	prep_F5_data.py	render_F5.R	Systemic plasma-proteome reversal signatures by intervention/consensus.
-F5b_platform_control.csv	Figure 5	b	prep_F5_data.py	render_F5.R	Cross-platform vs same-platform correlation control (excludes platform confound).
-F5b_semaglutide_corr.csv	Figure 5	b	prep_F5_data.py	render_F5.R	Semaglutide vs surgery/diet/SGLT2i pairwise correlations.
-F5c_layered_core.csv	Figure 5	c	prep_F5_data.py	render_F5.R	Layered systemic reversible core.
-F5d_dissociation_magnitude.csv	Figure 5	d	prep_F5_data.py	render_F5.R	T2D remitter vs non-remitter reversal magnitude (GSE273902).
-F5d_dissociation_stats.csv	Figure 5	d	prep_F5_data.py	render_F5.R	Remitter/non-remitter dissociation bootstrap statistics (CI crosses zero).
-F5e_intervention_matrix.csv	Figure 5	e	prep_F5_data.py	render_F5.R	Intervention x systemic-response matrix.
-F6a_context_corr.csv	Figure 6	a	prep_F6_data.py	render_F6.R	Context-level correlation synthesis (context, not molecule).
-F6b_concordance.csv	Figure 6	b	prep_F6_data.py	render_F6.R	Cross-context concordance of reversibility class.
-F6c_exemplars.csv	Figure 6	c	prep_F6_data.py	render_F6.R	Exemplar marks illustrating context-dependence.
-F6d_reversible_overlap.csv	Figure 6	d	prep_F6_data.py	render_F6.R	Reversible-set overlap across contexts (significance-set).
-F6e_persistent_overlap.csv	Figure 6	e	prep_F6_data.py	render_F6.R	Persistent-set overlap across contexts (cross-tissue ~chance).
-S7_drug_class_reconciliation.csv	Supplementary Fig. S7	full	render_S7.R	render_S7.R	Drug-class reconciliation (systemic response by drug/surgery/diet).
-S8_determinant_tost_forest.csv	Supplementary Fig. S8	full	render_S8.R	render_S8.R	Determinant TOST equivalence forest.
-S9a_variance_partition.csv	Supplementary Fig. S9	a	render_S9.R	render_S9.R	Variance partition of reversibility (context vs intrinsic).
-S9b_cell_means.csv	Supplementary Fig. S9	b	render_S9.R	render_S9.R	Cell-composition mean fractions for the variance-partition panel.
+file	backs_panel
+ED1a_z_dist.csv	ED1a
+ED1b_biology.csv	ED1b
+ED1c_corr.csv	ED1c
+ED1c_measurability.csv	ED1c
+ED2_summary.csv	ED2
+ED2a_genomewide.csv	ED2a
+ED2b_canonical.csv	ED2b
+ED3a_meta.csv	ED3a
+ED3a_perpanel.csv	ED3a
+ED3b_tau.csv	ED3b
+ED3c_causal.csv	ED3c
+ED4a_class_scatter.csv	ED4a
+ED4b_class_counts.csv	ED4b
+ED4c_falsification.csv	ED4c
+ED5_blood_scatter.csv	ED5
+ED5_muscle_scatter.csv	ED5
+ED5_summary.csv	ED5
+ED6_classmeans.csv	ED6
+ED6_pairs.csv	ED6
+F1e_split_half.csv	F1e
+F1f_ancestry.csv	F1f
+F2a_cell_means.csv	F2a
+F2b_variance_partition.csv	F2b
+F2c_cohesion.csv	F2c
+F2d_pole_asymmetry.csv	F2d
+F2e_universal_core.csv	F2e
+F2f_tissue_programs.csv	F2f
+F3a_determinant_transcriptome.csv	F3a
+F3c_determinant_proteome.csv	F3c
+F3d_predictive_null.csv	F3d
+F3e_ablation.csv	F3e
+F3f_tau.csv	F3f
+F4a_canonical_markers.csv	F4a
+F4a_restoration_dist.csv	F4a
+F4a_summary.csv	F4a
+F4b_pct_toward_lean.csv	F4b
+F4c_durability_adipose_points.csv	F4c
+F4c_durability_summary.csv	F4c
+F4d_yousri_points.csv	F4d
+F4e_methyl_age_drift.csv	F4e
+F5a_intervention_systemic.csv	F5a
+F5b_platform_control.csv	F5b
+F5b_semaglutide_corr.csv	F5b
+F5c_layered_core.csv	F5c
+F5d_dissociation_magnitude.csv	F5d
+F5d_dissociation_stats.csv	F5d
+F5d_loso.csv	F5d
+F5e_intervention_matrix.csv	F5e
+F6a_context_corr.csv	F6a
+F6b_concordance.csv	F6b
+F6c_exemplars.csv	F6c
+F6d_reversible_overlap.csv	F6d
+F6e_persistent_overlap.csv	F6e
+S7_drug_class_reconciliation.csv	S7
+S8_determinant_tost_forest.csv	S8
+S9_pair_correlations.csv	S9
+causal_status_effect.tsv	Supplementary Table 14 (genetic causal-status effect sizes)
+restoration_uncertainty.tsv	Supplementary Table 16 + the Figure 4b not-distinguishable-from-chance flags
+determinant_meta_wlonly.tsv	Supplementary Table 15 (weight-loss-only determinant sensitivity)
+context_wlonly.tsv	Supplementary Table 15 (weight-loss-only tissue/variance-partition sensitivity)
+per_mark_atlas.parquet	deposited with the analysis code under the Zenodo DOI (over the 20 MB additional-file limit); full 207 MB TSV also in the code repository

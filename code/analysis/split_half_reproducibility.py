@@ -2,7 +2,7 @@
 """split_half_reproducibility.py — is PERSISTENCE reproducible within a SINGLE well-powered,
 single-context panel? Splits one cohort in half (same tissue + intervention + cohort), recomputes
 reversal + persistence in each half, and measures cross-half reproducibility. This isolates
-POWER+NOISE from CONTEXT-SPECIFICITY: the cross-PANEL concordance was ~chance (verifier wf_0c3f3bf3),
+POWER+NOISE from CONTEXT-SPECIFICITY: the cross-PANEL concordance was ~chance,
 but those panels differ in tissue/intervention/power. If split-half ALSO ~chance -> persistence is
 noise-limited (low-movers unmeasurable). If split-half HIGH but cross-panel low -> persistence is
 real but CONTEXT-SPECIFIC (a determinant story, modeled per-context).

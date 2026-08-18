@@ -1,4 +1,0 @@
-"term","disp","grp","unique_R2","typeII_pct_totalvar","perm_p_unique","unique_R2_jack_min","unique_R2_jack_max"
-"same_tissue","shared tissue","biological context",0.127206,0.133702,0.000149993,0.0832065,0.206883
-"same_platform","shared assay platform","assay platform (control)",0.00514808,0.00541097,0.272086,0.000400972,0.0182053
-"same_intervention_family","shared intervention family","biological context",0.154941,0.162853,4.99975e-05,0.114729,0.176646

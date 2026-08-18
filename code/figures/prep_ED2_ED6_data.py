@@ -10,14 +10,14 @@ a=R('ancestry_replication_gse161643.tsv')
 sp=a[a.metric=='spearman_rev_beta'].copy()
 def lab(c):
     s=str(c).lower()
-    if 'consensus' in s: return 'BLACK vs EUR consensus'
+    if 'consensus' in s: return 'Black cohort vs European consensus'
     if 'masters' in s and 'strride' in s: return 'EUR vs EUR (ceiling)'
-    if 'masters' in s: return 'BLACK vs EUR (Masters)'
-    if 'strride' in s: return 'BLACK vs EUR (STRRIDE)'
+    if 'masters' in s: return 'Black cohort vs European (Masters)'
+    if 'strride' in s: return 'Black cohort vs European (STRRIDE)'
     return str(c)[:30]
 sp['comparison']=sp['comparison'].map(lab); sp['rho']=pd.to_numeric(sp['rho'],errors='coerce')
 sp=sp.dropna(subset=['rho'])[['comparison','rho','n_shared']]
-sp['kind']=np.where(sp.comparison.str.contains('ceiling'),'EUR ceiling','BLACK vs EUR')
+sp['kind']=np.where(sp.comparison.str.contains('ceiling'),'EUR ceiling','Black cohort')
 sp.to_csv(os.path.join(OUT,'ED2a_genomewide.csv'),index=False)
 # canonical genes (CANON:: rows): BLACK beta + EUR betas + sign-match
 can=a[a.comparison.astype(str).str.startswith('CANON::')].copy()
@@ -33,7 +33,7 @@ pd.DataFrame([{'concordance':round(conc,3),'p':0.0088,'n':85}]).to_csv(os.path.j
 # ===== ED6: drug-class signature overlap (fold-enrichment, orthogonal to F5e correlation) =====
 ov=R('drug_class_overlap.tsv')
 ov=ov[pd.notna(ov['fold'])].copy(); ov['fold']=pd.to_numeric(ov['fold'],errors='coerce')
-ov=ov[ov['U']>=50]  # powered pairs only
+ov=ov[ov['U']>=50]  # overlap-eligible pairs only (U >= 50); NOT the per-pair power rule
 # class-pair grouping
 def cls(ca,cb):
     s={ca,cb}

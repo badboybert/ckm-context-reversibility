@@ -24,8 +24,10 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-DATA = "C:/Users/Bert/Downloads/CKM papers/weight-loss.omics/data/transcriptome"
-OUT = "C:/Users/Bert/Downloads/CKM papers/weight-loss.omics/signature-pivot/results/ancestry_replication_gse161643.tsv"
+import os
+_WLO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # weight-loss.omics
+DATA = os.path.join(_WLO, "data", "transcriptome")
+OUT = os.path.join(_WLO, "signature-pivot", "results", "ancestry_replication_gse161643.tsv")
 
 PANELS = {
     "GSE161643_BLACK_muscle_bariatric": f"{DATA}/gse161643_muscle_bariatric_reversal_table.tsv",

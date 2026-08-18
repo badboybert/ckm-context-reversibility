@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """cross_tissue_methylation_persistence.py
-★ Resolve the 'methylation score is blood-only by design' reviewer concern.
+Test whether the methylation score is blood-only by design.
 
 Mirrors restoration_persistence_revisit.py PART D, but for the METHYLATION layer across TISSUES
 (blood vs muscle vs adipose), now that non-blood methylomes are on disk:
@@ -169,6 +169,6 @@ pr('  core lives on the REVERSIBLE pole (fold>1, p<<1e-20) while the PERSISTENT 
 pr('  This MATCHES the transcriptome: methylation PERSISTENCE is a measurability/noise floor, NOT a')
 pr('  reproducible cross-tissue program. The reproducible signal is the RESPONSIVE/reversible core, which')
 pr('  generalizes blood->muscle->adipose. -> The methylation reversibility finding is now blood+MUSCLE+ADIPOSE,')
-pr('  not blood-only; persistence is honestly stated as context-specific (resolves the reviewer concern).')
+pr('  not blood-only; persistence is honestly stated as context-specific.')
 open(S('results/cross_tissue_methylation_persistence.txt'),'w',encoding='utf-8').write('\n'.join(out))
 print('\nwrote results/cross_tissue_methylation_persistence.{tsv,txt}')

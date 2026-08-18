@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-"""classify_marks.py — two-class taxonomy (SCORE_SPEC_FROZEN.md s3/s5), REVISED 2026-06-22
-after adversarial verification wf_0c3f3bf3-837 (3 lenses; confound=SOUND_WITH_FIXES,
-semantics=MAJOR_CONCERNS, repro=SOUND_WITH_FIXES). Fixes applied:
+"""classify_marks.py — two-class taxonomy (SCORE_SPEC_FROZEN.md s3/s5), REVISED 2026-06-22. Fixes applied:
   (1) k=1 EXCLUSION (spec s2.5): marks in <2 eligible panels -> 'unclassified-single-panel',
       removed from the headline persistent/reversible/intermediate counts.
   (2) 2D matched conditioning: bin within base_sd x MEASURABILITY cells (abundance for

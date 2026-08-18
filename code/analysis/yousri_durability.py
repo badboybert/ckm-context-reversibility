@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """yousri_durability.py — 12-YEAR PROTEOME durability + regain (Yousri 2022, PMID 34796696, Obesity).
-Provenance + dedup for the acquired Yousri RYGB SomaLogic tables (acquisition wf_50f0e0b1).
+Provenance + dedup for the acquired Yousri RYGB SomaLogic tables.
 Dedups multi-aptamer reagents to UniProt (min-p; APOE x4 etc.), computes the 2yr->12yr durability
 concordance (the proteome complement to the GSE199063 5yr transcriptome durability), and reports the
 regain set. rev_beta = RAW post-minus-pre RFU (UP if positive); durability is convention-agnostic

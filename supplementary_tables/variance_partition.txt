@@ -6,19 +6,19 @@ Baseline anchor: mean within-tissue rho = +0.162 vs cross-tissue = +0.020
 
 Predictor spread (of 153 pairs) and pair-level orthogonality:
   same_tissue               : same= 40  diff=113
-  same_platform             : same= 76  diff= 77
+  same_platform             : same= 81  diff= 72
   same_intervention_family  : same= 36  diff=117
-  pairwise |phi| among indicators: tissue~platform=+0.093, tissue~interv=+0.126, platform~interv=+0.034  (near-orthogonal => stable unique R2)
+  pairwise |phi| among indicators: tissue~platform=+0.054, tissue~interv=+0.126, platform~interv=+0.153  (near-orthogonal => stable unique R2)
 
 Full model rho ~ same_tissue + same_platform + same_intervention_family
-  R2_full = 0.3359   adj-R2 = 0.3225
+  R2_full = 0.3308   adj-R2 = 0.3174
 
 PER-FACTOR VARIANCE EXPLAINED:
   factor                      marg_R2  uniq_R2  typeII%    uniq_R2 jackknife perm_p(uniq)
-  same_tissue                  0.1744   0.1272   13.4%    [+0.083,+0.207]        0.00015
-  same_platform                0.0142   0.0051    0.5%    [+0.000,+0.018]         0.2721
-  same_intervention_family     0.1978   0.1549   16.3%    [+0.115,+0.177]          5e-05
-  shared/confounded                     0.0486
+  same_tissue                  0.1744   0.1325   13.9%    [+0.093,+0.217]        0.00015
+  same_platform                0.0083   0.0001    0.0%    [+0.000,+0.010]          0.882
+  same_intervention_family     0.1978   0.1518   15.9%    [+0.098,+0.174]          5e-05
+  shared/confounded                     0.0465
 
 2x2 STRUCTURE (mean rho | n) — the clearest summary:
                          same_intervention_family=0     same_intervention_family=1
@@ -31,28 +31,28 @@ PER-FACTOR VARIANCE EXPLAINED:
      (0.326 same-tissue vs 0.025 cross-tissue) i.e. partly a tissue effect.
 
 same_tissue coefficient (dyadic two-way cluster-robust SE on both endpoints):
-  beta=+0.1232  OLS_SE=0.0231 (p=3.4e-07)  DYADIC_SE=0.0333 (p=2.1e-04)
+  beta=+0.1253  OLS_SE=0.0231 (p=2.2e-07)  DYADIC_SE=0.0336 (p=1.9e-04)
 same_intervention_family coefficient:
-  beta=+0.1403  OLS_SE=0.0238 (p=2.4e-08)  DYADIC_SE=0.0285 (p=8.6e-07)
+  beta=+0.1404  OLS_SE=0.0241 (p=3.6e-08)  DYADIC_SE=0.0293 (p=1.7e-06)
 same_platform coefficient:
-  beta=+0.0216  OLS_SE=0.0201 (p=0.28)  DYADIC_SE=0.0296 (p=0.47)
+  beta=+0.0031  OLS_SE=0.0204 (p=0.88)  DYADIC_SE=0.0245 (p=0.90)
 
 SYMMETRIC panel-level permutation (20,000 perms; shuffle each factor across 18 panels):
-  same_tissue                marginal_R2=0.1744 (perm p=0.0002)   unique_R2=0.1272 (perm p=0.00015)
-  same_platform              marginal_R2=0.0142 (perm p=0.1197)   unique_R2=0.0051 (perm p=0.2721)
-  same_intervention_family   marginal_R2=0.1978 (perm p=5e-05)   unique_R2=0.1549 (perm p=5e-05)
+  same_tissue                marginal_R2=0.1744 (perm p=0.0002)   unique_R2=0.1325 (perm p=0.00015)
+  same_platform              marginal_R2=0.0083 (perm p=0.2953)   unique_R2=0.0001 (perm p=0.882)
+  same_intervention_family   marginal_R2=0.1978 (perm p=5e-05)   unique_R2=0.1518 (perm p=5e-05)
 
-Fisher-z sensitivity (rho -> arctanh(rho)):  R2_full(z)=0.3253
-  same_tissue                marg(z)=0.1685  uniq(z)=0.1229
-  same_platform              marg(z)=0.0133  uniq(z)=0.0047
-  same_intervention_family   marg(z)=0.1924  uniq(z)=0.1509
+Fisher-z sensitivity (rho -> arctanh(rho)):  R2_full(z)=0.3208
+  same_tissue                marg(z)=0.1685  uniq(z)=0.1279
+  same_platform              marg(z)=0.0077  uniq(z)=0.0001
+  same_intervention_family   marg(z)=0.1924  uniq(z)=0.1479
 
 HEADLINE (honest)
 ----------------------------------------------------------------------------
-  same_tissue (unique R2=0.127) and same_intervention_family (unique R2=0.155) carry
+  same_tissue (unique R2=0.132) and same_intervention_family (unique R2=0.152) carry
   COMPARABLE, mutually-independent variance; same_platform carries essentially NONE
-  (unique R2=0.005, p=0.28). Tissue and intervention BOTH survive panel permutation
-  (p=0.00015, 5e-05); platform does not (p=0.272).
+  (unique R2=0.000, p=0.88). Tissue and intervention BOTH survive panel permutation
+  (p=0.00015, 5e-05); platform does not (p=0.882).
   => Reversibility is structured by shared CONTEXT (tissue AND intervention family
      co-govern) and is NOT an assay/batch artifact. This is the defensible form of the
      tissue-governor claim: within-tissue reversibility (+0.162) far exceeds cross-tissue

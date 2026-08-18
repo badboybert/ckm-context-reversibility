@@ -59,7 +59,8 @@ import collections
 import numpy as np
 from scipy import stats
 
-BASE = r"C:/Users/Bert/Downloads/CKM papers/weight-loss.omics"
+import os
+BASE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # weight-loss.omics
 CPG_GENE_MAP = BASE + "/data/methylation/cpg_gene_map.tsv"
 OUT = BASE + "/signature-pivot/results/cross_layer_concordance.tsv"
 
@@ -72,7 +73,7 @@ PAIRS = {
     "BLOOD": dict(
         meth=BASE + "/data/methylation/gse193730_blood_exercise_reversal.tsv",
         expr=BASE + "/data/transcriptome/gse193771_blood_exercise_reversal_table.tsv",
-        meth_acc="GSE193730(EPIC)", expr_acc="GSE193771(array)",
+        meth_acc="GSE193730(EPIC)", expr_acc="GSE193771(RNA-seq)",   # GEO GSE193771 !Series_type = Expression profiling by high throughput sequencing (GPL11154); corrected from "array" 2026-07-17
     ),
 }
 

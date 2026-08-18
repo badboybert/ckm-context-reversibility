@@ -1,6 +1,6 @@
 """theme_ckm.py — matplotlib mirror of the locked CKM ggplot theme
-(paper 3.eas/analysis/tools/theme_publication_ckm.R). R is not installed on this box, so Paper B
-figures are rendered in matplotlib with the SAME tokens as Paper A's R figures for cross-paper
+Paper B
+figures are rendered in matplotlib with the same tokens as the R figures for cross-figure
 consistency: harmonized 2-tier +1pt fonts (body 9pt, panel labels 11pt bold), Arial, gridlines OFF,
 white background (theme_classic equivalent), Okabe-Ito layer colors. Dims 89mm single / 183mm double
 column, max 240mm height; save 300dpi PNG + vector PDF.
@@ -24,7 +24,7 @@ mpl.rcParams.update({
 MM = 1/25.4
 def figsize(w_mm, h_mm): return (w_mm*MM, h_mm*MM)
 
-# --- LOCKED Okabe-Ito color tokens (layer-keyed; identical to Paper A) ---
+# --- LOCKED Okabe-Ito color tokens (layer-keyed; lab-standard) ---
 LAYER = {'proteome':'#0072B2','transcriptome':'#009E73','metabolome':'#CC79A7','methylome':'#D55E00',
          'pooled':'#000000','neutral':'#333333'}
 SEM = {'up':'#D55E00','down':'#56B4E9','ns':'#999999','yes':'#D55E00','no':'#56B4E9',

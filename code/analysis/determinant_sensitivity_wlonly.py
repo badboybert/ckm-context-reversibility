@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """determinant_sensitivity_wlonly.py — TRUE-WEIGHT-LOSS-ONLY sensitivity for the
-transcriptome determinant null (round-2 reviewer request, ROUND2_TRIAGE 2A-b / 2A-e).
+transcriptome determinant null (true-weight-loss-only sensitivity).
 
 STANDALONE. Copies the fit machinery from build_determinants.py / determinant_sensitivity.py
 VERBATIM; it does NOT import from, mutate, or overwrite any canonical output. Canonical

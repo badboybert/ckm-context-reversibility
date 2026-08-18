@@ -1,23 +1,23 @@
 # render_F3.R — Figure 3 (HEADLINE): determinant null + constructive predictive null.
-# R/ggplot following publication-figures-tables skill + LOCKED theme (theme_publication_ckm.R).
+# R/ggplot, LOCKED publication theme (theme_publication_ckm.R).
 # v2: equal 2x3 grid (column alignment), tag/title separation, abbreviated labels, decluttered panels.
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-source("C:/Users/Bert/Downloads/CKM papers/paper 3.eas/analysis/tools/theme_publication_ckm.R")
+source("theme_publication_ckm.R")  # bundled alongside this script
 set_publication_defaults_ckm()
-RES <- "C:/Users/Bert/Downloads/CKM papers/weight-loss.omics/signature-pivot/results"
+RES <- "../../results"
 rd  <- function(p) read.delim(file.path(RES, p), stringsAsFactors = FALSE)
 TXN<-"#009E73"; PRO<-"#0072B2"; NEU<-"#333333"; UP<-"#D55E00"; DN<-"#56B4E9"; BAND<-"#E4E4E4"
 
 dm <- rd("determinant_meta.tsv"); dt <- subset(dm, layer=="transcriptome"); dp <- subset(dm, layer=="proteome")
 pn <- rd("predictive_null.tsv");  ab <- rd("predictive_null_ablation.tsv"); tau <- rd("orphan/tau_dissociation.tsv")
 NAME <- c(loeuf="LOEUF", n_drug_log="druggability", n_gwas_log="GWAS burden",
- tau="tissue-spec.", arch_nsig="cis signals", arch_str="cis F",
+ tau="tissue specificity", arch_nsig="cis-eQTL signals", arch_str="cis-instrument F",
  has_arch="has cis-QTL", causal_nonEGFR="causal status", is_enzyme="enzyme", is_membrane="membrane",
- is_secreted="secreted", loeuf_miss="LOEUF NA", tau_miss="tissue-spec. NA")
+ is_secreted="secreted", loeuf_miss="LOEUF missing", tau_miss="tissue specificity missing")
 mde <- median(dt$mde)
 ebh <- function(...) geom_errorbar(..., orientation="y", width=0)   # horizontal error bar (ggplot2 4.0)
 
-# a) determinant forest. The round-2 review asked (twice) that the RARE-BINARY genetic causal status
+# a) determinant forest. The RARE-BINARY genetic causal status
 #    be visually separated from the continuous features: its standardized coefficient is compressed
 #    ~50x by SD_x ~ 0.020 (9 of ~18,600 transcripts), so it is not on the same footing as the others
 #    and must not read as "another equivalent-to-zero feature". It is therefore sorted to the bottom,
@@ -28,15 +28,21 @@ dt2$lab <- ifelse(dt2$is_rare_binary, "causal status\n(rare binary, n=9)", NAME[
 dt2$lab <- factor(dt2$lab, levels=dt2$lab)
 y_sep <- sum(dt2$is_rare_binary) + 0.5          # rule between the binary and the continuous block
 pa <- ggplot(dt2, aes(pooled_beta, lab)) +
+  # nested bands: outer light = ±0.05 SD SESOI (the equivalence bound, the headline test);
+  # inner darker = ±0.013 SD median MDE (detectability). Dashed guides at the SESOI edge.
+  annotate("rect", xmin=-0.05, xmax=0.05, ymin=-Inf, ymax=Inf, fill="#F2F2F2") +
   annotate("rect", xmin=-mde, xmax=mde, ymin=-Inf, ymax=Inf, fill=BAND) +
+  geom_vline(xintercept=c(-0.05, 0.05), linetype="dashed", linewidth=0.35, color="grey60") +
   geom_vline(xintercept=0, linewidth=0.4) +
   geom_hline(yintercept=y_sep, linetype="dotted", linewidth=0.4, color="grey45") +
   ebh(aes(xmin=pooled_beta-ci_halfwidth, xmax=pooled_beta+ci_halfwidth), color=NEU, linewidth=0.5) +
   geom_point(aes(shape=is_rare_binary), color=TXN, fill="white", size=1.6, stroke=0.6) +
   scale_shape_manual(values=c(`FALSE`=16, `TRUE`=21), guide="none") +
-  scale_x_continuous(limits=c(-0.08,0.08), breaks=c(-0.05,0,0.05)) +
-  annotate("text", x=0.078, y=2.4, label="all continuous |β| < 0.029", hjust=1, size=2.3, fontface="italic") +
-  annotate("text", x=0.078, y=0.62, label="compressed — see b", hjust=1, size=2.1,
+  scale_x_continuous(limits=c(-0.085,0.085), breaks=c(-0.05,0,0.05)) +
+  # No in-panel band key. Panel a spans only 0.17 SD, so any key either clips at the axis or lands
+  # on a data row -- it did both. The outer (+/-0.05 SD SESOI) and inner (+/-0.013 SD MDE) bands are
+  # defined in the figure legend, which is itself "outside the data region".
+  annotate("text", x=0.083, y=0.62, label="rare binary — see b", hjust=1, size=2.5,
            fontface="italic", color="grey35") +
   labs(x="pooled standardized β", y=NULL)
 
@@ -51,7 +57,7 @@ pb <- ggplot(csr, aes(pooled, lab)) +
   geom_vline(xintercept=0, linewidth=0.4) +
   ebh(aes(xmin=ci_lo, xmax=ci_hi), color=NEU, linewidth=0.6) +
   geom_point(color=TXN, size=2.4) +
-  geom_text(aes(label=sprintf("%+.2f", pooled)), vjust=-1.05, size=2.2) +
+  geom_text(aes(label=sprintf("%+.2f", pooled)), vjust=-1.05, size=2.8) +
   scale_x_continuous(limits=c(-0.46,0.20), breaks=c(-0.4,-0.2,0)) +
   # (in-panel footnote REMOVED: the legend already states that the standardized coefficient is
   #  compressed, is not an effect size, and is reported on the raw scale in Supplementary Table 14.
@@ -81,7 +87,7 @@ pdn <- ggplot(pnl) +
   scale_fill_manual(values=c("within-context"=TXN, "leave-one-out (LOCO)"="white"), name=NULL,
                     breaks=c("within-context","leave-one-out (LOCO)")) +
   scale_y_continuous(limits=c(-0.06,0.31), breaks=c(0,0.1,0.2,0.3)) +
-  annotate("text", x=3, y=-0.048, label="LOCO mean +0.002", size=2.2, fontface="italic") +
+  annotate("text", x=3, y=-0.048, label="LOCO mean +0.002", size=2.8, fontface="italic") +
   labs(x=NULL, y="Spearman (pred vs actual)") +
   theme(axis.text.x=element_text(angle=35, hjust=1),
         legend.position="inside", legend.position.inside=c(0.30,1.0), legend.justification=c(0,1),
@@ -112,7 +118,7 @@ tf$lbl <- sprintf("%+.3f", tf$v); tf$vj <- ifelse(tf$v>=0, -0.5, 1.3)
 pf <- ggplot(tf, aes(x, v, fill=x)) +
   geom_col(width=0.62, color="black", linewidth=0.3) +
   geom_hline(yintercept=0, linewidth=0.4) +
-  geom_text(aes(label=lbl), vjust=tf$vj, size=2.3) +
+  geom_text(aes(label=lbl), vjust=tf$vj, size=2.8) +
   scale_fill_manual(values=setNames(c(UP,DN,"#9ecae1"), levels(tf$x)), guide="none") +
   coord_cartesian(ylim=c(-0.08,0.13)) +
   labs(x=NULL, y="τ → outcome (β)") +

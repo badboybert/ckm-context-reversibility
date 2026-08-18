@@ -1,3 +1,3 @@
 pair,meth,expr,n_all,rho_all,n_sig,rho_sig
 muscle,GSE60655(450K),GSE60590(RNA-seq),9564,-0.1925,2732,-0.3475
-blood,GSE193730(EPIC),GSE193771(array),7513,-0.0137,407,-0.0061
+blood,GSE193730(EPIC),GSE193771(RNA-seq),7513,-0.0137,407,-0.0061

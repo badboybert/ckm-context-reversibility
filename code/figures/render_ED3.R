@@ -2,7 +2,7 @@
 # (a) per-panel coefficient forest (k=9) + pooled meta + MDE band; (b) τ sign-flips by panel (dynamic-range);
 # (c) causal status NS in every panel. LOCKED theme; backs F3a/b/f.
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-source("C:/Users/Bert/Downloads/CKM papers/paper 3.eas/analysis/tools/theme_publication_ckm.R")
+source("theme_publication_ckm.R")  # bundled alongside this script
 set_publication_defaults_ckm()
 SD <- "source_data"; rd <- function(p) read.csv(file.path(SD, p), stringsAsFactors=FALSE)
 TXN<-"#009E73"; UP<-"#D55E00"; DN<-"#2166AC"; NEU<-"#333333"; BAND<-"#E6E6E6"

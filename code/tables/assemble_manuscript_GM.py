@@ -11,7 +11,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 def R(fn):
     p = os.path.join(HERE, fn); return open(p, encoding="utf-8").read() if os.path.exists(p) else ""
 
-TITLE = "A multi-omic atlas defines context, not molecular identity, as the determinant of weight-loss reversibility"
+TITLE = "A multi-omic atlas reveals context-dependent molecular reversibility after weight loss and cardiometabolic intervention"
 
 def strip_lead(body):
     """Drop a leading H1 title + leading italic editorial meta lines."""

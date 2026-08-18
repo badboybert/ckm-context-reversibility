@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""build_intervention_class.py — tests the user's hypothesis: within ONE tissue (adipose), does the
+"""build_intervention_class.py — tests whether within ONE tissue (adipose), does the
 reversibility signature differ by INTERVENTION CLASS (treatment[surgery/drug] vs lifestyle[diet/exercise])?
 Tissue held fixed = SAT adipose. Groups all adipose panels by class, computes the pairwise rev_beta
 Spearman matrix, contrasts WITHIN-class vs BETWEEN-class correlation, and lists per-class signatures.

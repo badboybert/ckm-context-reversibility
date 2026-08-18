@@ -19,7 +19,7 @@ for k,f in PAN.items():
 ctxs=list(PAN)
 
 # a) rev_beta Spearman matrix. n_measured_both = the shared MEASURED universe each rho is computed on
-# (the denominator; round-2 review asked for it explicitly alongside the shared SIGNIFICANT count in b).
+# (the denominator, alongside the shared SIGNIFICANT count in b).
 rows=[]
 for a in ctxs:
     for b in ctxs:

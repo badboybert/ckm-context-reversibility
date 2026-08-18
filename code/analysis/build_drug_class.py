@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """build_drug_class.py — DRUG-CLASS analysis in plasma proteome.
 
-Question (user): group all DRUGS together (metformin / SGLT2i / GLP-1RA) and test whether they
+Question: whether grouping all DRUGS together (metformin / SGLT2i / GLP-1RA) and test whether they
 share a plasma reversal signature DISTINCT from lifestyle (diet) and surgery (bariatric).
 
-Method (direction-only, per weight-loss.omics/CLAUDE.md cross-platform rule):
+Method (direction-only, per the project direction-only cross-platform rule):
   - key every reversal table by UniProt; sign = post-minus-pre (toward-lean).
   - pairwise Spearman of rev_beta on shared proteins (min overlap MINOV).
   - class-grouped: within-DRUG vs DRUG-vs-SURGERY vs DRUG-vs-DIET vs SURGERY-vs-DIET.

@@ -6,14 +6,14 @@ muscle -0.19/-0.35 and blood -0.01 ns. Writes source_data/ED5_{muscle,blood}_sca
 import os, csv, collections, numpy as np, pandas as pd
 from scipy import stats
 HERE=os.path.dirname(os.path.abspath(__file__)); OUT=os.path.join(HERE,'source_data'); os.makedirs(OUT,exist_ok=True)
-BASE=r"C:/Users/Bert/Downloads/CKM papers/weight-loss.omics"
+BASE=os.path.dirname(os.path.dirname(os.path.dirname(HERE)))  # weight-loss.omics
 CPG_GENE_MAP=BASE+"/data/methylation/cpg_gene_map.tsv"
 PAIRS={"muscle":dict(meth=BASE+"/data/methylation/gse60655_muscle_exercise_reversal.tsv",
                      expr=BASE+"/data/transcriptome/gse60655_muscle_expression_reversal_table.tsv",
                      meth_acc="GSE60655(450K)",expr_acc="GSE60590(RNA-seq)"),
        "blood":dict(meth=BASE+"/data/methylation/gse193730_blood_exercise_reversal.tsv",
                     expr=BASE+"/data/transcriptome/gse193771_blood_exercise_reversal_table.tsv",
-                    meth_acc="GSE193730(EPIC)",expr_acc="GSE193771(array)")}
+                    meth_acc="GSE193730(EPIC)",expr_acc="GSE193771(RNA-seq)")}   # GEO GSE193771 = Expression profiling by high throughput sequencing (GPL11154); corrected from "array" 2026-07-17
 nk=lambda s:s.strip().upper()
 def load_map(p):
     m={}

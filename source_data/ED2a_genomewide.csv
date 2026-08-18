@@ -1,5 +1,5 @@
 comparison,rho,n_shared,kind
-BLACK vs EUR (Masters),-0.0875,12018.0,BLACK vs EUR
-BLACK vs EUR (STRRIDE),-0.0426,13538.0,BLACK vs EUR
-BLACK vs EUR consensus,-0.0829,9342.0,BLACK vs EUR
+Black cohort vs European (Masters),-0.0875,12018.0,Black cohort
+Black cohort vs European (STRRIDE),-0.0426,13538.0,Black cohort
+Black cohort vs European consensus,-0.0829,9342.0,Black cohort
 EUR vs EUR (ceiling),0.2968,9740.0,EUR ceiling

@@ -1,15 +1,27 @@
 #!/usr/bin/env python
 """Build Paper_B_MANUSCRIPT.docx from an assembled MANUSCRIPT.md (python-docx; node/pandoc absent).
-Adapted from ../../4-layers null/build_manuscript_docx.py. Embeds main figures F1-F6 and
-Extended Data figures ED1-ED6 above their legend line. Arial 11 pt, 1.5 spacing, US Letter, line numbers.
+Embeds main figures F1-F6 and
+Extended Data figures ED1-ED6 above their legend line. Arial 11 pt, DOUBLE spacing, US Letter,
+continuous line numbers and page numbers (Genome Medicine general guidance requires all three;
+round 6 found the file at 1.5 spacing with no header/footer part at all, so no page number existed).
+
+FLAT HEADINGS: the title, section
+headings and subheadings share the BODY font (Arial) and colour (black) and are distinguished only
+by bold + a light size step (14/12/11 pt vs 11 pt body). The heading outline level is kept for
+navigation/TOC; only the run typography is forced.
 Usage: python build_paperB_docx.py [input.md] [output.docx]"""
 import os, re, sys
 from datetime import datetime
 from docx import Document
-from docx.shared import Pt, Inches
+from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
+
+BODY_FONT = "Arial"
+BODY_PT = 11
+BLACK = RGBColor(0, 0, 0)          # identical to body text
+HEAD_PT = {0: 14, 1: 12, 2: 11}    # title / section / subsection — size step only
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MD = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(HERE, "MANUSCRIPT.md")
@@ -32,8 +44,8 @@ def legend_image(line):
 
 doc = Document()
 n = doc.styles["Normal"]
-n.font.name = "Arial"; n.font.size = Pt(11)
-pf = n.paragraph_format; pf.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE; pf.space_after = Pt(6)
+n.font.name = BODY_FONT; n.font.size = Pt(BODY_PT); n.font.color.rgb = BLACK
+pf = n.paragraph_format; pf.line_spacing_rule = WD_LINE_SPACING.DOUBLE; pf.space_after = Pt(6)
 
 sect = doc.sections[0]
 sect.page_width, sect.page_height = Pt(612), Pt(792)  # US Letter
@@ -42,7 +54,28 @@ for m in ("top_margin", "bottom_margin", "left_margin", "right_margin"):
 ln = OxmlElement("w:lnNumType"); ln.set(qn("w:countBy"), "1"); ln.set(qn("w:restart"), "continuous")
 sect._sectPr.append(ln)
 
+# Page numbers. python-docx has no field API, so the PAGE field is built from its three XML parts.
+# Without this the .docx carries no footer part at all — a fact invisible to every text-based check,
+# because a missing page number is a missing OBJECT, not a wrong string.
+def _add_page_number(paragraph):
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = paragraph.add_run()
+    run.font.name = BODY_FONT; run.font.size = Pt(10); run.font.color.rgb = BLACK
+    beg = OxmlElement("w:fldChar"); beg.set(qn("w:fldCharType"), "begin")
+    ins = OxmlElement("w:instrText"); ins.set(qn("xml:space"), "preserve"); ins.text = " PAGE "
+    end = OxmlElement("w:fldChar"); end.set(qn("w:fldCharType"), "end")
+    for el in (beg, ins, end):
+        run._r.append(el)
+_add_page_number(sect.footer.paragraphs[0])
+
 INLINE = re.compile(r"(\*\*[^*]+\*\*|\*[^*]+\*)")
+# Markdown backslash-escapes must be UNESCAPED in plain-text runs, or the literal backslash ships to
+# the reader: a title-page footnote marker written "Tan\*" rendered as "Tan\*", and a JSON-escape
+# residue "\"ns\"" rendered with visible backslashes. Applied only to non-emphasis segments so that
+# "**bold**"/"*italic*" still parse.
+_ESC = re.compile(r'\\([*_|"\[\]#`\\])')
+def _unescape(s):
+    return _ESC.sub(r'\1', s)
 def strip_links(t):
     t = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", t)
     return t.replace("`", "")
@@ -51,15 +84,52 @@ def add_runs(par, text):
         if not seg:
             continue
         if seg.startswith("**") and seg.endswith("**"):
-            par.add_run(seg[2:-2]).bold = True
+            par.add_run(_unescape(seg[2:-2])).bold = True
         elif seg.startswith("*") and seg.endswith("*"):
-            par.add_run(seg[1:-1]).italic = True
+            par.add_run(_unescape(seg[1:-1])).italic = True
         else:
-            par.add_run(seg)
+            par.add_run(_unescape(seg))
+
+def flat_heading(text, level, center=False):
+    """Heading rendered in the BODY font + colour; outline level kept for navigation.
+    Inline **bold**/*italic* markers are honoured, but every run is forced to Arial/black/bold
+    with only a size step, so headings never diverge from body typography."""
+    h = doc.add_heading("", level=level)
+    for seg in INLINE.split(strip_links(text)):
+        if not seg:
+            continue
+        if seg.startswith("**") and seg.endswith("**"):
+            run = h.add_run(seg[2:-2])
+        elif seg.startswith("*") and seg.endswith("*"):
+            run = h.add_run(seg[1:-1]); run.italic = True
+        else:
+            run = h.add_run(seg)
+        run.font.name = BODY_FONT
+        run.font.size = Pt(HEAD_PT[level])
+        run.font.color.rgb = BLACK
+        run.bold = True
+    if center:
+        h.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    return h
+
+# Split a markdown table row on UNESCAPED pipes only, then unescape "\|" -> "|".
+# Splitting on every "|" silently truncates any cell containing an escaped pipe: the STROBE-MR
+# checklist's item 11 says "every pooled \|β\| < 0.029 SD", which the naive split tore into extra
+# fields that were then dropped by the `j < len(brow)` guard below -- the shipped .docx ended that
+# cell mid-sentence on a dangling backslash, losing ~200 characters, while the .md was complete.
+_CELL_SPLIT = re.compile(r"(?<!\\)\|")
+def _split_row(r):
+    return [c.strip().replace("\\|", "|") for c in _CELL_SPLIT.split(r.strip().strip("|"))]
 
 def add_table(rows):
-    cells = [[c.strip() for c in r.strip().strip("|").split("|")] for r in rows]
+    cells = [_split_row(r) for r in rows]
     header, body = cells[0], cells[2:]
+    ncol = len(header)
+    for k, brow in enumerate(cells[2:]):
+        if len(brow) > ncol:
+            raise AssertionError(
+                f"table row {k} has {len(brow)} fields vs {ncol} header columns — a cell would be "
+                f"silently truncated: {brow!r}")
     t = doc.add_table(rows=1, cols=len(header)); t.style = "Light Grid Accent 1"
     for j, h in enumerate(header):
         p = t.rows[0].cells[j].paragraphs[0]; add_runs(p, h)
@@ -91,17 +161,27 @@ while i < len(lines):
             add_table(blk)
         continue
     if ln_.startswith("# "):
-        h = doc.add_heading("", level=0); add_runs(h, ln_[2:]); h.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        flat_heading(ln_[2:], 0, center=True)
     elif ln_.startswith("## "):
-        doc.add_heading(strip_links(ln_[3:]), level=1)
+        flat_heading(ln_[3:], 1)
     elif ln_.startswith("### "):
-        doc.add_heading(strip_links(ln_[4:]), level=2)
+        flat_heading(ln_[4:], 2)
     elif ln_.startswith("---"):
         pass
     elif re.match(r"^[-*] ", ln_):
         add_runs(doc.add_paragraph(style="List Bullet"), ln_[2:])
     elif re.match(r"^\d+\. ", ln_):
-        add_runs(doc.add_paragraph(style="List Number"), re.sub(r"^\d+\. ", "", ln_))
+        # KEEP THE LITERAL NUMERAL. Word's "List Number" style strips "N. " from the paragraph text
+        # and re-derives the number from the list definition, so the numbers exist only as
+        # formatting: any text extraction loses them, the portal's PDF converter re-derives them,
+        # and any earlier numbered list in the same document silently shifts the whole run. That is
+        # exactly how a sibling manuscript shipped a reference list printed 7.-53. while every
+        # in-text citation said [1]-[47] — invisible to every text-based check, because the
+        # paragraphs contained no numerals at all. Render as a plain hanging-indent paragraph.
+        _p = doc.add_paragraph()
+        _p.paragraph_format.left_indent = Pt(24)
+        _p.paragraph_format.first_line_indent = Pt(-24)
+        add_runs(_p, ln_)
     elif ln_.strip() == "":
         pass
     else:
@@ -112,7 +192,7 @@ while i < len(lines):
         add_runs(doc.add_paragraph(), ln_)
     i += 1
 
-# core-properties author metadata (global CLAUDE.md §8): creator/author = Bertrand Chin-Ming Tan;
+# core-properties author metadata: creator/author = Bertrand Chin-Ming Tan;
 # clear the python-docx default description; fixed modified/created date (no datetime.now()).
 _STAMP = datetime(2026, 7, 9)
 cp = doc.core_properties

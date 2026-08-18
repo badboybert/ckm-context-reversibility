@@ -1,4 +1,4 @@
 kind,metric,value,ref,panel
-directional concordance,BLACK vs EUR (cosig genes),0.647,0.5,concordance
-genome-wide ρ,BLACK vs EUR,-0.083,0.0,rho
+directional concordance,Black cohort vs European (co-significant genes),0.647,0.5,concordance
+genome-wide ρ,Black cohort vs European,-0.083,0.0,rho
 genome-wide ρ,EUR vs EUR (ceiling),0.297,0.0,rho

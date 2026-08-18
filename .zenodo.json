@@ -1,14 +1,23 @@
 {
-  "title": "Analysis code and frozen source data for: A multi-omic atlas defines context, not molecular identity, as the determinant of weight-loss reversibility",
-  "description": "Code and summary-level source data for a multi-omic atlas of molecular reversibility across 40 human weight-loss and cardiometabolic-intervention panels (proteome, transcriptome, methylome, metabolome), testing whether reversibility is an intrinsic property of a molecular mark or a property of tissue and intervention context. The repository holds the analysis engines, the figure and table builders, and the frozen summary-level source data. Across the 40-panel atlas (four tissues and plasma; six intervention types), a per-mark reversibility score is regressed on mark-intrinsic features (genetic constraint, druggability, disease-association burden, cis-regulatory architecture, tissue-specificity and genetically nominated causal status) and against contextual determinants (tissue, intervention, molecular layer). The powered transcriptome determinant analysis finds no continuous mark-intrinsic feature predicts a practically meaningful amount of reversibility; genetic causal status is reported on the interpretable raw scale as an underpowered contrast. Reversibility is instead organized by shared biological context. All inputs are summary-level; no individual-level data are included. Repository contents regenerate every reported figure, table and headline number from the frozen source data.",
+  "title": "Analysis code and frozen source data for: A multi-omic atlas reveals context-dependent molecular reversibility after weight loss and cardiometabolic intervention",
+  "description": "Code and summary-level source data for a multi-omic atlas of molecular reversibility across 40 human weight-loss and cardiometabolic-intervention panels (proteome, transcriptome, methylome, metabolome), testing whether reversibility is an intrinsic property of a molecular mark or a property of tissue and intervention context. The repository holds the analysis engines, the figure and table builders, and the frozen summary-level source data. Across the 40-panel atlas (four tissues and plasma; six intervention types), a per-mark reversibility score is regressed on mark-intrinsic features (genetic constraint, druggability, disease-association burden, cis-regulatory architecture, tissue-specificity and genetically nominated causal status) and against contextual determinants (tissue, intervention, molecular layer). The powered transcriptome determinant analysis finds no continuous mark-intrinsic feature predicts a practically meaningful amount of reversibility; genetic causal status is reported on the interpretable raw scale as an underpowered contrast. Reversibility is instead organized by shared biological context: across the settings measured, tissue and intervention context organized reversal more strongly than the portable mark-intrinsic features tested. All inputs are summary-level; no individual-level data are included. Repository contents regenerate every reported figure, table and headline number from the frozen source data.",
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
   "creators": [
     {
+      "name": "Hsueh, Cheng-Yu",
+      "affiliation": "Department of Biomedical Sciences, College of Medicine, Chang Gung University, Taoyuan City 33302, Taiwan"
+    },
+    {
+      "name": "Chen, Ko-Ting",
+      "affiliation": "Department of Neurosurgery, Linkou Chang Gung Memorial Hospital, Taoyuan, Taiwan",
+      "orcid": "0000-0002-6795-5974"
+    },
+    {
       "name": "Tan, Bertrand Chin-Ming",
-      "orcid": "0000-0002-2218-7115",
-      "affiliation": "Department of Biomedical Sciences, College of Medicine, Chang Gung University, Taoyuan, Taiwan"
+      "affiliation": "Department of Biomedical Sciences, College of Medicine, Chang Gung University, Taoyuan City 33302, Taiwan",
+      "orcid": "0000-0002-2218-7115"
     }
   ],
   "keywords": [
@@ -28,10 +37,9 @@
     {
       "relation": "isSupplementTo",
       "scheme": "doi",
-      "identifier": "TO_BE_ADDED_ON_PUBLICATION"
+      "identifier": "10.64898/2026.07.27.26358659"
     }
   ],
   "version": "1.0",
-  "language": "eng",
-  "notes": "AUTHOR TODO before publishing the Zenodo record: (1) add the full co-author list to \"creators\" in the same {name, orcid, affiliation} format as they appear on the manuscript; (2) replace related_identifiers[0].identifier with the manuscript DOI once assigned; (3) confirm the license (MIT for code). See ../SETUP_GITHUB_ZENODO.md."
+  "language": "eng"
 }

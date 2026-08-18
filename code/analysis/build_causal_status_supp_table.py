@@ -1,6 +1,6 @@
 import csv, glob, os
 from collections import defaultdict
-ROOT=r"C:/Users/Bert/Downloads/CKM papers/weight-loss.omics"
+ROOT=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # weight-loss.omics
 DP=os.path.join(ROOT,"data"); SIG=os.path.join(ROOT,"signature-pivot"); PAPERA=os.path.join(ROOT,"4-layers null")
 OUTDIR=os.path.join(SIG,"results"); os.makedirs(OUTDIR,exist_ok=True)
 GCST2OUT={'GCST006414':'AF','GCST90103634':'eGFR','GCST90104540':'stroke','GCST90162626':'HF',

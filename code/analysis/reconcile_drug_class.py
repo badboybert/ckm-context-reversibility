@@ -2,7 +2,7 @@
 """reconcile_drug_class.py — join the two drug-class metrics per intervention pair.
 
 Companion to build_drug_class.py (effect-size Spearman) and drug_class_overlap.py (sig-set overlap).
-Resolves the Fig 5 contradiction (reviewer §3.6/§45/§115): the effect-size rho and the
+Reconciles the two Fig 5 metrics: the effect-size rho and the
 power-normalised sig-set overlap fold are DIFFERENT tests and must not be conflated.
 
 Metric 1 (effect-size correlation): results/drug_class_corr.tsv

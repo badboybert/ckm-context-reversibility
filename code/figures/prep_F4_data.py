@@ -28,17 +28,17 @@ summ.to_csv(os.path.join(OUT,'F4a_summary.csv'),index=False)
 #   plasma + adipose -> results/restoration_persistence_revisit.txt PART C (printed to 0 dp)
 #   liver + blood    -> results/restoration_liver_blood.txt (printed to 1 dp: 53.2 / 54.4 / 51.5)
 # NB blood is 51.5 (canonical 51.47%), NOT 52 — it had been double-rounded up (51.5 -> 52), which
-# nudged the one near-chance context the round-2 review asked about away from the 50% line.
+# nudged the one near-chance context away from the 50% line.
 ctx=[ # context, tissue, intervention, pct_toward_lean, weight-loss tier (for ordering/shading)
  ('DiRECT','plasma','diet',63,'high'),('BBS','plasma','surgery',59,'high'),
  ('semaglutide','plasma','GLP-1RA',57,'mod'),('MS bariatric','plasma','surgery',55,'high'),
- ('metformin','plasma','drug',54,'low'),('empagliflozin','plasma','SGLT2i',52,'low'),
+ ('metformin','plasma','drug',54,'low'),('empagliflozin','plasma','drug',52,'low'),
  ('RYGB','adipose','surgery',68,'high'),('CR','adipose','diet',57,'high'),
  ('diet','adipose','diet',54,'mod'),('LCD','adipose','diet',52,'mod'),
  ('GSE83452','liver','diet+surgery',53.2,'high'),('GSE106737','liver','surgery',54.4,'high'),
  ('GSE273902','blood','surgery',51.5,'high')]
 _b=pd.DataFrame(ctx,columns=['context','tissue','intervention','pct_toward_lean','wl_tier'])
-# Round-2 review (Figure 4 row): "mark near-chance contexts". ns_vs_chance flags the contexts whose
+# Mark near-chance contexts. ns_vs_chance flags the contexts whose
 # restoration is NOT distinguishable from the 50% chance line on an exact binomial test — all four are
 # the small-n plasma/blood panels. Source: results/restoration_uncertainty/restoration_uncertainty.tsv
 # (binom_p_vs_50): MS bariatric 0.124, metformin 0.225, empagliflozin/EMPEROR 0.314, GSE273902 0.101;
@@ -82,12 +82,12 @@ ov=y2.index.intersection(y12.index)
 def _rz(s): return s/(1.4826*(s-s.median()).abs().median())
 yj=pd.DataFrame({'gene':y2.loc[ov,'gene'].astype(str),
                  'z2':_rz(y2.loc[ov,'rev_beta']).values,'z12':_rz(y12.loc[ov,'rev_beta']).values}).dropna()
-yj.sample(min(1200,len(yj)),random_state=2).to_csv(os.path.join(OUT,'F4e_yousri_points.csv'),index=False)
+yj.sample(min(1200,len(yj)),random_state=2).to_csv(os.path.join(OUT,'F4d_yousri_points.csv'),index=False)  # panel d = proteome durability
 
 # d) methylation restoration = age-drift-confounded caution (axis-correlation rises with sampling interval)
 ad=R('orphan/methylation_age_drift.tsv')
 ad['interval_mo']=ad['panel'].map({'drift2':3,'directplus':18})
 ad['cohort']=ad['panel'].map({'drift2':'DRIFT2','directplus':'DIRECT-PLUS'})
-ad[['cohort','interval_mo','spearman_delta_bmi']].to_csv(os.path.join(OUT,'F4d_methyl_age_drift.csv'),index=False)
+ad[['cohort','interval_mo','spearman_delta_bmi']].to_csv(os.path.join(OUT,'F4e_methyl_age_drift.csv'),index=False)  # panel e = methylome caution
 print('F4 source data written. medR pro %.3f met %.3f | adipose dur %.3f sign %.1f%% | prot dur 0.671/83.7%%/1.04x'%(
     pro.R_restoration.median(),met.R_restoration.median(),sp_all,sign_ret*100))
