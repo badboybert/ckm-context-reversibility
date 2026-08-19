@@ -6,12 +6,14 @@ source("theme_publication_ckm.R")  # bundled alongside this script
 set_publication_defaults_ckm()
 SD <- "source_data"; rd <- function(p) read.csv(file.path(SD, p), stringsAsFactors=FALSE)
 TXN<-"#009E73"; UP<-"#D55E00"; DN<-"#2166AC"; NEU<-"#333333"; BAND<-"#E6E6E6"
-PMAP <- c(liver_table="liver", adipose_table="adipose-CR", gse141221_adipose_table="adipose-LCD",
-          gse273902_blood_table="blood", gse157585_muscle_table="muscle-mtf", gse43471_adipose_table="adipose-CRex",
-          gse83352_muscle_exercise_table="muscle-ex", gse106737_liver_bariatric_table="liver-bari", gse77962_adipose_diet_table="adipose-diet")
+PMAP <- c(liver_table="liver", adipose_table="adipose (CR)", gse141221_adipose_table="adipose (LCD)",
+          gse273902_blood_table="blood", gse157585_muscle_table="muscle (metformin)", gse43471_adipose_table="adipose (diet+exercise)",
+          gse83352_muscle_exercise_table="muscle (exercise)", gse106737_liver_bariatric_table="liver (bariatric)", gse77962_adipose_diet_table="adipose (diet)")
 
 # a) per-panel determinant forest
 a <- rd("ED3a_perpanel.csv"); mt <- rd("ED3a_meta.csv")
+# round 7 9e: open the abbreviated noun label to match "tissue specificity" used everywhere else
+a$feat <- gsub("tissue-spec.","tissue spec.",a$feat,fixed=TRUE); mt$feat <- gsub("tissue-spec.","tissue spec.",mt$feat,fixed=TRUE)
 lev <- mt$feat[order(abs(mt$pooled_beta))]
 a$feat <- factor(a$feat, levels=lev); mt$feat <- factor(mt$feat, levels=lev)
 mde <- median(mt$mde)

@@ -14,7 +14,7 @@ pn=pd.read_csv(R('predictive_null.tsv'),sep='\t')
 ab=pd.read_csv(R('predictive_null_ablation.tsv'),sep='\t')
 tau=pd.read_csv(R('orphan','tau_dissociation.tsv'),sep='\t')
 NAME={'loeuf':'genetic constraint (LOEUF)','n_drug_log':'druggability','n_gwas_log':'GWAS burden',
- 'tau':'tissue-specificity (τ)','arch_nsig':'# cis-eQTL signals','arch_str':'cis instrument F',
+ 'tau':'tissue specificity (τ)','arch_nsig':'# cis-eQTL signals','arch_str':'cis instrument F',
  'has_arch':'has cis-QTL','causal_nonEGFR':'causal status','is_enzyme':'enzyme','is_membrane':'membrane',
  'is_secreted':'secreted','loeuf_miss':'LOEUF missing','tau_miss':'τ missing'}
 # export source data
@@ -99,7 +99,7 @@ cols=[T.SEM['up'],T.SEM['down'],'#9ecae1']
 f.bar(np.arange(3),val,color=cols,edgecolor='k',linewidth=0.4,width=0.6)
 f.axhline(0,color='k',lw=0.6)
 f.set_xticks(np.arange(3)); f.set_xticklabels(lab,fontsize=7); f.set_xlim(-0.6,2.6); f.set_ylim(-0.075,0.125)
-f.set_ylabel('τ → outcome (β)'); f.set_title('Tissue-specificity: magnitude, not direction',fontsize=7.5)
+f.set_ylabel('τ → outcome (β)'); f.set_title('Tissue specificity: magnitude, not direction',fontsize=7.5)
 for i,v in enumerate(val):
     f.annotate(f'{v:+.3f}',(i,v),ha='center',va='bottom' if v>=0 else 'top',
                xytext=(0,3 if v>=0 else -3),textcoords='offset points',fontsize=7,clip_on=False)

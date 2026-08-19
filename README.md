@@ -22,7 +22,7 @@ code/
              (Yousri, GSE199063); intervention- and drug-class analyses and reconciliation;
              cross-layer concordance; split-half reproducibility; ancestry replication;
              context / consensus / cross-context signatures; the per-mark atlas and panel manifest.
-  figures/   R scripts that render Figures 1-6, Extended Data ED1-ED6 and Supplementary
+  figures/   R scripts that render Figures 1-6, Supplementary Figures S1-S6 (scripts named ED1-ED6) and Supplementary
              Figures S7-S9, the Python prep_*.py source-data builders (incl. render_F3.py),
              and the locked theme (theme_publication_ckm.R; theme_ckm.py).
   tables/    build_tables.py (Table 1 + Table 2 + Supplementary Tables workbook),
@@ -49,10 +49,10 @@ data is needed to reproduce the display items.**
 | Figure 4 (restoration toward lean + durability) | `code/figures/render_F4.R` | `prep_F4_data.py` | `F4a_*.csv`, `F4b_pct_toward_lean.csv`, `F4c_durability_*.csv`, `F4e_yousri_points.csv` (final panel **d**), `F4d_methyl_age_drift.csv` (final panel **e**) |
 | Figure 5 (systemic response tracks weight-loss type, not drug label) | `code/figures/render_F5.R` | `prep_F5_data.py` | `F5a_intervention_systemic.csv`, `F5b_platform_control.csv`, `F5b_semaglutide_corr.csv`, `F5c_layered_core.csv`, `F5d_dissociation_*.csv`, `F5e_intervention_matrix.csv` |
 | Figure 6 (context-not-molecule synthesis) | `code/figures/render_F6.R` | `prep_F6_data.py` | `F6a_context_corr.csv`, `F6b_concordance.csv`, `F6c_exemplars.csv`, `F6d_reversible_overlap.csv`, `F6e_persistent_overlap.csv` |
-| Extended Data ED1-ED6 | `render_ED1.R` … `render_ED6.R` | `prep_ED1_data.py`, `prep_ED2_ED6_data.py`, `prep_ED3_data.py`, `prep_ED4_data.py`, `prep_ED5_data.py` | `source_data/ED1*.csv` … `ED6*.csv` |
+| Suppl. Figs S1-S6 (render scripts named ED1-ED6) | `render_ED1.R` … `render_ED6.R` | `prep_ED1_data.py`, `prep_ED2_ED6_data.py`, `prep_ED3_data.py`, `prep_ED4_data.py`, `prep_ED5_data.py` | `source_data/ED1*.csv` … `ED6*.csv` |
 | Suppl. Figs S7-S9 | `render_S7.R`, `render_S8.R`, `render_S9.R` | (self-contained) | `S7_drug_class_reconciliation.csv`; `S8_determinant_tost_forest.csv`; `S9a_variance_partition.csv`, `S9b_cell_means.csv` |
 | Table 1 (determinant), Table 2 (cohort inventory), Supp. Tables S1-S16 | `code/tables/build_tables.py` | — | `supplementary_tables/*.tsv` (e.g. `determinant_meta.tsv`, `panel_manifest_full.tsv`, `causal_status_*.tsv`, `determinant_{tost,modes,per_panel,completecase}.tsv`, `variance_partition.tsv`, `downsampling_sensitivity.tsv`, `drug_class_*.tsv`, `predictive_null*.tsv`, `tissue_pair_correlations.tsv`, `context_signatures.tsv`, `intervention_systemic_consensus.tsv`, `universal_reversible_core.tsv`, `causal_nominatable_universe.tsv`, `intrinsic_missingness.tsv`) |
-| Per-mark reproducibility atlas (Additional file 12) | — | `code/analysis/build_per_mark_atlas.py` | `supplementary_tables/per_mark_atlas.parquet` (903,025 mark x layer records; the 207 MB `.tsv` is not bundled and regenerates from this script) |
+| Per-mark reproducibility atlas (deposited with the code under the Zenodo DOI; not an Additional file) | — | `code/analysis/build_per_mark_atlas.py` | `supplementary_tables/per_mark_atlas.parquet` (903,025 mark x layer records; the 207 MB `.tsv` is not bundled and regenerates from this script) |
 
 `source_data/source_data_manifest.tsv` maps every panel to its file and both scripts.
 

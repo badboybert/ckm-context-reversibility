@@ -47,11 +47,11 @@ pB <- ggplot(f, aes(unique_R2, disp, fill=grp)) +
   geom_col(width=0.58, color="black", linewidth=0.3) +
   geom_errorbar(aes(xmin=unique_R2_jack_min, xmax=unique_R2_jack_max), orientation="y", width=0.20, linewidth=0.4, color="grey25") +
   geom_text(aes(label=lab), x=0.004, hjust=0, position=position_nudge(y=0.42), size=2.3, color="grey15") +
-  annotate("text", x=0.02, y=1, label="no detectable platform contribution", hjust=0, size=2.3, fontface="italic", color="grey35") +
+  annotate("text", x=0.02, y=1, label="no detectable unique assay-platform contribution", hjust=0, size=2.3, fontface="italic", color="grey35") +
   scale_fill_manual(values=c("biological context"="#1B7837","assay platform (control)"="grey72"), guide="none") +
   scale_x_continuous(limits=c(0,0.46), breaks=c(0,0.1,0.2,0.3), expand=expansion(mult=c(0,0.02))) +
   labs(x="unique variance explained (unique R², jackknife range)", y=NULL,
-       subtitle="Tissue and intervention co-govern; platform is null") +
+       subtitle="Tissue and intervention co-govern") +
   theme(axis.text.y=element_text(size=8.6), plot.subtitle=element_text(size=8.2, face="bold"))
 
 # ============ retained context panels (current Fig 2 b–e) ============

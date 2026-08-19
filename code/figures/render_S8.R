@@ -13,7 +13,7 @@ fmap <- c(causal_nonEGFR="genetic causal status", arch_str="cis-QTL architecture
           has_arch="has cis-QTL architecture", n_drug_log="druggability (log drug count)",
           is_enzyme="enzyme", loeuf="LOEUF constraint", tau_miss="τ missing",
           n_gwas_log="GWAS burden (log)", is_secreted="secreted protein", is_membrane="membrane protein",
-          arch_nsig="cis-QTL architecture (n signals)", loeuf_miss="LOEUF missing", tau="tissue-specificity τ")
+          arch_nsig="cis-QTL architecture (n signals)", loeuf_miss="LOEUF missing", tau="tissue specificity τ")
 t$flabel <- fmap[t$feature]
 t$equiv05 <- t$equiv_05 %in% c("True","TRUE",TRUE)
 t$equiv03 <- t$equiv_03 %in% c("True","TRUE",TRUE)

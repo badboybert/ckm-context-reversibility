@@ -70,6 +70,7 @@ pd <- ggplot(od, aes(kind, fold, color=kind)) +
   scale_color_manual(values=c("within tissue"=TXN,"cross tissue"="grey55"), guide="none") +
   scale_y_continuous(limits=c(0.9,1.7), breaks=c(1.0,1.3,1.6)) +
   annotate("text", x=1, y=1.63, label="1.6×", size=2.8, vjust=-0.4) +
+  annotate("text", x=1, y=0.96, label="n = 1 pair", size=2.2, color="grey40", fontface="italic") +
   annotate("text", x=2, y=0.95, label="chance", size=2.8, color="grey35", fontface="italic") +
   scale_x_discrete(labels=c("within tissue"="within\ntissue","cross tissue"="cross\ntissue")) +
   labs(x=NULL, y="reversible overlap (fold)")
@@ -82,6 +83,7 @@ pe <- ggplot(oe, aes(kind, fold, color=kind)) +
   geom_jitter(width=0.1, height=0, size=1.9, alpha=0.95) +
   scale_color_manual(values=c("within tissue"="#9970AB","cross tissue"="grey55"), guide="none") +
   scale_y_continuous(limits=c(0.9,1.7), breaks=c(1.0,1.3,1.6)) +
+  annotate("text", x=1, y=0.96, label="n = 1 pair", size=2.2, color="grey40", fontface="italic") +
   annotate("text", x=2, y=0.95, label="chance", size=2.8, color="grey35", fontface="italic") +
   scale_x_discrete(labels=c("within tissue"="within\ntissue","cross tissue"="cross\ntissue")) +
   labs(x=NULL, y="persistent overlap (fold)")

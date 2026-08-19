@@ -1,62 +1,64 @@
-file	backs_panel
-ED1a_z_dist.csv	ED1a
-ED1b_biology.csv	ED1b
-ED1c_corr.csv	ED1c
-ED1c_measurability.csv	ED1c
-ED2_summary.csv	ED2
-ED2a_genomewide.csv	ED2a
-ED2b_canonical.csv	ED2b
-ED3a_meta.csv	ED3a
-ED3a_perpanel.csv	ED3a
-ED3b_tau.csv	ED3b
-ED3c_causal.csv	ED3c
-ED4a_class_scatter.csv	ED4a
-ED4b_class_counts.csv	ED4b
-ED4c_falsification.csv	ED4c
-ED5_blood_scatter.csv	ED5
-ED5_muscle_scatter.csv	ED5
-ED5_summary.csv	ED5
-ED6_classmeans.csv	ED6
-ED6_pairs.csv	ED6
-F1e_split_half.csv	F1e
-F1f_ancestry.csv	F1f
-F2a_cell_means.csv	F2a
-F2b_variance_partition.csv	F2b
-F2c_cohesion.csv	F2c
-F2d_pole_asymmetry.csv	F2d
-F2e_universal_core.csv	F2e
-F2f_tissue_programs.csv	F2f
-F3a_determinant_transcriptome.csv	F3a
-F3c_determinant_proteome.csv	F3c
-F3d_predictive_null.csv	F3d
-F3e_ablation.csv	F3e
-F3f_tau.csv	F3f
-F4a_canonical_markers.csv	F4a
-F4a_restoration_dist.csv	F4a
-F4a_summary.csv	F4a
-F4b_pct_toward_lean.csv	F4b
-F4c_durability_adipose_points.csv	F4c
-F4c_durability_summary.csv	F4c
-F4d_yousri_points.csv	F4d
-F4e_methyl_age_drift.csv	F4e
-F5a_intervention_systemic.csv	F5a
-F5b_platform_control.csv	F5b
-F5b_semaglutide_corr.csv	F5b
-F5c_layered_core.csv	F5c
-F5d_dissociation_magnitude.csv	F5d
-F5d_dissociation_stats.csv	F5d
-F5d_loso.csv	F5d
-F5e_intervention_matrix.csv	F5e
-F6a_context_corr.csv	F6a
-F6b_concordance.csv	F6b
-F6c_exemplars.csv	F6c
-F6d_reversible_overlap.csv	F6d
-F6e_persistent_overlap.csv	F6e
-S7_drug_class_reconciliation.csv	S7
-S8_determinant_tost_forest.csv	S8
-S9_pair_correlations.csv	S9
-causal_status_effect.tsv	Supplementary Table 14 (genetic causal-status effect sizes)
-restoration_uncertainty.tsv	Supplementary Table 16 + the Figure 4b not-distinguishable-from-chance flags
-determinant_meta_wlonly.tsv	Supplementary Table 15 (weight-loss-only determinant sensitivity)
-context_wlonly.tsv	Supplementary Table 15 (weight-loss-only tissue/variance-partition sensitivity)
-per_mark_atlas.parquet	deposited with the analysis code under the Zenodo DOI (over the 20 MB additional-file limit); full 207 MB TSV also in the code repository
+file	backs_panel	generating_script
+ED1a_z_dist.csv	ED1a	manuscript/figures/prep_ED1_data.py
+ED1b_biology.csv	ED1b	manuscript/figures/prep_ED1_data.py
+ED1c_corr.csv	ED1c	manuscript/figures/prep_ED1_data.py
+ED1c_measurability.csv	ED1c	manuscript/figures/prep_ED1_data.py
+ED2_summary.csv	ED2	manuscript/figures/prep_ED2_ED6_data.py
+ED2a_genomewide.csv	ED2a	manuscript/figures/prep_ED2_ED6_data.py
+ED2b_canonical.csv	ED2b	manuscript/figures/prep_ED2_ED6_data.py
+ED3a_meta.csv	ED3a	manuscript/figures/prep_ED3_data.py
+ED3a_perpanel.csv	ED3a	manuscript/figures/prep_ED3_data.py
+ED3b_tau.csv	ED3b	manuscript/figures/prep_ED3_data.py
+ED3c_causal.csv	ED3c	manuscript/figures/prep_ED3_data.py
+ED4a_class_scatter.csv	ED4a	manuscript/figures/prep_ED4_data.py
+ED4b_class_counts.csv	ED4b	manuscript/figures/prep_ED4_data.py
+ED4c_falsification.csv	ED4c	manuscript/figures/prep_ED4_data.py
+ED5_blood_scatter.csv	ED5	manuscript/figures/prep_ED5_data.py
+ED5_muscle_scatter.csv	ED5	manuscript/figures/prep_ED5_data.py
+ED5_summary.csv	ED5	manuscript/figures/prep_ED5_data.py
+ED6_classmeans.csv	ED6	manuscript/figures/prep_ED2_ED6_data.py
+ED6_pairs.csv	ED6	manuscript/figures/prep_ED2_ED6_data.py
+F1e_split_half.csv	F1e	manuscript/figures/prep_F1ef_data.py
+F1f_ancestry.csv	F1f	manuscript/figures/prep_F1ef_data.py
+F2a_cell_means.csv	F2a	manuscript/figures/render_F2.R
+F2b_variance_partition.csv	F2b	manuscript/figures/render_F2.R
+F2c_cohesion.csv	F2c	manuscript/figures/prep_F2_data.py
+F2d_pole_asymmetry.csv	F2d	manuscript/figures/prep_F2_data.py
+F2e_universal_core.csv	F2e	manuscript/figures/prep_F2_data.py
+F2f_tissue_programs.csv	F2f	manuscript/figures/prep_F2f_data.py
+F3a_determinant_transcriptome.csv	F3a	manuscript/figures/render_F3.py
+F3c_determinant_proteome.csv	F3c	manuscript/figures/render_F3.py
+F3d_predictive_null.csv	F3d	manuscript/figures/render_F3.py
+F3e_ablation.csv	F3e	manuscript/figures/render_F3.py
+F3f_tau.csv	F3f	manuscript/figures/render_F3.py
+F4a_canonical_markers.csv	F4a	manuscript/figures/prep_F4_data.py
+F4a_restoration_dist.csv	F4a	manuscript/figures/prep_F4_data.py
+F4a_summary.csv	F4a	manuscript/figures/prep_F4_data.py
+F4b_pct_toward_lean.csv	F4b	manuscript/figures/prep_F4_data.py
+F4c_durability_adipose_points.csv	F4c	manuscript/figures/prep_F4_data.py
+F4c_durability_summary.csv	F4c	manuscript/figures/prep_F4_data.py
+F4d_yousri_points.csv	F4d	manuscript/figures/prep_F4_data.py
+F4e_methyl_age_drift.csv	F4e	manuscript/figures/prep_F4_data.py
+F5a_intervention_systemic.csv	F5a	manuscript/figures/prep_F5_data.py
+F5b_platform_control.csv	F5b	manuscript/figures/prep_F5_data.py
+F5b_semaglutide_corr.csv	F5b	manuscript/figures/prep_F5_data.py
+F5c_layered_core.csv	F5c	manuscript/figures/prep_F5_data.py
+F5d_dissociation_magnitude.csv	F5d	manuscript/figures/prep_F5_data.py
+F5d_dissociation_stats.csv	F5d	manuscript/figures/prep_F5_data.py
+F5d_loso.csv	F5d	manuscript/figures/prep_F5_data.py
+F5e_intervention_matrix.csv	F5e	manuscript/figures/prep_F5_data.py
+F6a_context_corr.csv	F6a	manuscript/figures/prep_F6_data.py
+F6b_concordance.csv	F6b	manuscript/figures/prep_F6_data.py
+F6c_exemplars.csv	F6c	manuscript/figures/prep_F6_data.py
+F6d_reversible_overlap.csv	F6d	manuscript/figures/prep_F6_data.py
+F6e_persistent_overlap.csv	F6e	manuscript/figures/prep_F6_data.py
+S7_drug_class_reconciliation.csv	S7	manuscript/figures/render_S7.R
+S8_determinant_tost_forest.csv	S8	manuscript/figures/render_S8.R
+S9_pair_correlations.csv	S9	manuscript/figures/prep_F2_data.py
+between_context_spread.tsv	restoration between-context spread (supporting Supplementary Table 16 / Fig. 4b)	(precomputed restoration intermediate; no generating script in this release)
+causal_status_effect.tsv	Supplementary Table 14 (genetic causal-status effect sizes)	src/causal_status_effect.py
+context_wlonly.tsv	Supplementary Table 15 (weight-loss-only tissue/variance-partition sensitivity)	src/context_sensitivity_wlonly.py
+determinant_meta_wlonly.tsv	Supplementary Table 15 (weight-loss-only determinant sensitivity)	src/determinant_sensitivity_wlonly.py
+restoration_uncertainty.tsv	Supplementary Table 16 + the Figure 4b not-distinguishable-from-chance flags	src/restoration_uncertainty.py
+restoration_uncertainty_summary.json	Supplementary Table 16 (restoration-uncertainty summary)	src/restoration_uncertainty.py
+per_mark_atlas.parquet	deposited with the analysis code under the Zenodo DOI (over the 20 MB additional-file limit); full 207 MB TSV also in the code repository	src/build_per_mark_atlas.py

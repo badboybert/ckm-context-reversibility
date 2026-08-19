@@ -29,21 +29,16 @@ mkscatter <- function(file, pair) {
 pa <- mkscatter("ED5_muscle_scatter.csv","muscle")
 pb <- mkscatter("ED5_blood_scatter.csv","blood")
 
-# c) scope of the cross-layer comparison
+# c) scope of the cross-layer comparison — neutral result summary (round 7: replaced a rebuttal-style slide)
+wrapc <- function(s, w=30) paste(strwrap(s, width=w), collapse="\n")
 pc <- ggplot() + xlim(0,10) + ylim(0,10) +
-  annotate("rect", xmin=0.2, xmax=9.8, ymin=6.4, ymax=9.6, fill="#FBEEE4", color="#D55E00", linewidth=0.4) +
-  annotate("text", x=5, y=8.6, size=2.35, fontface="bold", label="Cross-layer concordance:") +
-  annotate("text", x=5, y=7.75, size=2.35, fontface="bold", color="#B2182B", label="not detected") +
-  annotate("text", x=5, y=6.95, size=2.3, lineheight=1.0, label="a negative result, not a positive claim") +
-  annotate("text", x=0.5, y=5.2, hjust=0, size=2.35, lineheight=1.1, label=
-    "• Same gene's CpG vs transcript:\n   weak (muscle −0.19 / −0.35) to\n   absent (blood −0.01, ns).") +
-  annotate("text", x=0.5, y=2.9, hjust=0, size=2.35, lineheight=1.1, label=
-    "• Cohort-level, not within-person.\n• Gene-level (UCSC_RefGene),\n   not promoter-resolved.") +
-  annotate("text", x=0.5, y=0.7, hjust=0, size=2.35, fontface="italic", color="grey30", lineheight=1.1, label=
-    "→ a limitation: a definitive node-level\n   analysis needs same-subject,\n   multi-layer cohorts.") +
+  annotate("text", x=0.3, y=9.8, hjust=0, vjust=1, size=2.55, fontface="bold", label="Cross-layer concordance") +
+  annotate("text", x=0.3, y=9.0, hjust=0, vjust=1, size=2.15, lineheight=1.2, label=paste0(
+    wrapc("Gene-level methylation and expression reversal are weakly to non-concordant: muscle ρ = −0.19 / −0.35, blood ρ = −0.01 (ns)."), "\n\n",
+    wrapc("Correlations are cohort-level and gene-level (UCSC RefGene), not within-person or promoter-resolved."), "\n\n",
+    wrapc("A within-person, promoter-resolved test needs same-subject, multi-layer cohorts."))) +
   theme_void(base_family=BASE_FONT) +
-  theme(plot.title=element_text(size=8.5,hjust=0,margin=margin(b=4)),
-        plot.background=element_rect(fill="white", color=NA),
+  theme(plot.background=element_rect(fill="white", color=NA),
         panel.background=element_rect(fill="white", color=NA))
 
 fig <- wrap_plots(pa, pb, pc, ncol=3) +

@@ -130,7 +130,9 @@ def add_table(rows):
             raise AssertionError(
                 f"table row {k} has {len(brow)} fields vs {ncol} header columns — a cell would be "
                 f"silently truncated: {brow!r}")
-    t = doc.add_table(rows=1, cols=len(header)); t.style = "Light Grid Accent 1"
+    # Table Grid = borders only, no cell shading (Genome Medicine's general table guidance forbids
+    # colour/shading; the prior "Light Grid Accent 1" applied a body-cell fill). Round 7 P0-2.
+    t = doc.add_table(rows=1, cols=len(header)); t.style = "Table Grid"
     for j, h in enumerate(header):
         p = t.rows[0].cells[j].paragraphs[0]; add_runs(p, h)
         for run in p.runs:

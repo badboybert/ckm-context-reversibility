@@ -109,7 +109,7 @@ write_sheet(wb,'Table 2 - full registry','Table 2 (full registry) | Per-panel co
 
 # ---------- Table 2: determinant model ----------
 NAME={'loeuf':'Genetic constraint (LOEUF)','n_drug_log':'Druggability (log)','n_gwas_log':'GWAS burden (log)',
- 'tau':'Tissue-specificity (τ)','arch_nsig':'# cis-eQTL signals','arch_str':'cis-eQTL strength (F)','has_arch':'Has cis-QTL',
+ 'tau':'Tissue specificity (τ)','arch_nsig':'# cis-eQTL signals','arch_str':'cis-eQTL strength (F)','has_arch':'Has cis-QTL',
  'causal_nonEGFR':'Genetic causal status','is_enzyme':'Enzyme','is_membrane':'Membrane','is_secreted':'Secreted',
  'loeuf_miss':'LOEUF missing (indicator)','tau_miss':'τ missing (indicator)'}
 dm=RD('determinant_meta.tsv').copy()
@@ -133,18 +133,21 @@ def _predicts(r):
     # row must therefore fall through to the CI test and read "inconclusive", like every other proteome
     # coefficient: its problem is the underpowered k=3 arm (MDE 0.079), not standardization.
     if r['feature']=='causal_nonEGFR' and r['layer']=='transcriptome':
-        return 'underpowered rare-binary (see S14)'
+        return 'Rare binary — underpowered'
     ci_lo, ci_hi = r.pooled_beta - r.ci_halfwidth, r.pooled_beta + r.ci_halfwidth
     if r['inconclusive'] or ci_lo < -0.05 or ci_hi > 0.05:
         # "underpowered" was applied to every inconclusive row, including tissue-specificity, whose
         # MDE (0.035) sits INSIDE the SESOI -- it is not underpowered, its interval is widened by
         # I2 = 96.9%. Name which of the three reasons actually applies, from this row's own numbers.
         if r.mde > 0.05:
-            return 'inconclusive (underpowered: MDE exceeds SESOI)'
+            return 'Inconclusive — underpowered (MDE exceeds SESOI)'
         if r.I2 >= 50:
-            return 'inconclusive (heterogeneous; CI breaches SESOI)'
-        return 'inconclusive (CI breaches SESOI)'
-    return 'no (95% CI within ±0.05 SESOI)' if abs(r.pooled_beta)<0.03 else 'small effect'
+            return 'Inconclusive — heterogeneous; CI breaches SESOI'
+        return 'Inconclusive — CI breaches SESOI'
+    # The label must state the verdict itself: a 95% CI contained within the +/-0.05 SD SESOI IS
+    # practical equivalence. The prior "no (95% CI within +/-0.05 SESOI)" read as "not equivalent"
+    # under the "Practical-equivalence verdict" header -- the exact opposite of what it certified.
+    return 'Equivalent within ±0.05 SD' if abs(r.pooled_beta)<0.03 else 'small effect'
 dm['Practical-equivalence verdict']=dm.apply(_predicts,axis=1)
 dm['Layer (k panels)']=dm['layer']+' (k='+dm['k'].astype(str)+')'
 # Transcriptome (the powered, primary test) first, then the inconclusive proteome block, so the
@@ -155,14 +158,24 @@ assert dm['_lo'].notna().all(), f"unexpected layer(s): {sorted(set(dm.loc[dm['_l
 dm=dm.sort_values(['_lo','Feature'])
 # tau2 and Cochran Q move to their own sheet: 10 columns do not fit a portrait Word table, and I2
 # is the interpretable heterogeneity summary for a reader. Nothing is dropped, only relocated.
-t2=dm[['Feature','Layer (k panels)','Pooled β (SD)','95% CI','MDE (SD)','I² (%)','n genes (median)','Practical-equivalence verdict']]
+_T1COLS=['Feature','Pooled β (SD)','95% CI','MDE (SD)','I² (%)','Practical-equivalence verdict']
+# Round 7 P0-2: main Table 1 is the powered transcriptome arm only, at portrait width. The constant Layer
+# ("transcriptome (k=9)") and per-panel gene count (~18,615) columns are folded into the legend rather than
+# repeated down every row; the underpowered plasma-proteome arm moves to the 'Table 1 - proteome' sheet.
+t1tx=dm[dm['layer']=='transcriptome'][_T1COLS]
 write_sheet(wb,'Table 1','Table 1 | Portable mark-intrinsic features do not predict practically meaningful transcriptome reversibility (determinant meta-analysis)',
-  "Standardized determinant coefficients (HC3 OLS per panel, measurability-residualized outcome; Hartung-Knapp random-effects meta across panels). "
-  "Transcriptome (k=9 contexts / 4 tissues) is the powered test: across the continuous mark-intrinsic features every |pooled β| < 0.029 SD against median MDE 0.013 SD, none reaching the ±0.05 SD SESOI. Verdicts are assigned by containment of the 95% CI within the ±0.05 SD SESOI, not by |β| alone: tissue-specificity (τ) has |β| = 0.026 but its interval reaches +0.061, so it reads inconclusive rather than equivalent, matching Supplementary Table 9. "
+  "Standardized determinant coefficients for the powered transcriptome arm — nine contexts across four tissues, a median of ~18,615 genes per panel (HC3 OLS per panel, measurability-residualized outcome; Hartung-Knapp random-effects meta across panels). "
+  "Every continuous mark-intrinsic feature has |pooled β| < 0.029 SD against median MDE 0.013 SD, none reaching the ±0.05 SD SESOI. Verdicts are assigned by containment of the 95% CI within the ±0.05 SD SESOI, not by |β| alone: tissue specificity (τ) has |β| = 0.026 but its interval reaches +0.061, so it reads inconclusive rather than equivalent, matching Supplementary Table 9. "
   "Genetic causal status is a rare 0/1 feature (9 transcripts); its standardized coefficient is compressed by the small predictor variance and is not the primary interpretable contrast for this rare binary predictor and is not evaluated against the continuous-feature equivalence bound (interpretable raw contrast −0.18 SD, 95% CI −0.37 to +0.01, underpowered rather than equivalent; Supplementary Table 14). "
-  "Proteome (k=3) is reported as inconclusive (wide CIs) and is shown as a separate block below the transcriptome rows. Between-panel dispersion is propagated into each pooled estimate through Hartung-Knapp random-effects confidence intervals; per-feature τ² and Cochran's Q are in the \u2018Table 1 \u2014 heterogeneity\u2019 sheet. Source: supplementary_tables/determinant_meta.tsv.",
-  t2,[30,20,13,21,11,9,14,34],
-  center_cols={'Pooled β (SD)','MDE (SD)','Layer (k panels)','I² (%)','n genes (median)'})
+  "The underpowered plasma-proteome determinant arm (k = 3, every feature inconclusive) is in the ‘Table 1 — proteome’ sheet; per-feature τ² and Cochran's Q are in the ‘Table 1 — heterogeneity’ sheet. Source: supplementary_tables/determinant_meta.tsv.",
+  t1tx,[30,13,21,11,9,34],
+  center_cols={'Pooled β (SD)','MDE (SD)','I² (%)'})
+# Plasma-proteome determinant arm, moved out of the readable main table (underpowered k=3, all inconclusive).
+t1pr=dm[dm['layer']=='proteome'][_T1COLS]
+write_sheet(wb,'Table 1 - proteome','Table 1 (plasma proteome) | Determinant coefficients in the underpowered plasma-proteome arm',
+  "The same determinant model in the plasma proteome (three contexts). This arm is underpowered — median MDE 0.079 SD, wide confidence intervals — so every feature is inconclusive and the arm cannot call its own determinant null; it is reported as supporting, separate from the powered transcriptome test in main Table 1. Columns as in main Table 1. Source: supplementary_tables/determinant_meta.tsv.",
+  t1pr,[30,13,21,11,9,34],
+  center_cols={'Pooled β (SD)','MDE (SD)','I² (%)'})
 
 # ---------- Table 1 heterogeneity detail (moved out of the main table) ----------
 t1h=dm[['Feature','Layer (k panels)','I² (%)','τ²',"Cochran Q (df)",'MDE (SD)']]
@@ -335,7 +348,7 @@ _cont=to[~_rb]; _k=len(_cont)
 _n05=int((_cont['Equivalent ±0.05']=='Yes').sum()); _n03=int((_cont['Equivalent ±0.03']=='Yes').sum())
 _incon=', '.join(_cont.loc[_cont['Equivalent ±0.05']!='Yes','Feature'])
 assert (_n05,_n03,_k)==(11,9,12), f"TOST counts moved: {_n05}/{_k} at ±0.05, {_n03}/{_k} at ±0.03"
-assert _incon=='Tissue-specificity (τ)', f"inconclusive continuous feature changed: {_incon!r}"
+assert _incon=='Tissue specificity (τ)', f"inconclusive continuous feature changed: {_incon!r}"
 s9=to[['Feature','Pooled β (SD)','SE','90% CI','TOST P (±0.05 SD)','Equivalent ±0.05',
        'TOST P (±0.03 SD)','Equivalent ±0.03','I² (%)']]
 write_sheet(wb,'S9 - equivalence (TOST)','Supplementary Table 9 | Formal practical-equivalence testing (two one-sided tests, TOST)',
@@ -631,6 +644,6 @@ assert _listed==_actual, f"Contents misses {sorted(_actual-_listed)}; lists abse
 wb.properties.creator='Bertrand Chin-Ming Tan'; wb.properties.lastModifiedBy='Bertrand Chin-Ming Tan'
 wb.save(os.path.join(HERE,'Paper_B_Tables.xlsx'))
 print('wrote manuscript/tables/Paper_B_Tables.xlsx with sheets:', wb.sheetnames)
-print('ED1 rows=%d | Table1(det) rows=%d | core=%d | drugclass=%d'%(len(ed1),len(t2),len(core),len(dc)))
+print('ED1 rows=%d | Table1 tx=%d + proteome=%d | core=%d | drugclass=%d'%(len(ed1),len(t1tx),len(t1pr),len(core),len(dc)))
 print('S8=%d S9=%d S10=%d S11:complete-case=%d nominatable=%d missingness=%d S12=%d S13=%d S14=%d S15=%d'%(
     len(s8),len(s9),len(s10),len(b1),len(b2),len(mm),len(s12),len(s13),len(s14),len(s15)))

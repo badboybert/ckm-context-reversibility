@@ -5,7 +5,7 @@ main figures + main tables (Table 1 + Table 2) + Additional files (1-6 ex-ED fig
 8 STROBE-MR, 9-11 new supp figs S7-S9; the per-mark atlas is deposited, not shipped) + source data (per-panel CSVs + the
 causal-status effect-size table backing Supplementary Table 14) + author-todo.
 Re-run to regenerate."""
-import os, shutil, glob
+import os, re, shutil, glob, subprocess, sys
 SIG = os.path.dirname(os.path.abspath(__file__))
 MAN = os.path.join(SIG, "manuscript"); FIG = os.path.join(MAN, "figures"); SD = os.path.join(FIG, "source_data")
 RES = os.path.join(SIG, "results")
@@ -79,6 +79,16 @@ if _stale_msgs:
     raise SystemExit("REFUSING TO BUILD — regenerate these first, the package would ship stale bytes:\n  "
                      + "\n  ".join(_stale_msgs))
 # ---------------------------------------------------------------------------------------------------
+# CONTENT GATE. The staleness gate catches OUT-OF-DATE bytes; this catches WRONG bytes. Round 7 item 3:
+# the Methods sentence shipped "19 analysed panels" over an enumeration of 13, contiguous and internally
+# consistent but untrue. Refuse to package a Methods transcriptome enumeration that has drifted from the
+# ANALYZED transcriptome set in results/panel_manifest_full.tsv (the check self-tests with --self-test).
+_pc = subprocess.run([sys.executable, os.path.join(SIG, "qa", "check_methods_panels.py")],
+                     capture_output=True, text=True)
+if _pc.returncode != 0:
+    raise SystemExit("REFUSING TO BUILD — Methods panel enumeration drifted from the manifest:\n"
+                     + _pc.stdout + _pc.stderr)
+# ---------------------------------------------------------------------------------------------------
 
 for d in ["01_manuscript","02_cover_declarations","03_main_figures",
           "05_additional_files","06_source_data","_author_todo"]:
@@ -130,14 +140,67 @@ for f in ("determinant_meta_wlonly.tsv","context_wlonly.tsv"):
 # and for the open-circle "not distinguishable from chance" flags in Figure 4b
 for f in ("restoration_uncertainty.tsv","between_context_spread.tsv","restoration_uncertainty_summary.json"):
     cp(os.path.join(RES,"restoration_uncertainty",f), "06_source_data/"+f)
+# --- source-data manifest, naming the GENERATING SCRIPT per file ------------------------------------
+# The Availability statement promises "a manifest naming the script that generates each" panel file. The
+# render_*.{R,py} scripts READ these CSVs (rd()/read.csv) — they do NOT write them; the WRITERS are the
+# prep_*.py panels plus a few render scripts that also emit their own data, and the src/ engines for the
+# supplementary-table TSVs. We scan those writers' write idioms so the mapping cannot silently drift, then
+# ASSERT every plotted-panel file has a named generator and refuse to build otherwise.
+_PY_W = re.compile(r"""(?:to_csv|to_json)\(\s*os\.path\.join\([^,]+,\s*f?['"]([\w./{}-]+\.(?:csv|tsv|json))['"]""")
+_PY_J = re.compile(r"""open\(\s*os\.path\.join\([^,]+,\s*f?['"]([\w./{}-]+\.json)['"]""")
+_R_W = re.compile(r"""(?:write\.csv|fwrite|write_tsv)\([\s\S]*?file\.path\(SD,\s*f?['"]([\w./{}-]+\.(?:csv|tsv))['"]""")
+def _gen_matchers():
+    out = []
+    writers = (glob.glob(os.path.join(FIG, "prep_*.py"))
+               + [os.path.join(FIG, s) for s in ("render_F2.R", "render_F3.py", "render_S7.R", "render_S8.R")]
+               + [os.path.join(SIG, "src", s) for s in ("restoration_uncertainty.py",
+                  "determinant_sensitivity_wlonly.py", "context_sensitivity_wlonly.py")])
+    for w in writers:
+        if not os.path.exists(w):
+            continue
+        txt = open(w, encoding="utf-8").read(); rel = os.path.relpath(w, SIG).replace("\\", "/")
+        for tmpl in set(_PY_W.findall(txt)) | set(_PY_J.findall(txt)) | set(_R_W.findall(txt)):
+            rx = "^" + re.sub(r"\\\{[^}]*\\\}", "[^/]+", re.escape(os.path.basename(tmpl))) + "$"
+            out.append((re.compile(rx), rel))
+    out.append((re.compile(r"^F3.+\.csv$"), "manuscript/figures/render_F3.py"))  # F3 written via nm+'.csv'
+    return out
+_GEN_M = _gen_matchers()
+_GEN_EXPLICIT = {  # verified writers the os.path.join idiom scan does not reach, or files with no in-tree generator
+    "causal_status_effect.tsv": "src/causal_status_effect.py",           # writes via a S('results/...') path helper
+    "per_mark_atlas.parquet": "src/build_per_mark_atlas.py",
+    "between_context_spread.tsv": "(precomputed restoration intermediate; no generating script in this release)",
+}
+def _gen_for(fn):
+    hits = sorted({rel for rx, rel in _GEN_M if rx.match(fn)})
+    if len(hits) > 1:
+        raise SystemExit(f"REFUSING TO BUILD — source-data file {fn!r} has >1 candidate generator: {hits}")
+    return hits[0] if hits else _GEN_EXPLICIT.get(fn)
+_BACKS = {
+    "causal_status_effect.tsv": "Supplementary Table 14 (genetic causal-status effect sizes)",
+    "restoration_uncertainty.tsv": "Supplementary Table 16 + the Figure 4b not-distinguishable-from-chance flags",
+    "restoration_uncertainty_summary.json": "Supplementary Table 16 (restoration-uncertainty summary)",
+    "between_context_spread.tsv": "restoration between-context spread (supporting Supplementary Table 16 / Fig. 4b)",
+    "determinant_meta_wlonly.tsv": "Supplementary Table 15 (weight-loss-only determinant sensitivity)",
+    "context_wlonly.tsv": "Supplementary Table 15 (weight-loss-only tissue/variance-partition sensitivity)",
+}
+_shipped_sd = sorted(os.path.basename(f) for f in glob.glob(os.path.join(PKG, "06_source_data", "*"))
+                     if os.path.basename(f) not in ("source_data_manifest.tsv", "PROVENANCE.md"))
+_panel = re.compile(r"(F\d|ED\d|S\d)")
+_rows, _miss = [], []
+for _fn in _shipped_sd:
+    _g = _gen_for(_fn)
+    if _g is None and _panel.match(_fn):
+        _miss.append(_fn)
+    _rows.append((_fn, _BACKS.get(_fn, _fn.split("_")[0]), _g or "n/a"))
+if _miss:
+    raise SystemExit("REFUSING TO BUILD — plotted-panel source-data file(s) without a named generating "
+                     "script (the Availability statement promises one): " + ", ".join(_miss))
+# per_mark_atlas is deposited (not shipped in 06_source_data) but named in the manifest for provenance
+_rows.append(("per_mark_atlas.parquet", "deposited with the analysis code under the Zenodo DOI (over the "
+              "20 MB additional-file limit); full 207 MB TSV also in the code repository",
+              _GEN_EXPLICIT["per_mark_atlas.parquet"]))
 wr("06_source_data/source_data_manifest.tsv",
-   "file\tbacks_panel\n"
-   + "\n".join(f"{os.path.basename(f)}\t{os.path.basename(f).split('_')[0]}" for f in sd)
-   + "\ncausal_status_effect.tsv\tSupplementary Table 14 (genetic causal-status effect sizes)"
-   + "\nrestoration_uncertainty.tsv\tSupplementary Table 16 + the Figure 4b not-distinguishable-from-chance flags"
-   + "\ndeterminant_meta_wlonly.tsv\tSupplementary Table 15 (weight-loss-only determinant sensitivity)"
-   + "\ncontext_wlonly.tsv\tSupplementary Table 15 (weight-loss-only tissue/variance-partition sensitivity)"
-   + "\nper_mark_atlas.parquet\tdeposited with the analysis code under the Zenodo DOI (over the 20 MB additional-file limit); full 207 MB TSV also in the code repository\n")
+   "file\tbacks_panel\tgenerating_script\n" + "\n".join(f"{f}\t{b}\t{g}" for f, b, g in _rows) + "\n")
 wr("06_source_data/PROVENANCE.md",
    "# Source data provenance\n\n"
    "Per-panel machine-readable data for every main figure (F1-6) and every Additional-file figure "
