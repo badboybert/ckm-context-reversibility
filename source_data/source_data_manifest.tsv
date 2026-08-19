@@ -61,4 +61,4 @@ context_wlonly.tsv	Supplementary Table 15 (weight-loss-only tissue/variance-part
 determinant_meta_wlonly.tsv	Supplementary Table 15 (weight-loss-only determinant sensitivity)	src/determinant_sensitivity_wlonly.py
 restoration_uncertainty.tsv	Supplementary Table 16 + the Figure 4b not-distinguishable-from-chance flags	src/restoration_uncertainty.py
 restoration_uncertainty_summary.json	Supplementary Table 16 (restoration-uncertainty summary)	src/restoration_uncertainty.py
-per_mark_atlas.parquet	deposited with the analysis code under the Zenodo DOI (over the 20 MB additional-file limit); full 207 MB TSV also in the code repository	src/build_per_mark_atlas.py
+per_mark_atlas.parquet	deposited with the analysis code under doi:10.5281/zenodo.21988803 (over the 20 MB additional-file limit); full 207 MB TSV also in the code repository	src/build_per_mark_atlas.py

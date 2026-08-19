@@ -37,7 +37,7 @@ README_V5 = """# Submission package v11 - Genome Medicine
 | `01_manuscript/` | `MANUSCRIPT.docx` (integrated Genome Medicine format: Abstract -> Keywords -> Background -> **Methods** -> Results -> Discussion -> Conclusions -> List of abbreviations -> Declarations -> References -> Figures/Tables/Additional-file legends; 6 main figures embedded), `MANUSCRIPT.md` |
 | `02_cover_declarations/` | `COVER_LETTER_ONLY.docx` — **upload this one into the portal's cover-letter field**; `COVER_LETTER_AND_TITLE_PAGE` (same letter plus a title page, for filling the portal's author/affiliation fields); `DECLARATIONS` (8-item GM order) |
 | `03_main_figures/` | `Figure_1`-`Figure_6` (PDF + PNG) |
-| `05_additional_files/` | **Additional files 1-6** = Figures S1-S6 (former Extended Data figures; PDF + PNG); **Additional file 7** = the supplementary-table workbook (`Table 2 - full registry` + S1-S16; main Tables 1-2 are Word tables in the manuscript); **Additional file 8** = STROBE-MR reporting checklist; **Additional files 9-11** = new Figures S7-S9 (PDF + PNG). The per-mark atlas is NOT an additional file: at 35.81 MiB it is over the 20 MB limit and is deposited with the code under the Zenodo DOI |
+| `05_additional_files/` | **Additional files 1-6** = Figures S1-S6 (former Extended Data figures; PDF + PNG); **Additional file 7** = the supplementary-table workbook (`Table 2 - full registry` + S1-S16; main Tables 1-2 are Word tables in the manuscript); **Additional file 8** = STROBE-MR reporting checklist; **Additional files 9-11** = new Figures S7-S9 (PDF + PNG). The per-mark atlas is NOT an additional file: at 35.81 MiB it is over the 20 MB limit and is deposited with the code under doi:10.5281/zenodo.21988803 |
 | `06_source_data/` | per-panel machine-readable CSVs (one per plotted panel) + `causal_status_effect.tsv` (source for Supplementary Table 14) + manifest + provenance |
 | `_author_todo/` | `AUTHOR_ACTION_FLAGS`, `PRESUBMISSION_TODO`, `CITATIONS_RESOLVED` |
 
@@ -50,7 +50,7 @@ README_V5 = """# Submission package v11 - Genome Medicine
 
 ## Status
 Corresponding author Bertrand Chin-Ming Tan (ORCID 0000-0002-2218-7115); funding grants filled (NSTC 112-2320-B-182-011-MY3; 114-2320-B-182-013-MY3; CGMH CMRPD1P0221; BMRP960); data accessions incl. PXD009348.
-Author-metadata fields (co-author list / ORCIDs / CRediT roles; the code Zenodo DOI) remain author-pending - see `_author_todo/`.
+Author-metadata fields (co-author list / ORCIDs / CRediT roles) remain author-pending - see `_author_todo/`.
 """
 
 # ---------------------------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ for supp, af in [("S7",9),("S8",10),("S9",11)]:
     for e in ("png","pdf"): cp(os.path.join(FIG,f"Figure_{supp}.{e}"), f"05_additional_files/Additional_file_{af}_Figure_{supp}.{e}")
 # The per-mark atlas is NOT shipped. At 35.81 MiB it exceeds the 20 MB per-additional-file limit;
 # lossless recompression reaches only 32.3 MiB and a per-layer split still leaves the methylation
-# layer at 29.6 MiB, so it is deposited with the analysis code under the Zenodo DOI and cited in
+# layer at 29.6 MiB, so it is deposited with the analysis code under doi:10.5281/zenodo.21988803 and cited in
 # "Availability of data and materials" instead. There is no Additional file 12.
 # 06 source data
 sd = sorted(glob.glob(os.path.join(SD,"*.csv")))
@@ -196,7 +196,7 @@ if _miss:
     raise SystemExit("REFUSING TO BUILD — plotted-panel source-data file(s) without a named generating "
                      "script (the Availability statement promises one): " + ", ".join(_miss))
 # per_mark_atlas is deposited (not shipped in 06_source_data) but named in the manifest for provenance
-_rows.append(("per_mark_atlas.parquet", "deposited with the analysis code under the Zenodo DOI (over the "
+_rows.append(("per_mark_atlas.parquet", "deposited with the analysis code under doi:10.5281/zenodo.21988803 (over the "
               "20 MB additional-file limit); full 207 MB TSV also in the code repository",
               _GEN_EXPLICIT["per_mark_atlas.parquet"]))
 wr("06_source_data/source_data_manifest.tsv",
@@ -208,7 +208,7 @@ wr("06_source_data/PROVENANCE.md",
    "`causal_status_effect.tsv` is the source for Supplementary Table 14 (genetic causal-status effect sizes: "
    "raw group SMD, multivariable-adjusted, nominatable-universe, and standardized-anchor estimates on the nine causal transcripts). "
    "`determinant_meta_wlonly.tsv` and `context_wlonly.tsv` are the source for Supplementary Table 15 (true-weight-loss-only sensitivity: determinant meta and tissue/variance partition recomputed on diet/CR + bariatric panels only). "
-   "The per-mark reversibility atlas (per_mark_atlas.parquet) is deposited with the analysis code under the Zenodo DOI, "
+   "The per-mark reversibility atlas (per_mark_atlas.parquet) is deposited with the analysis code under doi:10.5281/zenodo.21988803, "
    "not as an Additional file, because it exceeds the 20 MB per-file limit; the full 207 MB TSV is in the code repository. "
    "GSE199063 AceView novel transcripts excluded from gene-level analyses; adipose 2->5yr durability on canonical protein-coding genes. "
    "Table values are in ../05_additional_files/Additional_file_7_Supplementary_Tables.xlsx. Accessions in ../02_cover_declarations/DECLARATIONS.md.\n")
